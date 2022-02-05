@@ -1,8 +1,48 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  extends: [
+    '@react-native-community',
+    'plugin:promise/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:array-func/recommended',
+  ],
+  plugins: [
+    'react',
+    'react-native',
+    'simple-import-sort',
+    'promise',
+    'unused-imports',
+  ],
+  rules: {
+    '@typescript-eslint/ban-ts-comment': 'off',
+
+    'object-shorthand': ['error', 'always'],
+
+    'react/prop-types': 0,
+    'react/no-unescaped-entities': 0,
+
+    'react-native/no-unused-styles': 2,
+    'react-native/no-color-literals': 2,
+    'react-native/no-raw-text': [2, {skip: ['Section']}],
+    'react-native/no-single-element-style-arrays': 2,
+
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
+  },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
