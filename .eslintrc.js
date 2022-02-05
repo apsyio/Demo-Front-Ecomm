@@ -26,7 +26,7 @@ module.exports = {
 
     'react-native/no-unused-styles': 2,
     'react-native/no-color-literals': 2,
-    'react-native/no-raw-text': [2, {skip: ['Section']}],
+    'react-native/no-raw-text': [0, {skip: ['Section', 'Button']}],
     'react-native/no-single-element-style-arrays': 2,
 
     'simple-import-sort/imports': 'error',
