@@ -1,3 +1,4 @@
+import {NativeBaseProvider} from 'native-base';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -8,5 +9,9 @@ export default function App() {
     SplashScreen.hide();
   }, []);
 
-  return <AppNavigator />;
+  return (
+    <NativeBaseProvider>
+      <AppNavigator />
+    </NativeBaseProvider>
+  );
 }
