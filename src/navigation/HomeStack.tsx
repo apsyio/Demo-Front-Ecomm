@@ -7,6 +7,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 
 import {ChevronBackButton} from '~/components/atoms';
 import {
+  FAQScreen,
   HomeScreen,
   MyProfileScreen,
   ProfileScreen,
@@ -25,6 +26,7 @@ export type HomeStackParamList = {
   MyProfile: undefined;
   SettingsScreen: undefined;
   SupportScreen: undefined;
+  FAQScreen: undefined;
 };
 
 const screens = [
@@ -81,6 +83,17 @@ const screens = [
     },
     name: 'Support',
     component: SupportScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'FAQ',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'FAQ',
+    component: FAQScreen,
   },
 ];
 
