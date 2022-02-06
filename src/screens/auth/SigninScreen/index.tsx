@@ -61,7 +61,7 @@ export default function SigninScreen({navigation: {navigate}}: any) {
             <Button
               alignSelf={'flex-end'}
               variant="sub"
-              onPress={() => console.log('pressed')}>
+              onPress={() => navigate('ForgotPassword')}>
               Forgot Password
             </Button>
 

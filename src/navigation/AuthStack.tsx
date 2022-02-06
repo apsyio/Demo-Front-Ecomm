@@ -1,7 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 
-import {SignupScreen} from '~/screens/auth';
+import {ForgotPasswordScreen, SignupScreen} from '~/screens/auth';
 import SigninScreen from '~/screens/auth/SigninScreen';
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +24,13 @@ const screens = [
     },
     name: 'Signup',
     component: SignupScreen,
+  },
+  {
+    options: {
+      headerShown: false,
+    },
+    name: 'ForgotPassword',
+    component: ForgotPasswordScreen,
   },
 ];
 
