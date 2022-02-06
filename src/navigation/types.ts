@@ -1,12 +1,14 @@
 import {AuthStackParamList} from './AuthStack';
 import {BrandsStackParamList} from './BrandsStack';
 import {FeedStackParamList} from './FeedStack';
+import {HomeStackParamList} from './HomeStack';
 import {InspoStackParamList} from './InspoStack';
 import {MainStackParamList} from './MainStack';
 import {StylesStackParamList} from './StylesStack';
 
 export type RootStackParamList = AuthStackParamList &
   MainStackParamList &
+  HomeStackParamList &
   BrandsStackParamList &
   FeedStackParamList &
   StylesStackParamList &

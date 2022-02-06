@@ -6,15 +6,17 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {HomeScreen, ProfileScreen} from '~/screens/home';
+import {HomeScreen, MyProfileScreen, ProfileScreen} from '~/screens/home';
 import {Colors} from '~/styles';
 
 import {navigate} from './methods';
 
 const Stack = createNativeStackNavigator();
 
-export type HomeStack = {
+export type HomeStackParamList = {
   Home: undefined;
+  Profile: undefined;
+  MyProfile: undefined;
 };
 
 const screens = [
@@ -36,9 +38,19 @@ const screens = [
         </TouchableOpacity>
       ),
     },
-
     name: 'Profile',
     component: ProfileScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Profile',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'MyProfile',
+    component: MyProfileScreen,
   },
 ];
 

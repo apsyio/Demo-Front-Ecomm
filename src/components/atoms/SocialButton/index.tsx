@@ -13,15 +13,15 @@ export default function SocialButton({
 }) {
   return (
     <Button
-      width={10}
-      height={10}
+      width={12}
+      height={12}
       backgroundColor={Colors.CHABLIS}
       rounded={'full'}
       fontWeight={'bold'}
       onPress={onPress}>
       <Icon
         as={MaterialCommunityIcons}
-        size="5"
+        size="7"
         name={iconName}
         color={Colors.ROUGE}
       />

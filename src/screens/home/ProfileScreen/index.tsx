@@ -1,17 +1,10 @@
-import {
-  Avatar,
-  Button,
-  Center,
-  HStack,
-  Icon,
-  ScrollView,
-  Text,
-} from 'native-base';
+import {Button, Center, HStack, Icon, ScrollView, Text} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Container, ProfileCard} from '~/components/atoms';
+import {AvatarWithTitle, Container, ProfileCard} from '~/components/atoms';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function ProfileScreen() {
@@ -19,13 +12,13 @@ export default function ProfileScreen() {
     <Container p={5}>
       <ScrollView>
         <Center>
-          <Avatar size={'xl'} source={{uri: 'https://picsum.photos/200'}} />
-          <Text my={2} fontSize={'2xl'}>
-            Anna Howard
-          </Text>
+          <AvatarWithTitle
+            title="Anna Howard"
+            uri="https://picsum.photos/200"
+          />
 
           <Button
-            onPress={() => null}
+            onPress={() => navigate('MyProfile')}
             variant={'outline'}
             rounded="md"
             borderColor={Colors.SEA_PINK}

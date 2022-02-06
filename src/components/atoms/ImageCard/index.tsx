@@ -16,6 +16,7 @@ export default function ImageCard({
   onPress,
   hasBorder,
   containerStyle,
+  isSmall,
 }: {
   bottomTitle?: string;
   uri: string;
@@ -23,22 +24,21 @@ export default function ImageCard({
   onPress: () => void;
   hasBorder?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
+  isSmall?: boolean;
 }) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[{width: '50%'}, containerStyle]}>
+    <TouchableOpacity onPress={onPress} style={[{flex: 1}, containerStyle]}>
       <ImageBackground
         imageStyle={[
-          {borderRadius: 20},
+          {borderRadius: 12},
           hasBorder ? {borderWidth: 2, borderColor: Colors.GALLERY} : {},
         ]}
         style={{
-          width: 150,
-          height: 150,
+          width: isSmall ? 100 : 150,
+          height: isSmall ? 100 : 150,
           alignItems: 'center',
-          justifyContent: 'space-between',
-          borderRadius: 20,
+          // justifyContent: 'space-between',
+          borderRadius: 12,
         }}
         source={{uri}}>
         {children}

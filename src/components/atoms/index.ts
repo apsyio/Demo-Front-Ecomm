@@ -1,3 +1,4 @@
+export {default as AvatarWithTitle} from './AvatarWithTitle';
 export {default as ChevronBackButton} from './ChevronBackButton';
 export {default as Container} from './Container';
 export {default as ImageCard} from './ImageCard';
