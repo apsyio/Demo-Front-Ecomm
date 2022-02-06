@@ -18,7 +18,7 @@ const screens = [
   },
 ];
 
-export default function ExploreStack({
+export default function StylesStack({
   navigation,
   route,
 }: {

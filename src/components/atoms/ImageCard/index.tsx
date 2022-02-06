@@ -1,21 +1,33 @@
+import {Text, View} from 'native-base';
 import React from 'react';
-import {ImageBackground, TouchableOpacity} from 'react-native';
+import {
+  ImageBackground,
+  StyleProp,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native';
 
 import {Colors} from '~/styles';
 
 export default function ImageCard({
+  bottomTitle,
   uri,
   children,
   onPress,
   hasBorder,
+  containerStyle,
 }: {
+  bottomTitle?: string;
   uri: string;
   children?: any;
   onPress: () => void;
   hasBorder?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
 }) {
   return (
-    <TouchableOpacity onPress={onPress} style={{width: '50%'}}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[{width: '50%'}, containerStyle]}>
       <ImageBackground
         imageStyle={[
           {borderRadius: 20},
@@ -30,6 +42,11 @@ export default function ImageCard({
         }}
         source={{uri}}>
         {children}
+        <View flex={1} justifyContent="flex-end">
+          <Text fontSize={'sm'} mb={2} fontWeight={'bold'} color={Colors.WHITE}>
+            {bottomTitle}
+          </Text>
+        </View>
       </ImageBackground>
     </TouchableOpacity>
   );

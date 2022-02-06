@@ -2,7 +2,9 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
+import {ChevronBackButton} from '~/components/atoms';
 import {InspoScreen} from '~/screens/inspo';
+import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,13 +14,19 @@ export type InspoStackParamList = {
 
 const screens = [
   {
-    options: {headerShown: false},
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+      title: 'inspirations',
+    },
     name: 'Inspo',
     component: InspoScreen,
   },
 ];
 
-export default function ExploreStack({
+export default function InspoStack({
   navigation,
   route,
 }: {
@@ -26,7 +34,7 @@ export default function ExploreStack({
   route: any;
 }) {
   useLayoutEffect(() => {
-    const tabHiddenRoutes = [];
+    const tabHiddenRoutes: (string | undefined)[] = [];
     navigation.setOptions({
       tabBarStyle: {
         display: tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))

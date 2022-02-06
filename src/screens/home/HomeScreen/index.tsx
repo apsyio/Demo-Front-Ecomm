@@ -183,18 +183,15 @@ export default function HomeScreen({navigation: {navigate}}: any) {
         ]}
         renderItem={({item}) => (
           <ImageCard
+            containerStyle={{marginTop: 16}}
             {...item}
+            bottomTitle={item.title}
             onPress={() =>
               navigate('InspoDetails', {
                 id: item.id,
               })
-            }>
-            <View flex={1} justifyContent="flex-end">
-              <Text mb={2} fontWeight={'bold'} color={Colors.WHITE}>
-                {item.title}
-              </Text>
-            </View>
-          </ImageCard>
+            }
+          />
         )}
       />
     </Container>
