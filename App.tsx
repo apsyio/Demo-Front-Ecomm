@@ -12,20 +12,37 @@ export default function App() {
 
   const theme = extendTheme({
     components: {
+      Text: {
+        defaultProps: {
+          fontSize: 'md',
+        },
+      },
+      Input: {
+        defaultProps: {
+          size: '2xl',
+          p: 3,
+        },
+      },
       Button: {
+        defaultProps: {
+          _pressed: {opacity: 0.5},
+        },
         // Can simply pass default props to change default behaviour of components.
         variants: {
           primary: {
             bg: Colors.ROUGE,
             rounded: 'full',
-            _pressed: {opacity: 0.8},
           },
           outline: {
             borderColor: Colors.ROUGE,
             rounded: 'full',
-            _pressed: {opacity: 0.8},
             _text: {
               color: Colors.ROUGE,
+            },
+          },
+          sub: {
+            _text: {
+              color: Colors.SHADY_LADY,
             },
           },
         },
