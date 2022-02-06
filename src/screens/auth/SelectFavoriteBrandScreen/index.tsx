@@ -1,16 +1,14 @@
 import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
 import React, {useState} from 'react';
-import {ImageBackground, TouchableOpacity} from 'react-native';
 
 import images from '~/assets/images';
+import {ImageCard} from '~/components/atoms';
 import {Colors} from '~/styles';
 
 export default function SelectStyleScreen({
   navigation: {navigate, goBack},
 }: any) {
   const [favoriteBrands, setFavoriteBrands] = useState<number[]>([]);
-
-  console.log('favoriteBrands', favoriteBrands);
 
   return (
     <View flex={1} p={5}>
@@ -41,45 +39,34 @@ export default function SelectStyleScreen({
           {id: 6, title: 'GRUNGE', uri: 'https://picsum.photos/200'},
         ]}
         renderItem={({item}) => (
-          <TouchableOpacity
+          <ImageCard
+            {...item}
             onPress={() => {
               if (favoriteBrands?.includes(item.id)) {
                 setFavoriteBrands(prev => prev?.filter(a => a !== item.id));
               } else {
                 setFavoriteBrands(prev => [...prev, item.id]);
               }
-            }}
-            style={{width: '50%', marginTop: 10}}>
-            <ImageBackground
-              imageStyle={{borderRadius: 20}}
-              style={{
-                width: 150,
-                height: 150,
-                borderWidth: 1,
-                borderColor: Colors.SHADY_LADY,
-                borderRadius: 20,
-              }}
-              source={{uri: item.uri}}>
-              <Center
-                bg={Colors.WHITE}
-                borderRadius={7}
-                width={6}
-                height={6}
-                alignSelf="flex-end"
-                m={2}
-                borderWidth={1}
-                borderColor={Colors.SEA_PINK}>
-                {favoriteBrands?.includes(item.id) && (
-                  <View
-                    bg={Colors.SEA_PINK}
-                    borderRadius={4}
-                    width={4}
-                    height={4}
-                  />
-                )}
-              </Center>
-            </ImageBackground>
-          </TouchableOpacity>
+            }}>
+            <Center
+              bg={Colors.WHITE}
+              borderRadius={7}
+              width={6}
+              height={6}
+              alignSelf="flex-end"
+              m={2}
+              borderWidth={1}
+              borderColor={Colors.SEA_PINK}>
+              {favoriteBrands?.includes(item.id) && (
+                <View
+                  bg={Colors.SEA_PINK}
+                  borderRadius={4}
+                  width={4}
+                  height={4}
+                />
+              )}
+            </Center>
+          </ImageCard>
         )}
       />
 

@@ -1,16 +1,13 @@
-import {Text} from 'native-base';
 import React from 'react';
 import {ImageBackground, TouchableOpacity} from 'react-native';
 
-import {Colors} from '~/styles';
-
 export default function ImageCard({
-  title,
   uri,
+  children,
   onPress,
 }: {
-  title?: string;
   uri: string;
+  children?: any;
   onPress: () => void;
 }) {
   return (
@@ -20,13 +17,11 @@ export default function ImageCard({
         style={{
           width: 150,
           height: 150,
-          justifyContent: 'flex-end',
           alignItems: 'center',
+          justifyContent: 'space-between',
         }}
         source={{uri}}>
-        <Text mb={2} fontWeight={'bold'} color={Colors.WHITE}>
-          {title}
-        </Text>
+        {children}
       </ImageBackground>
     </TouchableOpacity>
   );

@@ -9,10 +9,10 @@ import {
   View,
 } from 'native-base';
 import React, {useState} from 'react';
-import {ImageBackground, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import images from '~/assets/images';
+import {ImageCard} from '~/components/atoms';
 import {Colors} from '~/styles';
 
 export default function SelectStyleScreen({
@@ -49,13 +49,8 @@ export default function SelectStyleScreen({
           {id: 6, title: 'GRUNGE', uri: 'https://picsum.photos/200'},
         ]}
         renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => setStyle(item.id)}
-            style={{width: '50%', marginTop: 10}}>
-            <ImageBackground
-              imageStyle={{borderRadius: 20}}
-              style={{width: 150, height: 150}}
-              source={{uri: item.uri}}>
+          <View style={{width: '50%', marginTop: 10}}>
+            <ImageCard {...item} onPress={() => setStyle(item.id)}>
               <Center flex={1}>
                 {style === item.id && (
                   <Icon
@@ -66,12 +61,12 @@ export default function SelectStyleScreen({
                   />
                 )}
               </Center>
-            </ImageBackground>
+            </ImageCard>
 
             <Text color={style === item.id ? Colors.ROUGE : Colors.SHADY_LADY}>
               {item.title}
             </Text>
-          </TouchableOpacity>
+          </View>
         )}
       />
 
