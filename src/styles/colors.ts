@@ -6,6 +6,7 @@ export const WHITE_TRANSPARENT = 'rgba(255,255,255,.6)';
 
 export const SHADY_LADY = '#A19B9E';
 export const EMPRESS = '#7B7779';
+export const GALLERY = '#EEEEEE';
 
 export const CHABLIS = '#FFF0EF';
 export const APRICOT_PEACH = '#FCC3C0';

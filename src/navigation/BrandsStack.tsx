@@ -2,7 +2,9 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
+import {ChevronBackButton} from '~/components/atoms';
 import {BrandsScreen} from '~/screens/brands';
+import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +14,13 @@ export type BrandsStackParamList = {
 
 const screens = [
   {
-    options: {headerShown: false},
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+
     name: 'Brands',
     component: BrandsScreen,
   },
