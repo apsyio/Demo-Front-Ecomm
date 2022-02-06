@@ -6,7 +6,12 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {HomeScreen, MyProfileScreen, ProfileScreen} from '~/screens/home';
+import {
+  HomeScreen,
+  MyProfileScreen,
+  ProfileScreen,
+  SettingsScreen,
+} from '~/screens/home';
 import {Colors} from '~/styles';
 
 import {navigate} from './methods';
@@ -17,6 +22,7 @@ export type HomeStackParamList = {
   Home: undefined;
   Profile: undefined;
   MyProfile: undefined;
+  SettingsScreen: undefined;
 };
 
 const screens = [
@@ -51,6 +57,17 @@ const screens = [
     },
     name: 'MyProfile',
     component: MyProfileScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Settings',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Settings',
+    component: SettingsScreen,
   },
 ];
 
