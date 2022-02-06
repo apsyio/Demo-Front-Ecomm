@@ -6,7 +6,7 @@ import {goBack} from '~/navigation/methods';
 import {Colors, Spacing} from '~/styles';
 
 export default function ChevronBackButton({
-  color = Colors.EMPRESS,
+  color = Colors.BLACK,
   onPress,
   testID,
 }: {

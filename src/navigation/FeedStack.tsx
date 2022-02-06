@@ -2,7 +2,9 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
+import ChevronBackButton from '~/components/atoms/ChevronBackButton';
 import {FeedsScreen} from '~/screens/feed';
+import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +14,12 @@ export type FeedStackParamList = {
 
 const screens = [
   {
-    options: {headerShown: false},
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
     name: 'Feed',
     component: FeedsScreen,
   },

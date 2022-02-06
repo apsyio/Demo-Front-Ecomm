@@ -13,3 +13,5 @@ export const SEA_PINK = 'rgba(236,154,150,1)';
 export const SEA_PINK_TRANSPARENT = 'rgba(236,154,150,.6)';
 export const ROUGE = 'rgba(171,67,124,1)';
 export const ROUGE_TRANSPARENT = 'rgba(171,67,124,.6)';
+
+export const RED = 'rgba(255,0,0,1)';
