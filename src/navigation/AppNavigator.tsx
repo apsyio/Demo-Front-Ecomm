@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 
 import AuthStack from './AuthStack';
+import MainStack from './MainStack';
 import {navigationRef} from './methods';
 
 const Stack = createNativeStackNavigator();
@@ -17,6 +18,12 @@ export default function AppNavigator() {
             name="Onboarding"
             component={OnboardingScreen}
           /> */}
+
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="MainStack"
+            component={MainStack}
+          />
 
           <Stack.Screen
             options={{headerShown: false}}

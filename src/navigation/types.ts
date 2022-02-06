@@ -1,6 +1,16 @@
 import {AuthStackParamList} from './AuthStack';
+import {BrandsStackParamList} from './BrandsStack';
+import {FeedStackParamList} from './FeedStack';
+import {InspoStackParamList} from './InspoStack';
+import {MainStackParamList} from './MainStack';
+import {StylesStackParamList} from './StylesStack';
 
-export type RootStackParamList = AuthStackParamList;
+export type RootStackParamList = AuthStackParamList &
+  MainStackParamList &
+  BrandsStackParamList &
+  FeedStackParamList &
+  StylesStackParamList &
+  InspoStackParamList;
 
 declare global {
   // Specifying this type is important if you heavily use useNavigation, Link etc. in your app since it'll ensure type-safety.
