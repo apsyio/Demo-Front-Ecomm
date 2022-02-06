@@ -58,40 +58,43 @@ export default function HomeScreen({navigation: {navigate}}: any) {
                 borderWidth={1}
                 borderColor={Colors.APRICOT_PEACH}
                 variant={'sub'}
-                onPress={() => navigate('Profile')}>
+                onPress={() => navigate('Brands')}>
                 <Center p={5}>
                   <Image resizeMode="contain" source={images.chanel} />
                 </Center>
               </Button>
 
-              <ImageBackground
-                source={{uri: 'https://picsum.photos/200'}}
-                imageStyle={{borderRadius: 20}}
-                style={{
-                  flex: 1,
-                  height: 150,
-                  borderRadius: 20,
-                  borderWidth: 1,
-                  borderColor: Colors.APRICOT_PEACH,
-                  justifyContent: 'flex-end',
-                }}>
-                <Center
-                  mb={-0.5}
-                  borderBottomRightRadius={20}
-                  borderBottomLeftRadius={20}>
-                  <View
-                    bg={Colors.ROUGE_TRANSPARENT}
-                    padding={1}
-                    width={'100%'}
-                    alignItems={'center'}
-                    borderBottomLeftRadius={20}
-                    borderBottomRightRadius={20}>
-                    <Text fontSize={'sm'} color={Colors.WHITE}>
-                      Anna Howard
-                    </Text>
-                  </View>
-                </Center>
-              </ImageBackground>
+              <TouchableOpacity
+                onPress={() => navigate('Conversation')}
+                style={{flex: 1}}>
+                <ImageBackground
+                  source={{uri: 'https://picsum.photos/200'}}
+                  imageStyle={{borderRadius: 20}}
+                  style={{
+                    height: 150,
+                    borderRadius: 20,
+                    borderWidth: 1,
+                    borderColor: Colors.APRICOT_PEACH,
+                    justifyContent: 'flex-end',
+                  }}>
+                  <Center
+                    mb={-0.5}
+                    borderBottomRightRadius={20}
+                    borderBottomLeftRadius={20}>
+                    <View
+                      bg={Colors.ROUGE_TRANSPARENT}
+                      padding={1}
+                      width={'100%'}
+                      alignItems={'center'}
+                      borderBottomLeftRadius={20}
+                      borderBottomRightRadius={20}>
+                      <Text fontSize={'sm'} color={Colors.WHITE}>
+                        Anna Howard
+                      </Text>
+                    </View>
+                  </Center>
+                </ImageBackground>
+              </TouchableOpacity>
             </HStack>
 
             <Text
@@ -138,9 +141,7 @@ export default function HomeScreen({navigation: {navigate}}: any) {
                     <Text fontSize={'sm'}>Feyi Odejimi</Text>
                   </HStack>
 
-                  <Button
-                    variant="t"
-                    onPress={() => navigate('ForgotPassword')}>
+                  <Button variant="t" onPress={() => navigate('Conversation')}>
                     <HStack alignItems={'center'}>
                       <Text color={Colors.ROUGE} fontSize={'xs'}>
                         Show more
@@ -187,7 +188,7 @@ export default function HomeScreen({navigation: {navigate}}: any) {
             {...item}
             bottomTitle={item.title}
             onPress={() =>
-              navigate('InspoDetails', {
+              navigate('Profile', {
                 id: item.id,
               })
             }

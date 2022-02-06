@@ -98,7 +98,9 @@ const MainTabs = () => {
 };
 
 export type MainStackParamList = {
-  MainStack: undefined;
+  Home: undefined;
+  Profile: undefined;
+  Settings: undefined;
 };
 
 const MainStack = () => {

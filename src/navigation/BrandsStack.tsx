@@ -2,7 +2,6 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
-import {ChevronBackButton} from '~/components/atoms';
 import {BrandsScreen} from '~/screens/brands';
 import {Colors} from '~/styles';
 
@@ -18,7 +17,6 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
-      headerLeft: () => <ChevronBackButton />,
     },
 
     name: 'Brands',
@@ -34,7 +32,7 @@ export default function BrandsStack({
   route: any;
 }) {
   useLayoutEffect(() => {
-    const tabHiddenRoutes = [];
+    const tabHiddenRoutes: (string | undefined)[] = [];
     navigation.setOptions({
       tabBarStyle: {
         display: tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))

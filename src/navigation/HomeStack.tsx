@@ -1,8 +1,15 @@
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Icon} from 'native-base';
 import React, {useLayoutEffect} from 'react';
+import {TouchableOpacity} from 'react-native';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {HomeScreen} from '~/screens/home';
+import {ChevronBackButton} from '~/components/atoms';
+import {HomeScreen, ProfileScreen} from '~/screens/home';
+import {Colors} from '~/styles';
+
+import {navigate} from './methods';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +23,23 @@ const screens = [
     name: 'Home',
     component: HomeScreen,
   },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Profile',
+      headerLeft: () => <ChevronBackButton />,
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigate('Settings')}>
+          <Icon as={<MaterialCommunityIcon name="cog" />} />
+        </TouchableOpacity>
+      ),
+    },
+
+    name: 'Profile',
+    component: ProfileScreen,
+  },
 ];
 
 export default function FeedStack({
@@ -26,7 +50,7 @@ export default function FeedStack({
   route: any;
 }) {
   useLayoutEffect(() => {
-    const tabHiddenRoutes = [];
+    const tabHiddenRoutes: (string | undefined)[] = [];
     navigation.setOptions({
       tabBarStyle: {
         display: tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))
