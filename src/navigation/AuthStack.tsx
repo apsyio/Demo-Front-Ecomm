@@ -14,6 +14,11 @@ const Stack = createNativeStackNavigator();
 
 export type AuthStackParamList = {
   Signin: undefined;
+  Signup: undefined;
+  ForgotPassword: undefined;
+  SelectStyle: undefined;
+  SelectFavoriteBrand: undefined;
+  SelectAccountType: undefined;
 };
 
 const screens = [
