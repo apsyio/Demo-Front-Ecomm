@@ -11,6 +11,7 @@ import {
   MyProfileScreen,
   ProfileScreen,
   SettingsScreen,
+  SupportScreen,
 } from '~/screens/home';
 import {Colors} from '~/styles';
 
@@ -23,6 +24,7 @@ export type HomeStackParamList = {
   Profile: undefined;
   MyProfile: undefined;
   SettingsScreen: undefined;
+  SupportScreen: undefined;
 };
 
 const screens = [
@@ -68,6 +70,17 @@ const screens = [
     },
     name: 'Settings',
     component: SettingsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Support',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Support',
+    component: SupportScreen,
   },
 ];
 

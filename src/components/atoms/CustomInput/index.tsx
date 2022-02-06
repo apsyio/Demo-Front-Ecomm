@@ -41,7 +41,7 @@ export const CustomInput = React.forwardRef((props, ref) => {
       isDisabled={isDisabled}
       mb={3}>
       <Stack>
-        {!!label && <FormControl.Label>{label}</FormControl.Label>}
+        {!!label && <FormControl.Label mt={2}>{label}</FormControl.Label>}
         <Input
           ref={ref}
           id={id}
