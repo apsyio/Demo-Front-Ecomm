@@ -3,6 +3,7 @@ import React from 'react';
 
 import {
   ForgotPasswordScreen,
+  SelectAccountTypeScreen,
   SelectFavoriteBrandScreen,
   SelectStyleScreen,
   SigninScreen,
@@ -50,6 +51,13 @@ const screens = [
     },
     name: 'SelectFavoriteBrand',
     component: SelectFavoriteBrandScreen,
+  },
+  {
+    options: {
+      headerShown: false,
+    },
+    name: 'SelectAccountType',
+    component: SelectAccountTypeScreen,
   },
 ];
 
