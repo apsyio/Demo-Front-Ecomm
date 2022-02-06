@@ -4,8 +4,8 @@ export const BLACK_TRANSPARENT = 'rgba(0,0,0,.6)';
 export const WHITE = '#ffffff';
 export const WHITE_TRANSPARENT = 'rgba(255,255,255,.6)';
 
-export const SHADY_LADY = '#A19B9E';
 export const EMPRESS = '#7B7779';
+export const SHADY_LADY = '#A19B9E';
 export const GALLERY = '#EEEEEE';
 
 export const CHABLIS = '#FFF0EF';

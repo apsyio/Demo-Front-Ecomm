@@ -18,7 +18,7 @@ import {Colors} from '~/styles';
 export default function SelectStyleScreen({
   navigation: {navigate, goBack},
 }: any) {
-  const [style, setStyle] = useState();
+  const [style, setStyle] = useState<number>();
 
   return (
     <View flex={1} p={5}>
@@ -63,7 +63,7 @@ export default function SelectStyleScreen({
               </Center>
             </ImageCard>
 
-            <Text color={style === item.id ? Colors.ROUGE : Colors.SHADY_LADY}>
+            <Text color={style === item.id ? Colors.ROUGE : Colors.EMPRESS}>
               {item.title}
             </Text>
           </View>

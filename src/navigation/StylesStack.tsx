@@ -2,7 +2,9 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
-import {InspoScreen} from '~/screens/inspo';
+import {ChevronBackButton} from '~/components/atoms';
+import {StylesScreen} from '~/screens/styles';
+import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,9 +14,16 @@ export type StylesStackParamList = {
 
 const screens = [
   {
-    options: {headerShown: false},
-    name: 'Inspo',
-    component: InspoScreen,
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Shop by style',
+      headerLeft: () => <ChevronBackButton />,
+    },
+
+    name: 'Styles',
+    component: StylesScreen,
   },
 ];
 
