@@ -10,6 +10,7 @@ import {
   FAQScreen,
   HomeScreen,
   MyProfileScreen,
+  PrivacyPolicyScreen,
   ProfileScreen,
   SettingsScreen,
   SupportScreen,
@@ -24,9 +25,10 @@ export type HomeStackParamList = {
   Home: undefined;
   Profile: undefined;
   MyProfile: undefined;
-  SettingsScreen: undefined;
-  SupportScreen: undefined;
-  FAQScreen: undefined;
+  Settings: undefined;
+  Support: undefined;
+  FAQ: undefined;
+  PrivacyPolicy: undefined;
 };
 
 const screens = [
@@ -89,11 +91,21 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
-      title: 'FAQ',
       headerLeft: () => <ChevronBackButton />,
     },
     name: 'FAQ',
     component: FAQScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Privacy Policy',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'PrivacyPolicy',
+    component: PrivacyPolicyScreen,
   },
 ];
 
