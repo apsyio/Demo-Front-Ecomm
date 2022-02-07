@@ -1,27 +1,16 @@
-import {
-  Button,
-  Center,
-  FlatList,
-  HStack,
-  Icon,
-  Image,
-  Text,
-  View,
-} from 'native-base';
+import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
 import React, {useState} from 'react';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import images from '~/assets/images';
-import {ImageCard} from '~/components/atoms';
+import {Container, ImageCard} from '~/components/atoms';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function SelectStyleScreen({
-  navigation: {navigate, goBack},
-}: any) {
-  const [style, setStyle] = useState<number>();
+export default function SelectStyleScreen() {
+  const [styles, setStyles] = useState<number[]>([]);
 
   return (
-    <View flex={1} p={5}>
+    <Container p={5}>
       <FlatList
         ListHeaderComponent={() => (
           <Center>
@@ -34,7 +23,7 @@ export default function SelectStyleScreen({
             />
 
             <Text textAlign={'center'} fontSize={'xl'} my={5}>
-              Whats your style?
+              Whats Your Style?
             </Text>
           </Center>
         )}
@@ -50,20 +39,37 @@ export default function SelectStyleScreen({
         ]}
         renderItem={({item}) => (
           <View style={{width: '50%', marginTop: 10}}>
-            <ImageCard {...item} onPress={() => setStyle(item.id)}>
-              <Center flex={1}>
-                {style === item.id && (
-                  <Icon
-                    as={MaterialCommunityIcons}
-                    size="xl"
-                    name={'check-circle'}
-                    color={Colors.WHITE}
+            <ImageCard
+              {...item}
+              onPress={() => {
+                if (styles?.includes(item.id)) {
+                  setStyles(prev => prev?.filter(a => a !== item.id));
+                } else {
+                  setStyles(prev => [...prev, item.id]);
+                }
+              }}>
+              <Center
+                bg={Colors.WHITE}
+                borderRadius={7}
+                width={6}
+                height={6}
+                alignSelf="flex-end"
+                m={2}
+                borderWidth={1}
+                borderColor={Colors.SEA_PINK}>
+                {styles?.includes(item.id) && (
+                  <View
+                    bg={Colors.SEA_PINK}
+                    borderRadius={4}
+                    width={4}
+                    height={4}
                   />
                 )}
               </Center>
             </ImageCard>
 
-            <Text color={style === item.id ? Colors.ROUGE : Colors.EMPRESS}>
+            <Text
+              color={styles?.includes(item.id) ? Colors.ROUGE : Colors.EMPRESS}>
               {item.title}
             </Text>
           </View>
@@ -71,17 +77,20 @@ export default function SelectStyleScreen({
       />
 
       <HStack justifyContent="space-around" my={2}>
-        <Button
+        {/* <Button
           variant="outline"
           width={'45%'}
           onPress={() => navigate('SelectFavoriteBrand')}>
           Back
-        </Button>
+        </Button> */}
 
-        <Button variant="primary" width={'45%'} onPress={() => goBack()}>
+        <Button
+          variant="primary"
+          width={'100%'}
+          onPress={() => navigate('SelectFavoriteBrand')}>
           Next
         </Button>
       </HStack>
-    </View>
+    </Container>
   );
 }
