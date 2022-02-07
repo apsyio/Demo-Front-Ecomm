@@ -1,15 +1,44 @@
-import {HStack, Icon, ScrollView, Text} from 'native-base';
+import {HStack, Icon, ScrollView, Text, useDisclose} from 'native-base';
 import React from 'react';
-import {Alert, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Container} from '~/components/atoms';
+import {ConfirmActionSheet, Container} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function SettingsScreen() {
+  const {
+    onClose: onCloseSignOutActionSheet,
+    onOpen: onOpenSignOutActionSheet,
+    isOpen: isOpenSignOutActionSheet,
+  } = useDisclose();
+
+  const {
+    onClose: onCloseDeactiveAccountOutActionSheet,
+    onOpen: onOpenDeactiveAccountOutActionSheet,
+    isOpen: isOpenDeactiveAccountOutActionSheet,
+  } = useDisclose();
+
   return (
     <Container p={5}>
+      <ConfirmActionSheet
+        onClose={onCloseSignOutActionSheet}
+        isOpen={isOpenSignOutActionSheet}
+        onPressYes={() => {
+          navigate('AuthStack');
+        }}
+        title="Are you sure you want to sign out?"
+      />
+
+      <ConfirmActionSheet
+        onClose={onCloseDeactiveAccountOutActionSheet}
+        isOpen={isOpenDeactiveAccountOutActionSheet}
+        onPressYes={() => {
+          navigate('AuthStack');
+        }}
+        title="Are you sure you want to de-activate your account?"
+      />
       <ScrollView>
         {[
           {
@@ -40,31 +69,12 @@ export default function SettingsScreen() {
           {
             title: 'Sign out',
             iconName: 'logout',
-            onPress: () => {
-              Alert.alert(
-                'Confirm Sign out',
-                'Are you sure?',
-                [
-                  {
-                    text: 'No',
-                    onPress: () => console.log('No'),
-                  },
-                  {
-                    text: 'Yes',
-                    onPress: async () => {
-                      navigate('Signin');
-                    },
-                    style: 'cancel',
-                  },
-                ],
-                {cancelable: false},
-              );
-            },
+            onPress: onOpenSignOutActionSheet,
           },
           {
             title: 'Deactive account',
             iconName: 'account-remove',
-            onPress: () => navigate('DeactiveAccount'),
+            onPress: onOpenDeactiveAccountOutActionSheet,
           },
         ].map(({title, iconName, onPress}) => (
           <TouchableOpacity key={title} onPress={onPress}>
