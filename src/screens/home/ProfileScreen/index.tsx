@@ -34,6 +34,7 @@ export default function ProfileScreen() {
         {[
           {
             title: 'Information',
+            onPressEdit: () => navigate('EditProfileInformation'),
             items: [
               {label: 'Full Name', value: 'Anna Howard'},
               {label: 'Email', value: 'Anna.Howard@gmail.com'},
@@ -47,18 +48,19 @@ export default function ProfileScreen() {
           },
           {
             title: 'Social Network',
+            onPressEdit: () => navigate('EditProfileSocialNetworks'),
             items: [
               {label: 'Instagram', value: '@Anna.howard'},
               {label: 'TikTok', value: '@Anna.howard'},
               {label: 'Pinterest', value: '@Anna.howard'},
             ],
           },
-        ].map(({title, items}) => (
+        ].map(({title, items, onPressEdit}) => (
           <>
             <HStack mt={10} justifyContent={'space-between'}>
               <Text fontWeight={'bold'}>{title}</Text>
 
-              <TouchableOpacity onPress={() => null}>
+              <TouchableOpacity onPress={onPressEdit}>
                 <HStack alignItems={'center'}>
                   <Icon
                     color={Colors.SEA_PINK}

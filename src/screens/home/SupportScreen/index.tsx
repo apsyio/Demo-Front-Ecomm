@@ -7,7 +7,7 @@ import {Container} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
 
 export default function SupportScreen() {
-  const signinForm = useForm();
+  const supportForm = useForm();
 
   const handleSubmit = (values: any) => {
     console.log(values);
@@ -15,7 +15,7 @@ export default function SupportScreen() {
 
   return (
     <Container p={5}>
-      <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
+      <Formiz onValidSubmit={handleSubmit} connect={supportForm}>
         <View flex={1}>
           <CustomInput
             label="Full Name"
@@ -47,7 +47,7 @@ export default function SupportScreen() {
             required="Message is required"
           />
         </View>
-        <Button my={5} variant={'primary'} onPress={signinForm.submit}>
+        <Button my={5} variant={'primary'} onPress={supportForm.submit}>
           Send
         </Button>
       </Formiz>
