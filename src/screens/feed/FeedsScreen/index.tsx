@@ -1,18 +1,7 @@
-import {
-  Avatar,
-  Button,
-  FlatList,
-  HStack,
-  Icon,
-  Image,
-  Text,
-  VStack,
-} from 'native-base';
+import {FlatList} from 'native-base';
 import React from 'react';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Container} from '~/components/atoms';
-import {Colors} from '~/styles';
+import {Container, PostOrFeedCard} from '~/components/atoms';
 
 export default function FeedsScreen() {
   return (
@@ -47,43 +36,7 @@ export default function FeedsScreen() {
             createdAt: '2 days ago',
           },
         ]}
-        renderItem={({item}) => (
-          <>
-            <VStack p={5}>
-              <HStack alignItems={'center'} justifyContent={'space-between'}>
-                <HStack>
-                  <Avatar
-                    mr={2}
-                    size={10}
-                    source={{uri: 'https://picsum.photos/200'}}
-                  />
-                  <VStack>
-                    <Text>{item.fullname}</Text>
-                    <Text fontSize={'sm'} color={Colors.EMPRESS}>
-                      {item.createdAt}
-                    </Text>
-                  </VStack>
-                </HStack>
-                <Button onPress={() => null} variant={'sub'}>
-                  <Icon
-                    as={MaterialCommunityIcons}
-                    size="md"
-                    name={'heart' + (item.isLiked ? '' : '-outline')}
-                    color={item.isLiked ? Colors.RED : Colors.BLACK}
-                  />
-                </Button>
-              </HStack>
-
-              <Text my={2} fontSize={'xl'}>
-                {item.title}
-              </Text>
-
-              <Text>{item.desc}</Text>
-            </VStack>
-
-            <Image width={'100%'} height={200} source={{uri: item.uri}} />
-          </>
-        )}
+        renderItem={({item}) => <PostOrFeedCard {...item} />}
       />
     </Container>
   );
