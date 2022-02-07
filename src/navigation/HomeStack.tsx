@@ -14,6 +14,7 @@ import {
   ProfileScreen,
   SettingsScreen,
   SupportScreen,
+  TermsOfServiceScreen,
 } from '~/screens/home';
 import {Colors} from '~/styles';
 
@@ -29,6 +30,7 @@ export type HomeStackParamList = {
   Support: undefined;
   FAQ: undefined;
   PrivacyPolicy: undefined;
+  TermsOfService: undefined;
 };
 
 const screens = [
@@ -106,6 +108,17 @@ const screens = [
     },
     name: 'PrivacyPolicy',
     component: PrivacyPolicyScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Terms Of Service',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'TermsOfService',
+    component: TermsOfServiceScreen,
   },
 ];
 
