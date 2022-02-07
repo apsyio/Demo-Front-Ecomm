@@ -8,6 +8,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import {ChevronBackButton} from '~/components/atoms';
 import {
   EditProfileInformationScreen,
+  EditProfileSocialNetworksScreen,
   FAQScreen,
   HomeScreen,
   MyProfileScreen,
@@ -33,6 +34,7 @@ export type HomeStackParamList = {
   PrivacyPolicy: undefined;
   TermsOfService: undefined;
   EditProfileInformation: undefined;
+  EditProfileSocialNetworks: undefined;
 };
 
 const screens = [
@@ -78,6 +80,17 @@ const screens = [
     },
     name: 'EditProfileInformation',
     component: EditProfileInformationScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Edit profile',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'EditProfileSocialNetworks',
+    component: EditProfileSocialNetworksScreen,
   },
   {
     options: {
