@@ -2,8 +2,9 @@ import {FlatList} from 'native-base';
 import React from 'react';
 
 import {Container, ImageCard} from '~/components/atoms';
+import {navigate} from '~/navigation/methods';
 
-export default function InspoScreen({navigation: {navigate}}: any) {
+export default function InspoScreen() {
   return (
     <Container p={3}>
       <FlatList
@@ -37,7 +38,7 @@ export default function InspoScreen({navigation: {navigate}}: any) {
             hasBorder
             {...item}
             bottomTitle={item.title}
-            onPress={() => navigate('Home')}
+            onPress={() => navigate('MyProfile', {id: item.id})}
           />
         )}
       />

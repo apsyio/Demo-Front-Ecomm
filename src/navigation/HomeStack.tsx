@@ -27,7 +27,7 @@ const Stack = createNativeStackNavigator();
 export type HomeStackParamList = {
   Home: undefined;
   Profile: undefined;
-  MyProfile: undefined;
+  MyProfile: {id: number};
   Settings: undefined;
   Support: undefined;
   FAQ: undefined;

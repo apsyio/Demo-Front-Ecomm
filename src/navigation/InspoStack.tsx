@@ -3,13 +3,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {InspoScreen} from '~/screens/inspo';
+import {InspoScreen, OutfitScreen} from '~/screens/inspo';
 import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
 export type InspoStackParamList = {
   InspoScreen: undefined;
+  Outfit: {uri: string};
 };
 
 const screens = [
@@ -23,6 +24,17 @@ const screens = [
     },
     name: 'Inspo',
     component: InspoScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+      title: 'Outfit Name',
+    },
+    name: 'Outfit',
+    component: OutfitScreen,
   },
 ];
 

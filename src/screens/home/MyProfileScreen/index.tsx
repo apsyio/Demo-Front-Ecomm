@@ -9,7 +9,9 @@ import {
 } from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 
-export default function MyProfileScreen() {
+export default function MyProfileScreen({route}: any) {
+  const id = route?.params?.id;
+
   return (
     <Container p={5}>
       <ScrollView>
@@ -67,13 +69,13 @@ export default function MyProfileScreen() {
               uri: 'https://picsum.photos/200',
             },
           ]}
-          renderItem={({item: {id, uri}}) => (
+          renderItem={({item: {uri}}) => (
             <ImageCard
               containerStyle={{marginTop: 12}}
               isSmall
-              key={id}
+              key={uri}
               uri={uri}
-              onPress={() => null}
+              onPress={() => navigate('Outfit', {uri})}
             />
           )}
         />
@@ -108,13 +110,13 @@ export default function MyProfileScreen() {
               id: 6,
               uri: 'https://picsum.photos/200',
             },
-          ].map(({id, uri}) => (
+          ].map(({uri}) => (
             <ImageCard
               containerStyle={{marginRight: 12}}
               isSmall
-              key={id}
+              key={uri}
               uri={uri}
-              onPress={() => navigate('Brands')}
+              onPress={() => navigate('BrandDetails', {id})}
             />
           ))}
         </ScrollView>
