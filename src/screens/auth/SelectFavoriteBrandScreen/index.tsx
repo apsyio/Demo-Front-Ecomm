@@ -2,16 +2,15 @@ import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
 import React, {useState} from 'react';
 
 import images from '~/assets/images';
-import {ImageCard} from '~/components/atoms';
+import {Container, ImageCard} from '~/components/atoms';
+import {goBack, navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function SelectStyleScreen({
-  navigation: {navigate, goBack},
-}: any) {
+export default function SelectStyleScreen() {
   const [favoriteBrands, setFavoriteBrands] = useState<number[]>([]);
 
   return (
-    <View flex={1} p={5}>
+    <Container p={5}>
       <FlatList
         ListHeaderComponent={() => (
           <Center>
@@ -40,6 +39,7 @@ export default function SelectStyleScreen({
         ]}
         renderItem={({item}) => (
           <ImageCard
+            containerStyle={{width: '50%', marginTop: 10}}
             {...item}
             onPress={() => {
               if (favoriteBrands?.includes(item.id)) {
@@ -71,17 +71,17 @@ export default function SelectStyleScreen({
       />
 
       <HStack justifyContent="space-around" my={2}>
-        <Button
-          variant="outline"
-          width={'45%'}
-          onPress={() => navigate('SelectAccountType')}>
+        <Button variant="outline" width={'45%'} onPress={() => goBack()}>
           Back
         </Button>
 
-        <Button variant="primary" width={'45%'} onPress={() => goBack()}>
+        <Button
+          variant="primary"
+          width={'45%'}
+          onPress={() => navigate('Home')}>
           Next
         </Button>
       </HStack>
-    </View>
+    </Container>
   );
 }
