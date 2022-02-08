@@ -16,7 +16,7 @@ export default function SigninScreen({navigation: {navigate}}: any) {
   };
 
   return (
-    <Container flex={1} bg={Colors.SEA_PINK}>
+    <Container bg={Colors.SEA_PINK}>
       <ScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image
