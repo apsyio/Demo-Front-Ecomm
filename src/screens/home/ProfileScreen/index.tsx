@@ -9,7 +9,7 @@ import {Colors} from '~/styles';
 
 export default function ProfileScreen() {
   return (
-    <Container p={5}>
+    <Container>
       <ScrollView>
         <Center>
           <AvatarWithTitle

@@ -10,7 +10,7 @@ export default function SelectStyleScreen() {
   const [favoriteBrands, setFavoriteBrands] = useState<number[]>([]);
 
   return (
-    <Container p={5}>
+    <Container>
       <FlatList
         ListHeaderComponent={() => (
           <Center>

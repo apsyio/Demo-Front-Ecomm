@@ -8,7 +8,7 @@ export default function OutfitScreen({route}: any) {
   const uri = route?.params?.uri;
 
   return (
-    <Container p={5}>
+    <Container>
       <Image borderRadius={'2xl'} height={deviceHeight - 170} source={{uri}} />
     </Container>
   );

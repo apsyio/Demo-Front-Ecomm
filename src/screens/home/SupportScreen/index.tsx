@@ -14,7 +14,7 @@ export default function SupportScreen() {
   };
 
   return (
-    <Container p={5}>
+    <Container>
       <Formiz onValidSubmit={handleSubmit} connect={supportForm}>
         <View flex={1}>
           <CustomInput

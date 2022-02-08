@@ -13,7 +13,7 @@ export default function MyProfileScreen({route}: any) {
   const id = route?.params?.id;
 
   return (
-    <Container p={5}>
+    <Container>
       <ScrollView>
         <AvatarWithTitle title="Anna Howard" uri="https://picsum.photos/200" />
 

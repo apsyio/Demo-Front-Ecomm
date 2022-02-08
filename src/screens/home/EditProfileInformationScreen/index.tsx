@@ -14,7 +14,7 @@ export default function EditProfileInformationScreen() {
   };
 
   return (
-    <Container p={5}>
+    <Container>
       <ScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={editForm}>
           <AvatarWithTitle

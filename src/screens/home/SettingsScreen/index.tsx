@@ -21,7 +21,7 @@ export default function SettingsScreen() {
   } = useDisclose();
 
   return (
-    <Container p={5}>
+    <Container>
       <ConfirmActionSheet
         onClose={onCloseSignOutActionSheet}
         isOpen={isOpenSignOutActionSheet}

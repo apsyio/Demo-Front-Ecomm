@@ -9,7 +9,7 @@ export default function StylesScreen({navigation: {navigate, goBack}}: any) {
   const [style, setStyle] = useState<number>();
 
   return (
-    <Container p={5}>
+    <Container>
       <FlatList
         numColumns={2}
         data={[

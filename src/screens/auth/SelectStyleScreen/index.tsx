@@ -10,7 +10,7 @@ export default function SelectStyleScreen() {
   const [styles, setStyles] = useState<number[]>([]);
 
   return (
-    <Container p={5}>
+    <Container>
       <FlatList
         ListHeaderComponent={() => (
           <Center>

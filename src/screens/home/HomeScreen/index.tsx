@@ -18,7 +18,7 @@ import {Colors} from '~/styles';
 
 export default function HomeScreen({navigation: {navigate}}: any) {
   return (
-    <Container p={5}>
+    <Container>
       <FlatList
         ListHeaderComponent={() => (
           <>

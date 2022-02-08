@@ -9,7 +9,7 @@ import {Colors} from '~/styles';
 export default function FAQScreen() {
   const [selectedFAQa, setSelectedFAQa] = useState<string[]>([]);
   return (
-    <Container p={5}>
+    <Container>
       {[
         {
           title: 'What is Lorem ipsum dolor?',
