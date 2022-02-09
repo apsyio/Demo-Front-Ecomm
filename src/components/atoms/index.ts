@@ -7,3 +7,4 @@ export {default as LineWithText} from './LineWithText';
 export {default as PostOrFeedCard} from './PostOrFeedCard';
 export {default as ProfileCard} from './ProfileCard';
 export {default as SocialButton} from './SocialButton';
+export {default as StyleOrBrandCard} from './StyleOrBrandCard';

@@ -1,15 +1,22 @@
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Icon} from 'native-base';
 import React, {useLayoutEffect} from 'react';
+import {TouchableOpacity} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {StylesScreen} from '~/screens/styles';
+import {BrandDetailsScreen, PostsScreen} from '~/screens/brands';
+import {StyleDetailsScreen, StylesScreen} from '~/screens/styles';
 import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
 export type StylesStackParamList = {
   Styles: undefined;
+  StyleDetails: {id: number};
+  BrandDetails: {id: number};
+  Posts: undefined;
 };
 
 const screens = [
@@ -21,9 +28,48 @@ const screens = [
       title: 'Shop by style',
       headerLeft: () => <ChevronBackButton />,
     },
-
     name: 'Styles',
     component: StylesScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Style',
+      headerLeft: () => <ChevronBackButton />,
+      headerRight: () => (
+        <TouchableOpacity onPress={() => null}>
+          <Icon
+            color={Colors.SHADY_LADY}
+            as={MaterialCommunityIcons}
+            name="share-variant"
+          />
+        </TouchableOpacity>
+      ),
+    },
+    name: 'StyleDetails',
+    component: StyleDetailsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'BrandDetails',
+    component: BrandDetailsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Posts',
+    component: PostsScreen,
   },
 ];
 
@@ -35,7 +81,7 @@ export default function StylesStack({
   route: any;
 }) {
   useLayoutEffect(() => {
-    const tabHiddenRoutes = [];
+    const tabHiddenRoutes: (string | undefined)[] = [];
     navigation.setOptions({
       tabBarStyle: {
         display: tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route))

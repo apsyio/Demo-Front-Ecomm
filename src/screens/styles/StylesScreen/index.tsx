@@ -2,6 +2,7 @@ import {FlatList, View} from 'native-base';
 import React from 'react';
 
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import {navigate} from '~/navigation/methods';
 
 export default function StylesScreen() {
   return (
@@ -18,7 +19,10 @@ export default function StylesScreen() {
         ]}
         renderItem={({item}) => (
           <View style={{width: '50%', marginTop: 10}}>
-            <ImageCard {...item} onPress={() => null} />
+            <ImageCard
+              {...item}
+              onPress={() => navigate('StyleDetails', {id: item.id})}
+            />
           </View>
         )}
       />

@@ -1,10 +1,9 @@
-import {FlatList, Text, View} from 'native-base';
+import {FlatList} from 'native-base';
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
 
-import {CustomContainer, ImageCard} from '~/components/atoms';
+import {CustomContainer} from '~/components/atoms';
+import BrandCard from '~/components/atoms/BrandCard';
 import {navigate} from '~/navigation/methods';
-import {Colors} from '~/styles';
 
 export default function BrandsScreen() {
   return (
@@ -36,33 +35,12 @@ export default function BrandsScreen() {
           {id: 6, tags: ['CASUAL', 'GRUNGE'], uri: 'https://picsum.photos/200'},
         ]}
         renderItem={({item}) => (
-          <TouchableOpacity
-            style={{flex: 1}}
-            onPress={() => navigate('BrandDetails', {id: item.id})}>
-            <View
-              p={2}
-              borderWidth={1}
-              borderColor={Colors.GALLERY}
-              borderRadius="3xl"
-              m={1}
-              mt={4}>
-              <ImageCard
-                hasBorder
-                {...item}
-                onPress={() => navigate('BrandDetails', {id: item.id})}
-              />
-
-              <Text
-                fontWeight={'bold'}
-                numberOfLines={1}
-                fontSize={'sm'}
-                color={Colors.SEA_PINK}
-                mt={3}
-                mb={1}>
-                {item.tags.join('   ')}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <BrandCard
+            key={item.id}
+            uri={item.uri}
+            tags={item.tags}
+            onPress={() => navigate('BrandDetails', {id: item.id})}
+          />
         )}
       />
     </CustomContainer>

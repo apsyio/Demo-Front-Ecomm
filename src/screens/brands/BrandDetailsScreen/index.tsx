@@ -1,39 +1,23 @@
-import {Avatar, HStack, Icon, Image, ScrollView, Text, View} from 'native-base';
+import {HStack, Image, ScrollView, Text, View} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {CustomContainer, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function BrandDetailsScreen({params}: any) {
-  const id = params?.id;
+export default function BrandDetailsScreen({route}: any) {
+  const id = route.params?.id;
 
   return (
     <CustomContainer p={0}>
       <ScrollView>
         <View p={5}>
-          <HStack mb={5}>
-            <Avatar
-              mr={2}
-              size={'lg'}
-              source={{uri: 'https://picsum.photos/200'}}
-            />
-
-            <View justifyContent={'space-around'}>
-              <Text fontSize={'xl'}>Torrid</Text>
-              <HStack alignItems={'center'}>
-                <Icon
-                  size={'sm'}
-                  as={MaterialCommunityIcons}
-                  name="heart"
-                  color={Colors.RED}
-                />
-                <Text color={Colors.RED}>12</Text>
-              </HStack>
-            </View>
-          </HStack>
+          <StyleOrBrandCard
+            uri="https://picsum.photos/200"
+            title="Torrid"
+            likesCount={12}
+          />
 
           <ScrollView horizontal>
             {[
