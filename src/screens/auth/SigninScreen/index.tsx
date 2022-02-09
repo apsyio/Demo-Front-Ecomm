@@ -6,9 +6,10 @@ import React from 'react';
 import images from '~/assets/images';
 import {CustomContainer, LineWithText, SocialButton} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function SigninScreen({navigation: {navigate}}: any) {
+export default function SigninScreen() {
   const signinForm = useForm();
 
   const handleSubmit = (values: any) => {

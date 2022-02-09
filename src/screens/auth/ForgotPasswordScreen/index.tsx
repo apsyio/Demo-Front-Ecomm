@@ -6,9 +6,10 @@ import React from 'react';
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function ForgotPasswordScreen({navigation: {navigate}}: any) {
+export default function ForgotPasswordScreen() {
   const signinForm = useForm();
 
   const handleSubmit = (values: any) => {

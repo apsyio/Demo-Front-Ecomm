@@ -8,7 +8,7 @@ import {CustomContainer, LineWithText, SocialButton} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
 import {Colors} from '~/styles';
 
-export default function SignupScreen({navigation: {navigate}}: any) {
+export default function SignupScreen() {
   const signinForm = useForm();
 
   const handleSubmit = (values: any) => {

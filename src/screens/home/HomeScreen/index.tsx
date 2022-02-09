@@ -14,9 +14,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function HomeScreen({navigation: {navigate}}: any) {
+export default function HomeScreen() {
   return (
     <CustomContainer>
       <FlatList
