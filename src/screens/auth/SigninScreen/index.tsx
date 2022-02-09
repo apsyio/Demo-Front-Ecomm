@@ -14,6 +14,7 @@ export default function SigninScreen() {
 
   const handleSubmit = (values: any) => {
     console.log(values);
+    navigate('MainStack');
   };
 
   return (

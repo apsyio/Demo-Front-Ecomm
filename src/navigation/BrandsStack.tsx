@@ -20,6 +20,7 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
+      headerLeft: () => <ChevronBackButton />,
     },
     name: 'Brands',
     component: BrandsScreen,

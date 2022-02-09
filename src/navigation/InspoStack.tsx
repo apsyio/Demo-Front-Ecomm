@@ -3,6 +3,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
+import {BrandDetailsScreen, PostsScreen} from '~/screens/brands';
+import {MyProfileScreen} from '~/screens/home';
 import {InspoScreen, OutfitScreen} from '~/screens/inspo';
 import {Colors} from '~/styles';
 
@@ -11,6 +13,9 @@ const Stack = createNativeStackNavigator();
 export type InspoStackParamList = {
   InspoScreen: undefined;
   Outfit: {uri: string};
+  BrandDetails: {id: number};
+  Posts: undefined;
+  MyProfile: {id: number};
 };
 
 const screens = [
@@ -35,6 +40,38 @@ const screens = [
     },
     name: 'Outfit',
     component: OutfitScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Profile',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'MyProfile',
+    component: MyProfileScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Brand',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'BrandDetails',
+    component: BrandDetailsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Posts',
+    component: PostsScreen,
   },
 ];
 

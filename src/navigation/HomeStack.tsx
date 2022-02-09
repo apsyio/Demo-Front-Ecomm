@@ -6,6 +6,7 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
+import {BrandDetailsScreen, BrandsScreen, PostsScreen} from '~/screens/brands';
 import {
   EditProfileInformationScreen,
   EditProfileSocialNetworksScreen,
@@ -18,6 +19,7 @@ import {
   SupportScreen,
   TermsOfServiceScreen,
 } from '~/screens/home';
+import {OutfitScreen} from '~/screens/inspo';
 import {Colors} from '~/styles';
 
 import {navigate} from './methods';
@@ -35,6 +37,10 @@ export type HomeStackParamList = {
   TermsOfService: undefined;
   EditProfileInformation: undefined;
   EditProfileSocialNetworks: undefined;
+  Outfit: {uri: string};
+  Brands: undefined;
+  BrandDetails: {id: number};
+  Posts: undefined;
 };
 
 const screens = [
@@ -145,6 +151,48 @@ const screens = [
     },
     name: 'TermsOfService',
     component: TermsOfServiceScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+      title: 'Outfit Name',
+    },
+    name: 'Outfit',
+    component: OutfitScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Brands',
+    component: BrandsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Brand',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'BrandDetails',
+    component: BrandDetailsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Posts',
+    component: PostsScreen,
   },
 ];
 

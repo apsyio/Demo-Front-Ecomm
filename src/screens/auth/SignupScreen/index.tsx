@@ -6,6 +6,7 @@ import React from 'react';
 import images from '~/assets/images';
 import {CustomContainer, LineWithText, SocialButton} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function SignupScreen() {
@@ -13,6 +14,7 @@ export default function SignupScreen() {
 
   const handleSubmit = (values: any) => {
     console.log(values);
+    navigate('SelectStyle');
   };
 
   return (

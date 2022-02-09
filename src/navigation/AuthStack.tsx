@@ -9,7 +9,6 @@ import {
   SigninScreen,
   SignupScreen,
 } from '~/screens/auth';
-
 const Stack = createNativeStackNavigator();
 
 export type AuthStackParamList = {

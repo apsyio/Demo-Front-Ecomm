@@ -66,7 +66,7 @@ export default function HomeScreen() {
               </Button>
 
               <TouchableOpacity
-                onPress={() => navigate('Conversation')}
+                onPress={() => navigate('Inspo')}
                 style={{flex: 1}}>
                 <ImageBackground
                   source={{uri: 'https://picsum.photos/200'}}
@@ -189,7 +189,7 @@ export default function HomeScreen() {
             {...item}
             bottomTitle={item.title}
             onPress={() =>
-              navigate('Profile', {
+              navigate('MyProfile', {
                 id: item.id,
               })
             }
