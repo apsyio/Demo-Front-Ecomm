@@ -6,7 +6,7 @@ import {navigate} from '~/navigation/methods';
 
 export default function InspoScreen() {
   return (
-    <CustomContainer p={3}>
+    <CustomContainer>
       <FlatList
         numColumns={2}
         columnWrapperStyle={{justifyContent: 'space-around'}}

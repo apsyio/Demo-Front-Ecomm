@@ -11,7 +11,7 @@ export default function BrandDetailsScreen({params}: any) {
   const id = params?.id;
 
   return (
-    <CustomContainer>
+    <CustomContainer p={0}>
       <ScrollView>
         <View p={5}>
           <HStack mb={5}>

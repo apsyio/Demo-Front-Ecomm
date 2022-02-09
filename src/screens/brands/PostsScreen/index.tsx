@@ -21,7 +21,7 @@ export default function PostsScreen() {
   const [postSize, setPostSize] = useState('');
 
   return (
-    <CustomContainer>
+    <CustomContainer p={0}>
       <Center>
         <Actionsheet isOpen={isOpen} onClose={onClose}>
           <Actionsheet.Content p={7}>

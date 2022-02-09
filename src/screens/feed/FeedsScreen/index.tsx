@@ -5,7 +5,7 @@ import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
 
 export default function FeedsScreen() {
   return (
-    <CustomContainer>
+    <CustomContainer p={0}>
       <FlatList
         data={[
           {
