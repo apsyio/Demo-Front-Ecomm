@@ -1,15 +1,27 @@
-import {Button, Center, HStack, Icon, ScrollView, Text} from 'native-base';
+import {
+  Button,
+  Center,
+  HStack,
+  Icon,
+  ScrollView,
+  Text,
+  View,
+} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {AvatarWithTitle, Container, ProfileCard} from '~/components/atoms';
+import {
+  AvatarWithTitle,
+  CustomContainer,
+  ProfileCard,
+} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function ProfileScreen() {
   return (
-    <Container>
+    <CustomContainer>
       <ScrollView>
         <Center>
           <AvatarWithTitle
@@ -56,7 +68,7 @@ export default function ProfileScreen() {
             ],
           },
         ].map(({title, items, onPressEdit}) => (
-          <>
+          <View key={title}>
             <HStack mt={10} justifyContent={'space-between'}>
               <Text fontWeight={'bold'}>{title}</Text>
 
@@ -74,9 +86,9 @@ export default function ProfileScreen() {
             {items.map(item => (
               <ProfileCard key={item.label} {...item} />
             ))}
-          </>
+          </View>
         ))}
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

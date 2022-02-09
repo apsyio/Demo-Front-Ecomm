@@ -3,13 +3,13 @@ import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Container} from '~/components/atoms';
+import {CustomContainer} from '~/components/atoms';
 import {Colors} from '~/styles';
 
 export default function FAQScreen() {
   const [selectedFAQa, setSelectedFAQa] = useState<string[]>([]);
   return (
-    <Container>
+    <CustomContainer>
       {[
         {
           title: 'What is Lorem ipsum dolor?',
@@ -62,6 +62,6 @@ export default function FAQScreen() {
           )}
         </TouchableOpacity>
       ))}
-    </Container>
+    </CustomContainer>
   );
 }

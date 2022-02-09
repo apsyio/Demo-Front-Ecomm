@@ -4,7 +4,7 @@ import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
 import React from 'react';
 
 import images from '~/assets/images';
-import {Container} from '~/components/atoms';
+import {CustomContainer} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
 import {Colors} from '~/styles';
 
@@ -16,7 +16,7 @@ export default function ForgotPasswordScreen({navigation: {navigate}}: any) {
   };
 
   return (
-    <Container bg={Colors.SEA_PINK}>
+    <CustomContainer bg={Colors.SEA_PINK}>
       <ScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image
@@ -28,7 +28,7 @@ export default function ForgotPasswordScreen({navigation: {navigate}}: any) {
         />
 
         <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
-          <View bg={Colors.WHITE} p={5} m={5} borderRadius={20}>
+          <View bg={Colors.WHITE} p={5} borderRadius={20}>
             <Text mb={5}>Please Enter Your Email Or Phone Number</Text>
 
             <CustomInput
@@ -43,7 +43,11 @@ export default function ForgotPasswordScreen({navigation: {navigate}}: any) {
               ]}
             />
 
-            <Button my={5} variant={'primary'} onPress={signinForm.submit}>
+            <Button
+              mb={40}
+              mt={5}
+              variant={'primary'}
+              onPress={signinForm.submit}>
               Send
             </Button>
 
@@ -53,7 +57,7 @@ export default function ForgotPasswordScreen({navigation: {navigate}}: any) {
               <Button
                 variant="sub"
                 fontWeight={'bold'}
-                onPress={() => navigate('Signin')}>
+                onPress={() => navigate('Signup')}>
                 <Text fontSize={'sm'} fontWeight={'bold'}>
                   Sign Up Now
                 </Text>
@@ -62,6 +66,6 @@ export default function ForgotPasswordScreen({navigation: {navigate}}: any) {
           </View>
         </Formiz>
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

@@ -1,15 +1,11 @@
-import {Center, FlatList, Icon, Text, View} from 'native-base';
-import React, {useState} from 'react';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {FlatList, View} from 'native-base';
+import React from 'react';
 
-import {Container, ImageCard} from '~/components/atoms';
-import {Colors} from '~/styles';
+import {CustomContainer, ImageCard} from '~/components/atoms';
 
-export default function StylesScreen({navigation: {navigate, goBack}}: any) {
-  const [style, setStyle] = useState<number>();
-
+export default function StylesScreen() {
   return (
-    <Container>
+    <CustomContainer>
       <FlatList
         numColumns={2}
         data={[
@@ -22,25 +18,10 @@ export default function StylesScreen({navigation: {navigate, goBack}}: any) {
         ]}
         renderItem={({item}) => (
           <View style={{width: '50%', marginTop: 10}}>
-            <ImageCard {...item} onPress={() => setStyle(item.id)}>
-              <Center flex={1}>
-                {style === item.id && (
-                  <Icon
-                    as={MaterialCommunityIcons}
-                    size="xl"
-                    name={'check-circle'}
-                    color={Colors.WHITE}
-                  />
-                )}
-              </Center>
-            </ImageCard>
-
-            <Text color={style === item.id ? Colors.ROUGE : Colors.EMPRESS}>
-              {item.title}
-            </Text>
+            <ImageCard {...item} onPress={() => null} />
           </View>
         )}
       />
-    </Container>
+    </CustomContainer>
   );
 }

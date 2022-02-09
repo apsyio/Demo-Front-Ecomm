@@ -21,14 +21,14 @@ export default function AppNavigator() {
 
           <Stack.Screen
             options={{headerShown: false}}
-            name="MainStack"
-            component={MainStack}
+            name="AuthStack"
+            component={AuthStack}
           />
 
           <Stack.Screen
             options={{headerShown: false}}
-            name="AuthStack"
-            component={AuthStack}
+            name="MainStack"
+            component={MainStack}
           />
         </Stack.Navigator>
       </NavigationContainer>

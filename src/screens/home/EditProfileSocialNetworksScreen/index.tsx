@@ -2,7 +2,7 @@ import {Formiz, useForm} from '@formiz/core';
 import {Button, ScrollView, Text} from 'native-base';
 import React from 'react';
 
-import {AvatarWithTitle, Container} from '~/components/atoms';
+import {AvatarWithTitle, CustomContainer} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
 
 export default function EditProfileSocialNetworksScreen() {
@@ -13,7 +13,7 @@ export default function EditProfileSocialNetworksScreen() {
   };
 
   return (
-    <Container>
+    <CustomContainer>
       <ScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={editForm}>
           <AvatarWithTitle
@@ -48,6 +48,6 @@ export default function EditProfileSocialNetworksScreen() {
           </Button>
         </Formiz>
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

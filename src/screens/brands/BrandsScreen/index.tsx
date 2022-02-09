@@ -2,13 +2,13 @@ import {FlatList, Text, View} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
-import {Container, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function BrandsScreen() {
   return (
-    <Container p={3}>
+    <CustomContainer p={3}>
       <FlatList
         numColumns={2}
         data={[
@@ -65,6 +65,6 @@ export default function BrandsScreen() {
           </TouchableOpacity>
         )}
       />
-    </Container>
+    </CustomContainer>
   );
 }

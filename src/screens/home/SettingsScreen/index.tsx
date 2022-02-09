@@ -3,7 +3,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {ConfirmActionSheet, Container} from '~/components/atoms';
+import {ConfirmActionSheet, CustomContainer} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
@@ -21,7 +21,7 @@ export default function SettingsScreen() {
   } = useDisclose();
 
   return (
-    <Container>
+    <CustomContainer>
       <ConfirmActionSheet
         onClose={onCloseSignOutActionSheet}
         isOpen={isOpenSignOutActionSheet}
@@ -106,6 +106,6 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

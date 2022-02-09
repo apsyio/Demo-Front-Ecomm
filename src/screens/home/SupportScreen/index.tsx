@@ -3,7 +3,7 @@ import {isEmail} from '@formiz/validations';
 import {Button, View} from 'native-base';
 import React from 'react';
 
-import {Container} from '~/components/atoms';
+import {CustomContainer} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
 
 export default function SupportScreen() {
@@ -14,7 +14,7 @@ export default function SupportScreen() {
   };
 
   return (
-    <Container>
+    <CustomContainer>
       <Formiz onValidSubmit={handleSubmit} connect={supportForm}>
         <View flex={1}>
           <CustomInput
@@ -51,6 +51,6 @@ export default function SupportScreen() {
           Send
         </Button>
       </Formiz>
-    </Container>
+    </CustomContainer>
   );
 }

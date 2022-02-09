@@ -4,7 +4,7 @@ import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
 import React from 'react';
 
 import images from '~/assets/images';
-import {Container, LineWithText, SocialButton} from '~/components/atoms';
+import {CustomContainer, LineWithText, SocialButton} from '~/components/atoms';
 import {CustomInput} from '~/components/atoms/CustomInput';
 import {Colors} from '~/styles';
 
@@ -16,7 +16,7 @@ export default function SigninScreen({navigation: {navigate}}: any) {
   };
 
   return (
-    <Container bg={Colors.SEA_PINK}>
+    <CustomContainer bg={Colors.SEA_PINK}>
       <ScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image
@@ -28,7 +28,7 @@ export default function SigninScreen({navigation: {navigate}}: any) {
         />
 
         <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
-          <View bg={Colors.WHITE} p={5} m={5} borderRadius={20}>
+          <View bg={Colors.WHITE} p={5} borderRadius={20}>
             <Text>Welcome back</Text>
             <Text mb={5}>
               <Text bold>Sign In</Text> to continue
@@ -98,6 +98,6 @@ export default function SigninScreen({navigation: {navigate}}: any) {
           </View>
         </Formiz>
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

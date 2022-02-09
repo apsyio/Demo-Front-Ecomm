@@ -13,12 +13,12 @@ import {ImageBackground, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import images from '~/assets/images';
-import {Container, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard} from '~/components/atoms';
 import {Colors} from '~/styles';
 
 export default function HomeScreen({navigation: {navigate}}: any) {
   return (
-    <Container>
+    <CustomContainer>
       <FlatList
         ListHeaderComponent={() => (
           <>
@@ -195,6 +195,6 @@ export default function HomeScreen({navigation: {navigate}}: any) {
           />
         )}
       />
-    </Container>
+    </CustomContainer>
   );
 }

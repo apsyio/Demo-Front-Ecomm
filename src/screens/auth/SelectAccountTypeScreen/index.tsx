@@ -13,7 +13,7 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import images from '~/assets/images';
-import {Container} from '~/components/atoms';
+import {CustomContainer} from '~/components/atoms';
 import {Colors} from '~/styles';
 
 export default function SelectAccountTypeScreen({
@@ -22,7 +22,7 @@ export default function SelectAccountTypeScreen({
   const [accountType, setAccountType] = useState<number>();
 
   return (
-    <Container px={5} pt={16} pb={5}>
+    <CustomContainer px={5} pt={16} pb={5}>
       <ScrollView>
         <Center>
           <Image
@@ -123,6 +123,6 @@ export default function SelectAccountTypeScreen({
           </Button>
         </HStack>
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

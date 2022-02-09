@@ -3,7 +3,7 @@ import React from 'react';
 
 import {
   AvatarWithTitle,
-  Container,
+  CustomContainer,
   ImageCard,
   SocialButton,
 } from '~/components/atoms';
@@ -13,7 +13,7 @@ export default function MyProfileScreen({route}: any) {
   const id = route?.params?.id;
 
   return (
-    <Container>
+    <CustomContainer>
       <ScrollView>
         <AvatarWithTitle title="Anna Howard" uri="https://picsum.photos/200" />
 
@@ -121,6 +121,6 @@ export default function MyProfileScreen({route}: any) {
           ))}
         </ScrollView>
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

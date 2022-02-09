@@ -3,7 +3,7 @@ import React, {useRef, useState} from 'react';
 import PagerView from 'react-native-pager-view';
 
 import images from '~/assets/images';
-import {Container} from '~/components/atoms';
+import {CustomContainer} from '~/components/atoms';
 import {Colors, Spacing} from '~/styles';
 
 const data = [
@@ -41,10 +41,9 @@ export default function OnboardingScreen({navigation}: any) {
   };
 
   return (
-    <Container
-      flex={1}
-      paddingHorizontal={Spacing.larger}
-      paddingVertical={Spacing.extraLarge}
+    <CustomContainer
+      px={Spacing.larger}
+      py={Spacing.extraLarge}
       justifyContent="space-between"
       backgroundColor={Colors.CHABLIS}>
       <PagerView
@@ -127,6 +126,6 @@ export default function OnboardingScreen({navigation}: any) {
           {page === 0 ? "Let's go" : 'Next'}
         </Button>
       </HStack>
-    </Container>
+    </CustomContainer>
   );
 }

@@ -11,7 +11,7 @@ import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Container, PostOrFeedCard} from '~/components/atoms';
+import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
 import {Colors} from '~/styles';
 
 export default function PostsScreen() {
@@ -21,7 +21,7 @@ export default function PostsScreen() {
   const [postSize, setPostSize] = useState('');
 
   return (
-    <Container>
+    <CustomContainer>
       <Center>
         <Actionsheet isOpen={isOpen} onClose={onClose}>
           <Actionsheet.Content p={7}>
@@ -109,6 +109,6 @@ export default function PostsScreen() {
         }}>
         <Icon as={MaterialCommunityIcon} name="filter" color={Colors.WHITE} />
       </TouchableOpacity>
-    </Container>
+    </CustomContainer>
   );
 }

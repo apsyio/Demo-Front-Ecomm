@@ -1,11 +1,11 @@
 import {FlatList} from 'native-base';
 import React from 'react';
 
-import {Container, PostOrFeedCard} from '~/components/atoms';
+import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
 
 export default function FeedsScreen() {
   return (
-    <Container>
+    <CustomContainer>
       <FlatList
         data={[
           {
@@ -38,6 +38,6 @@ export default function FeedsScreen() {
         ]}
         renderItem={({item}) => <PostOrFeedCard {...item} />}
       />
-    </Container>
+    </CustomContainer>
   );
 }

@@ -1,12 +1,12 @@
 import {FlatList} from 'native-base';
 import React from 'react';
 
-import {Container, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 
 export default function InspoScreen() {
   return (
-    <Container p={3}>
+    <CustomContainer p={3}>
       <FlatList
         numColumns={2}
         columnWrapperStyle={{justifyContent: 'space-around'}}
@@ -42,6 +42,6 @@ export default function InspoScreen() {
           />
         )}
       />
-    </Container>
+    </CustomContainer>
   );
 }

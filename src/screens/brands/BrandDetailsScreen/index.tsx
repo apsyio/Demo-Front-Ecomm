@@ -3,7 +3,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Container, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
@@ -11,7 +11,7 @@ export default function BrandDetailsScreen({params}: any) {
   const id = params?.id;
 
   return (
-    <Container>
+    <CustomContainer>
       <ScrollView>
         <View p={5}>
           <HStack mb={5}>
@@ -120,6 +120,6 @@ export default function BrandDetailsScreen({params}: any) {
           </ScrollView>
         </View>
       </ScrollView>
-    </Container>
+    </CustomContainer>
   );
 }

@@ -2,7 +2,7 @@ import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
 import React, {useState} from 'react';
 
 import images from '~/assets/images';
-import {Container, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard} from '~/components/atoms';
 import {goBack, navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
@@ -10,7 +10,7 @@ export default function SelectStyleScreen() {
   const [favoriteBrands, setFavoriteBrands] = useState<number[]>([]);
 
   return (
-    <Container>
+    <CustomContainer>
       <FlatList
         ListHeaderComponent={() => (
           <Center>
@@ -78,10 +78,10 @@ export default function SelectStyleScreen() {
         <Button
           variant="primary"
           width={'45%'}
-          onPress={() => navigate('Home')}>
+          onPress={() => navigate('MainStack')}>
           Next
         </Button>
       </HStack>
-    </Container>
+    </CustomContainer>
   );
 }
