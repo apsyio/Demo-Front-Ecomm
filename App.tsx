@@ -1,3 +1,4 @@
+console.warn = () => null;
 import {extendTheme, NativeBaseProvider} from 'native-base';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
@@ -26,6 +27,7 @@ export default function App() {
       Button: {
         defaultProps: {
           _pressed: {opacity: 0.5},
+          padding: 4,
         },
         // Can simply pass default props to change default behaviour of components.
         variants: {

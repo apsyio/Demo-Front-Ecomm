@@ -12,6 +12,7 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
+import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function PostsScreen() {
@@ -102,13 +103,20 @@ export default function PostsScreen() {
         style={{
           position: 'absolute',
           right: 20,
-          bottom: 20,
+          bottom: 80,
           backgroundColor: Colors.ROUGE,
           padding: 10,
           borderRadius: 50,
         }}>
         <Icon as={MaterialCommunityIcon} name="filter" color={Colors.WHITE} />
       </TouchableOpacity>
+
+      <Button
+        onPress={() => navigate('WriteReviewOrPost', {brandId: 1})}
+        borderRadius={0}
+        variant={'primary'}>
+        WRITE A POST
+      </Button>
     </CustomContainer>
   );
 }

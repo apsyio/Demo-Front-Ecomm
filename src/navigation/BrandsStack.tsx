@@ -3,7 +3,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {BrandDetailsScreen, BrandsScreen, PostsScreen} from '~/screens/brands';
+import {
+  BrandDetailsScreen,
+  BrandsScreen,
+  PostsScreen,
+  WriteReviewOrPostScreen,
+} from '~/screens/brands';
 import {Colors} from '~/styles';
 
 const Stack = createNativeStackNavigator();
@@ -12,6 +17,7 @@ export type BrandsStackParamList = {
   Brands: undefined;
   BrandDetails: {id: number};
   Posts: undefined;
+  WriteReviewOrPost: {brandId?: number; styleId?: number};
 };
 
 const screens = [
@@ -44,6 +50,16 @@ const screens = [
     },
     name: 'Posts',
     component: PostsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'WriteReviewOrPost',
+    component: WriteReviewOrPostScreen,
   },
 ];
 
