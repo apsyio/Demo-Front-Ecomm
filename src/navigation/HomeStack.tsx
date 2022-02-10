@@ -18,6 +18,7 @@ import {
   ProfileScreen,
   SettingsScreen,
   SupportScreen,
+  TagClothesScreen,
   TermsOfServiceScreen,
 } from '~/screens/home';
 import {OutfitScreen} from '~/screens/inspo';
@@ -32,6 +33,7 @@ export type HomeStackParamList = {
   Profile: undefined;
   MyProfile: {id: number};
   CreateCloset: undefined;
+  TagClothesScreen: undefined;
   Settings: undefined;
   Support: undefined;
   FAQ: undefined;
@@ -88,6 +90,17 @@ const screens = [
     },
     name: 'CreateCloset',
     component: CreateClosetScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Tag Clothes',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'TagClothes',
+    component: TagClothesScreen,
   },
   {
     options: {
