@@ -39,7 +39,10 @@ export default function ProfileScreen() {
           </Button>
         </Center>
 
-        <Button mt={5} variant={'primary'} onPress={() => null}>
+        <Button
+          mt={5}
+          variant={'primary'}
+          onPress={() => navigate('CreateCloset')}>
           Create a new closet
         </Button>
 

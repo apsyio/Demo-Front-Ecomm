@@ -4,13 +4,13 @@ import {
   FormControl,
   HStack,
   Icon,
-  Image,
   Stack,
   Text,
   View,
 } from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
+  ImageBackground,
   ImageProps,
   Modal,
   SafeAreaView,
@@ -18,7 +18,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {cameraOptions} from '~/constants/camera';
 import {Colors} from '~/styles';
@@ -146,35 +146,63 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
             borderColor={showError ? Colors.RED : Colors.SHADY_LADY}
             borderStyle={'dashed'}
             backgroundColor={Colors.WHITE}>
-            {
-              //@ts-ignore
-              value || props.source?.uri ? (
-                <Image
-                  width={150}
-                  height={150}
-                  {...props}
-                  source={
-                    value
-                      ? {
-                          uri: value,
-                        }
-                      : props.source
-                  }
-                />
-              ) : (
-                <HStack alignItems="center">
-                  <Icon
-                    as={MaterialCommunityIcons}
-                    size="sm"
-                    name={'plus'}
-                    color={Colors.SHADY_LADY}
+            <>
+              {value && (
+                <TouchableOpacity
+                  onPress={() => {
+                    setValue(undefined);
+                    props.onChange?.(null);
+                  }}>
+                  <HStack
+                    borderRadius={'sm'}
+                    alignItems={'center'}
+                    position={'absolute'}
+                    right={-60}
+                    top={0}
+                    p={2}
+                    bg={Colors.CHABLIS}>
+                    <Icon
+                      size={'sm'}
+                      as={MaterialCommunityIcon}
+                      name="delete"
+                      color={Colors.RED}
+                    />
+                    <Text>Delete</Text>
+                  </HStack>
+                </TouchableOpacity>
+              )}
+
+              {
+                //@ts-ignore
+                value || props.source?.uri ? (
+                  <ImageBackground
+                    style={{width: 180, height: '100%'}}
+                    resizeMode="contain"
+                    // height={180}
+                    {...props}
+                    source={
+                      value
+                        ? {
+                            uri: value,
+                          }
+                        : props.source
+                    }
                   />
-                  <Text py={3} color={Colors.SHADY_LADY}>
-                    Add your photo
-                  </Text>
-                </HStack>
-              )
-            }
+                ) : (
+                  <HStack alignItems="center">
+                    <Icon
+                      as={MaterialCommunityIcon}
+                      size="sm"
+                      name={'plus'}
+                      color={Colors.SHADY_LADY}
+                    />
+                    <Text py={20} color={Colors.SHADY_LADY}>
+                      Add your photo
+                    </Text>
+                  </HStack>
+                )
+              }
+            </>
           </Button>
 
           <FormControl.ErrorMessage>

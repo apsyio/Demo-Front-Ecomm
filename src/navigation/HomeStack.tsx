@@ -8,6 +8,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import {ChevronBackButton} from '~/components/atoms';
 import {BrandDetailsScreen, BrandsScreen, PostsScreen} from '~/screens/brands';
 import {
+  CreateClosetScreen,
   EditProfileInformationScreen,
   EditProfileSocialNetworksScreen,
   FAQScreen,
@@ -30,6 +31,7 @@ export type HomeStackParamList = {
   Home: undefined;
   Profile: undefined;
   MyProfile: {id: number};
+  CreateCloset: undefined;
   Settings: undefined;
   Support: undefined;
   FAQ: undefined;
@@ -75,6 +77,17 @@ const screens = [
     },
     name: 'MyProfile',
     component: MyProfileScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Upload',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'CreateCloset',
+    component: CreateClosetScreen,
   },
   {
     options: {

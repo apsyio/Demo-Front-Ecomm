@@ -1,3 +1,4 @@
+export {default as CreateClosetScreen} from './CreateClosetScreen';
 export {default as EditProfileInformationScreen} from './EditProfileInformationScreen';
 export {default as EditProfileSocialNetworksScreen} from './EditProfileSocialNetworksScreen';
 export {default as FAQScreen} from './FAQScreen';
