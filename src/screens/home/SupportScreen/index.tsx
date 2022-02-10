@@ -3,8 +3,7 @@ import {isEmail} from '@formiz/validations';
 import {Button, View} from 'native-base';
 import React from 'react';
 
-import {CustomContainer} from '~/components/atoms';
-import {CustomInput} from '~/components/atoms/CustomInput';
+import {CustomContainer, CustomInput} from '~/components/atoms';
 
 export default function SupportScreen() {
   const supportForm = useForm();

@@ -3,8 +3,11 @@ import {isEmail} from '@formiz/validations';
 import {Button, ScrollView, Text} from 'native-base';
 import React from 'react';
 
-import {AvatarWithTitle, CustomContainer} from '~/components/atoms';
-import {CustomInput} from '~/components/atoms/CustomInput';
+import {
+  AvatarWithTitle,
+  CustomContainer,
+  CustomInput,
+} from '~/components/atoms';
 
 export default function EditProfileInformationScreen() {
   const editForm = useForm();

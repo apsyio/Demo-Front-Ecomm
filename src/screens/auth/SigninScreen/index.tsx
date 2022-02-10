@@ -4,8 +4,12 @@ import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
 import React from 'react';
 
 import images from '~/assets/images';
-import {CustomContainer, LineWithText, SocialButton} from '~/components/atoms';
-import {CustomInput} from '~/components/atoms/CustomInput';
+import {
+  CustomContainer,
+  CustomInput,
+  LineWithText,
+  SocialButton,
+} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
