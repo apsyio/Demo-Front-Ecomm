@@ -1,4 +1,4 @@
-package com.cuethecurves;
+package io.apsy.cuethecurves;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
