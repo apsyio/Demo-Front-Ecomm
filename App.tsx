@@ -2,11 +2,14 @@ console.warn = () => null;
 import {extendTheme, NativeBaseProvider} from 'native-base';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 import AppNavigator from '~/navigation/AppNavigator';
 import {Colors} from '~/styles';
 
 export default function App() {
+  const queryClient = new QueryClient();
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -53,8 +56,10 @@ export default function App() {
   });
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <AppNavigator />
-    </NativeBaseProvider>
+    <QueryClientProvider client={queryClient}>
+      <NativeBaseProvider theme={theme}>
+        <AppNavigator />
+      </NativeBaseProvider>
+    </QueryClientProvider>
   );
 }
