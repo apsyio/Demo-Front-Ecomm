@@ -4,6 +4,7 @@ import PagerView from 'react-native-pager-view';
 
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
+import {onboardingStore} from '~/store';
 import {Colors, Spacing} from '~/styles';
 
 const data = [
@@ -27,7 +28,11 @@ const data = [
   },
 ];
 
-export default function OnboardingScreen({navigation}: any) {
+export default function OnboardingScreen() {
+  const setIsOnboardingViewed = onboardingStore(
+    state => state.setIsOnboardingViewed,
+  );
+
   const [page, setPage] = useState(0);
 
   const viewPager = useRef(null);
@@ -37,7 +42,7 @@ export default function OnboardingScreen({navigation}: any) {
   };
 
   const onPressDone = () => {
-    navigation.replace('AuthStack');
+    setIsOnboardingViewed(true);
   };
 
   return (
