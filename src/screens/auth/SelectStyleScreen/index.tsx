@@ -3,11 +3,15 @@ import React, {useState} from 'react';
 
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import useGetStyles from '~/hooks/styles/useGetStyles';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function SelectStyleScreen() {
   const [styles, setStyles] = useState<number[]>([]);
+
+  const {isRefetching, data, fetchNextPage, hasNextPage, refetch} =
+    useGetStyles({});
 
   return (
     <CustomContainer>
@@ -29,18 +33,17 @@ export default function SelectStyleScreen() {
         )}
         mt={10}
         numColumns={2}
-        data={[
-          {id: 1, title: 'CASUAL', uri: 'https://picsum.photos/200'},
-          {id: 2, title: 'STREET CASUAL', uri: 'https://picsum.photos/200'},
-          {id: 3, title: 'ELEGANT', uri: 'https://picsum.photos/200'},
-          {id: 4, title: 'SPORT CASUAL', uri: 'https://picsum.photos/200'},
-          {id: 5, title: 'EXOTIC', uri: 'https://picsum.photos/200'},
-          {id: 6, title: 'GRUNGE', uri: 'https://picsum.photos/200'},
-        ]}
+        refreshing={isRefetching}
+        onRefresh={refetch}
+        keyExtractor={(item, index) =>
+          item?.name ? item?.name : index?.toString()
+        }
+        data={data?.pages}
         renderItem={({item}) => (
           <View style={{width: '50%', marginTop: 10}}>
             <ImageCard
               {...item}
+              uri={item?.thumbnail || ''}
               onPress={() => {
                 if (styles?.includes(item.id)) {
                   setStyles(prev => prev?.filter(a => a !== item.id));
@@ -70,10 +73,15 @@ export default function SelectStyleScreen() {
 
             <Text
               color={styles?.includes(item.id) ? Colors.ROUGE : Colors.EMPRESS}>
-              {item.title}
+              {item.name}
             </Text>
           </View>
         )}
+        onEndReached={() => {
+          if (hasNextPage) {
+            fetchNextPage();
+          }
+        }}
       />
 
       <HStack justifyContent="space-around" my={2}>
