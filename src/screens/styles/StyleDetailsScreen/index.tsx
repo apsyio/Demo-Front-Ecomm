@@ -83,28 +83,28 @@ export default function StyleDetailsScreen({route}: any) {
             {[
               {
                 id: 1,
-                tags: ['CASUAL', 'STREET CASUAL'],
-                uri: 'https://picsum.photos/200',
+                sizes: ['CASUAL', 'STREET CASUAL'],
+                thumbnail: 'https://picsum.photos/200',
               },
               {
                 id: 2,
-                tags: ['CASUAL', 'STREET CASUAL'],
-                uri: 'https://picsum.photos/200',
+                sizes: ['CASUAL', 'STREET CASUAL'],
+                thumbnail: 'https://picsum.photos/200',
               },
               {
                 id: 3,
-                tags: ['CASUAL', 'ELEGANT'],
-                uri: 'https://picsum.photos/200',
+                sizes: ['CASUAL', 'ELEGANT'],
+                thumbnail: 'https://picsum.photos/200',
               },
               {
                 id: 4,
-                tags: ['CASUAL', 'SPORT CASUAL'],
-                uri: 'https://picsum.photos/200',
+                sizes: ['CASUAL', 'SPORT CASUAL'],
+                thumbnail: 'https://picsum.photos/200',
               },
             ].map(item => (
               <BrandCard
                 key={item.id}
-                uri={item.uri}
+                thumbnail={item.thumbnail}
                 onPress={() =>
                   navigate('BrandDetails', {
                     id: item.id,

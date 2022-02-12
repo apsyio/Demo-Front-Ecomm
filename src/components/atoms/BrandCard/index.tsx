@@ -2,18 +2,19 @@ import {Text} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
+import {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 import {ImageCard} from '..';
 
 export default function BrandCard({
-  uri,
+  thumbnail,
   onPress,
-  tags,
+  sizes,
 }: {
-  uri: string;
+  thumbnail: Maybe<string> | undefined;
   onPress: () => void;
-  tags?: string[];
+  sizes?: Maybe<any[]> | undefined;
 }) {
   return (
     <TouchableOpacity
@@ -35,10 +36,10 @@ export default function BrandCard({
         }}
         hasBorder
         onPress={onPress}
-        uri={uri}
+        uri={thumbnail}
       />
 
-      {tags && (
+      {sizes && (
         <Text
           fontWeight={'bold'}
           numberOfLines={1}
@@ -46,7 +47,7 @@ export default function BrandCard({
           color={Colors.SEA_PINK}
           mt={3}
           mb={1}>
-          {tags.join('   ')}
+          {sizes.join('   ')}
         </Text>
       )}
     </TouchableOpacity>
