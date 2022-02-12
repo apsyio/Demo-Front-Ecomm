@@ -14,10 +14,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function HomeScreen() {
+  const {recommendBrand} = useGetRecommendBrand({});
+
   return (
     <CustomContainer>
       <FlatList
@@ -61,7 +64,10 @@ export default function HomeScreen() {
                 variant={'sub'}
                 onPress={() => navigate('Brands')}>
                 <Center p={5}>
-                  <Image resizeMode="contain" source={images.chanel} />
+                  <Image
+                    resizeMode="contain"
+                    source={recommendBrand?.thumbnail || ''}
+                  />
                 </Center>
               </Button>
 
