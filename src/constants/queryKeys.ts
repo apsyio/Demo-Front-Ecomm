@@ -1,5 +1,6 @@
 const queryKeys = {
   recommendBrand: 'recommendBrand',
+  style: 'style',
   styles: 'styles',
   brand: 'brand',
   brands: 'brands',

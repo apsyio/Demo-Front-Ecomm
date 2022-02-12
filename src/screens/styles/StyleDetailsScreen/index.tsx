@@ -4,47 +4,25 @@ import {TouchableOpacity} from 'react-native';
 
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
 import BrandCard from '~/components/atoms/BrandCard';
+import useGetStyleByStyleId from '~/hooks/styles/useGetStyleByStyleId';
 import {navigate} from '~/navigation/methods';
 
 export default function StyleDetailsScreen({route}: any) {
   const id = route.params?.id;
-  console.log('id', id);
+
+  const {styleDetails} = useGetStyleByStyleId(id);
 
   return (
     <CustomContainer>
       <ScrollView>
-        <StyleOrBrandCard
-          uri="https://picsum.photos/200"
-          title="Cottage core"
-          likesCount={12}
-        />
+        <StyleOrBrandCard {...styleDetails} />
+
         <View mt={3}>
           <ScrollView horizontal>
-            {[
-              {
-                id: 1,
-                imageUrl: 'https://picsum.photos/200',
-                colors: ['#ff0', '#f0f', '#0ff'],
-              },
-              {
-                id: 2,
-                imageUrl: 'https://picsum.photos/200',
-                colors: ['#ff0', '#f0f'],
-              },
-              {
-                id: 3,
-                imageUrl: 'https://picsum.photos/200',
-                colors: ['#ff0', '#f0f', '#0ff'],
-              },
-              {
-                id: 4,
-                imageUrl: 'https://picsum.photos/200',
-                colors: ['#ff0', '#f0f'],
-              },
-            ].map(({imageUrl, colors}) => (
-              <HStack key={imageUrl} mr={2}>
+            {styleDetails?.photos?.map(photo => (
+              <HStack key={photo} mr={2}>
                 <View>
-                  {colors.map(c => (
+                  {styleDetails?.colors?.map(c => (
                     <View
                       key={c}
                       rounded="full"
@@ -61,7 +39,7 @@ export default function StyleDetailsScreen({route}: any) {
                   mr={2}
                   width={130}
                   height={160}
-                  source={{uri: imageUrl}}
+                  source={{uri: photo}}
                 />
               </HStack>
             ))}
@@ -80,34 +58,13 @@ export default function StyleDetailsScreen({route}: any) {
 
         <View>
           <ScrollView horizontal>
-            {[
-              {
-                id: 1,
-                sizes: ['CASUAL', 'STREET CASUAL'],
-                thumbnail: 'https://picsum.photos/200',
-              },
-              {
-                id: 2,
-                sizes: ['CASUAL', 'STREET CASUAL'],
-                thumbnail: 'https://picsum.photos/200',
-              },
-              {
-                id: 3,
-                sizes: ['CASUAL', 'ELEGANT'],
-                thumbnail: 'https://picsum.photos/200',
-              },
-              {
-                id: 4,
-                sizes: ['CASUAL', 'SPORT CASUAL'],
-                thumbnail: 'https://picsum.photos/200',
-              },
-            ].map(item => (
+            {styleDetails?.brands?.map(brand => (
               <BrandCard
-                key={item.id}
-                thumbnail={item.thumbnail}
+                key={brand?.id}
+                thumbnail={brand?.thumbnail}
                 onPress={() =>
                   navigate('BrandDetails', {
-                    id: item.id,
+                    id: brand?.id,
                   })
                 }
               />
@@ -127,35 +84,14 @@ export default function StyleDetailsScreen({route}: any) {
 
         <View>
           <ScrollView horizontal>
-            {[
-              {
-                id: 1,
-                title: 'Isabella Hutton',
-                uri: 'https://picsum.photos/200',
-              },
-              {
-                id: 2,
-                title: 'Isabella Hutton',
-                uri: 'https://picsum.photos/200',
-              },
-              {
-                id: 3,
-                title: 'Isabella Hutton',
-                uri: 'https://picsum.photos/200',
-              },
-              {
-                id: 4,
-                title: 'Isabella Hutton',
-                uri: 'https://picsum.photos/200',
-              },
-            ].map(item => (
+            {styleDetails?.inspos?.map(inspo => (
               <ImageCard
                 containerStyle={{marginRight: 10}}
-                key={item.id}
-                uri={item.uri}
+                key={inspo?.id}
+                uri={inspo?.thumbnail}
                 onPress={() =>
                   navigate('BrandDetails', {
-                    id: item.id,
+                    id: inspo?.id,
                   })
                 }
               />
