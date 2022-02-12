@@ -1,6 +1,6 @@
 import {gql} from 'graphql-request';
 
-export const GET_USER_POSTS = gql`
+export const GET_POSTS = gql`
   query post_getUserPosts(
     $skip: Int
     $take: Int
@@ -160,36 +160,6 @@ export const GET_USER_POSTS = gql`
           id
           postedAt
           liked
-          likes {
-            userId
-            user {
-              fullName
-              accountType
-              email
-              phone
-              bio
-              externalId
-              id
-              isDeleted
-            }
-            postId
-            post {
-              title
-              content
-              photo
-              brandId
-              styleId
-              postType
-              sizeTag
-              posterId
-              postedAt
-              id
-              isDeleted
-            }
-            liked
-            id
-            isDeleted
-          }
         }
         pageInfo {
           hasNextPage

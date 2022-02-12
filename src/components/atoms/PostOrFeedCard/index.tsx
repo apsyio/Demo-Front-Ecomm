@@ -2,23 +2,17 @@ import {Avatar, Button, HStack, Icon, Image, Text, VStack} from 'native-base';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {PostDto} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 export default function PostOrFeedCard({
-  fullname,
+  poster,
   title,
-  desc,
-  uri,
-  isLiked,
-  createdAt,
-}: {
-  fullname: string;
-  title: string;
-  desc: string;
-  uri: string;
-  isLiked: boolean;
-  createdAt: string;
-}) {
+  content,
+  photo,
+  liked,
+  postedAt,
+}: PostDto) {
   return (
     <>
       <VStack p={5}>
@@ -30,9 +24,9 @@ export default function PostOrFeedCard({
               source={{uri: 'https://picsum.photos/200'}}
             />
             <VStack>
-              <Text>{fullname}</Text>
+              <Text>{poster?.fullName}</Text>
               <Text fontSize={'sm'} color={Colors.EMPRESS}>
-                {createdAt}
+                {postedAt}
               </Text>
             </VStack>
           </HStack>
@@ -40,8 +34,8 @@ export default function PostOrFeedCard({
             <Icon
               as={MaterialCommunityIcons}
               size="md"
-              name={'heart' + (isLiked ? '' : '-outline')}
-              color={isLiked ? Colors.RED : Colors.BLACK}
+              name={'heart' + (liked ? '' : '-outline')}
+              color={liked ? Colors.RED : Colors.BLACK}
             />
           </Button>
         </HStack>
@@ -50,10 +44,10 @@ export default function PostOrFeedCard({
           {title}
         </Text>
 
-        <Text>{desc}</Text>
+        <Text>{content}</Text>
       </VStack>
 
-      <Image width={'100%'} height={200} source={{uri}} />
+      <Image width={'100%'} height={200} source={{uri: photo}} />
     </>
   );
 }

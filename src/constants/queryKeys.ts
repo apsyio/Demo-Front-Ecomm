@@ -3,6 +3,7 @@ const queryKeys = {
   styles: 'styles',
   brands: 'brands',
   inspos: 'inspos',
+  posts: 'posts',
 };
 
 export default queryKeys;
