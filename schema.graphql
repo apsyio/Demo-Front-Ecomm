@@ -1,0 +1,1002 @@
+"""
+The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A import {gql} from 'graphql-request';
+
+export const GET_ADVERTISEMENTS = gql`
+  query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
+"""
+directive @defer(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to.
+  """
+  label: String
+
+  """
+  Deferred when true.
+  """
+  if: Boolean
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`.
+"""
+directive @stream(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to.
+  """
+  label: String
+
+  """
+  The initial elements that shall be send down to the consumer.
+  """
+  initialCount: Int! = 0
+
+  """
+  Streamed when true.
+  """
+  if: Boolean
+) on FIELD
+
+type Query {
+  styles_getStyles: ListResponseBaseOfStyles
+  styles_getStyle(styleId: Int!): ResponseBaseOfStyleDto
+  user_login: ResponseBaseOfUsers
+  user_getStyles: ListResponseBaseOfStyles
+  user_getSelectedInspos: ListResponseBaseOfUsers
+  user_getBrands: ListResponseBaseOfBrands
+  user_getInspos(
+    isCommon: Boolean! = false
+    isRandom: Boolean! = true
+  ): ListResponseBaseOfUsers
+  user_getInspo(inspoId: Int!): ResponseBaseOfUserDto
+  brand_getBrands(brandIds: [Int!]): ListResponseBaseOfBrands
+  brand_recommendBrand: ResponseBaseOfBrands
+  brand_getAllBrands: ListResponseBaseOfBrandDto
+  brand_getBrand(brandId: Int!): ResponseBaseOfBrandDto
+  post_getUserPosts: ListResponseBaseOfPostDto
+  post_getStylePosts(styleId: Int!): ListResponseBaseOfPostDto
+  post_getBrandPosts(brandId: Int!): ListResponseBaseOfPostDto
+}
+
+type Mutation {
+  user_signUp: ResponseBaseOfUsers
+  user_setStyles(styleIds: [Int!]): ResponseBase
+  user_setBrands(brandIds: [Int!]): ResponseBase
+  user_updateUser(input: UserInput): ResponseBaseOfUsers
+  post_createPost(postInput: PostInput): ResponseBaseOfPosts
+  post_likePost(postId: Int!, liked: Boolean! = true): ResponseBase
+  style_likeStyle(styleId: Int!, liked: Boolean! = true): ResponseBase
+  brand_likeBrand(brandId: Int!, liked: Boolean! = true): ResponseBase
+  closet_createCloset(input: ClosetInput): ResponseBaseOfClosets
+}
+
+type BrandLikes {
+  userId: Int!
+  user: Users
+  brandId: Int!
+  brand: Brands
+  liked: Boolean!
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type Brands {
+  sizes: [Any]
+  name: String
+  thumbnail: String
+  likesCount: Int!
+  photos: [String]
+  userBrands: [UserBrands]
+  brandLikes: [BrandLikes]
+  posts: [Posts]
+  styleBrands: [StyleBrands]
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type ClosetItems {
+  closetId: Int!
+  closet: Closets
+  name: String
+  url: String
+  xCoordinate: Long!
+  yCoordinate: Long!
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type Closets {
+  userId: Int!
+  user: Users
+  outfitName: String
+  photo: String
+  createdAt: DateTime!
+  closetItems: [ClosetItems]
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type PostLikes {
+  userId: Int!
+  user: Users
+  postId: Int!
+  post: Posts
+  liked: Boolean!
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type Posts {
+  title: String
+  content: String
+  photo: String
+  brandId: Int
+  brand: Brands
+  styleId: Int
+  style: Styles
+  postType: PostTypes!
+  sizeTag: Float!
+  postLikes: [PostLikes]
+  posterId: Int!
+  poster: Users
+  postedAt: DateTime!
+  likes: [PostLikes]
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type Sizes {
+  size: String
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type StyleBrands {
+  styleId: Int!
+  style: Styles
+  brandId: Int!
+  brand: Brands
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type StyleLikes {
+  userId: Int!
+  user: Users
+  styleId: Int!
+  style: Styles
+  liked: Boolean!
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type Styles {
+  name: String
+  thumbnail: String
+  colors: [String]
+  photos: [String]
+  likesCount: Int!
+  styleBrands: [StyleBrands]
+  posts: [Posts]
+  userStyles: [UserStyles]
+  styleLikes: [StyleLikes]
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type UserBrands {
+  userId: Int!
+  user: Users
+  brandId: Int!
+  brand: Brands
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type Users {
+  fullName: String
+  accountType: AccountTypes!
+  email: String
+  phone: String
+  bio: String
+  postLikes: [PostLikes]
+  socials: [UserSocials]
+  closets: [Closets]
+  userBrands: [UserBrands]
+  brandLikes: [BrandLikes]
+  userStyles: [UserStyles]
+  styleLikes: [StyleLikes]
+  externalId: String
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type UserSocials {
+  socialNetworks: SocialNetworks!
+  address: String
+  userId: Int!
+  user: Users
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type UserStyles {
+  userId: Int!
+  user: Users
+  styleId: Int!
+  style: Styles
+  id: Int!
+  isDeleted: Boolean!
+}
+
+type BrandDto {
+  sizes: [Any]
+  id: Int!
+  name: String
+  thumbnail: String
+  likesCount: Int!
+  photos: [String]
+  styles: [Styles]
+  inspos: [Users]
+  liked: Boolean!
+}
+
+type PostDto {
+  title: String
+  content: String
+  photo: String
+  brand: Brands
+  style: Styles
+  postType: PostTypes!
+  sizeTag: Float!
+  posterId: Int!
+  poster: Users
+  likesCount: Int!
+  id: Int!
+  postedAt: DateTime!
+  liked: Boolean!
+  likes: [PostLikes]
+}
+
+type StyleDto {
+  name: String
+  thumbnail: String
+  colors: [String]
+  photos: [String]
+  likesCount: Int!
+  liked: Boolean!
+  inspos: [Users]
+  brands: [Brands]
+}
+
+type UserDto {
+  fullName: String
+  accountType: AccountTypes!
+  email: String
+  phone: String
+  bio: String
+  socials: [UserSocials]
+  brands: [Brands]
+  closets: [Closets]
+}
+
+enum ApplyPolicy {
+  BEFORE_RESOLVER
+  AFTER_RESOLVER
+}
+
+scalar Any
+
+"""
+The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+"""
+The `DateTime` scalar represents an ISO-8601 compliant date time type.
+"""
+scalar DateTime
+
+enum PostTypes {
+  POST
+  REVIEW
+}
+
+enum AccountTypes {
+  PRIVATE
+  PUBLIC
+}
+
+enum SocialNetworks {
+  FACEBOOK
+  INSTAGRAM
+  GOOGLE
+  TIK_TOK
+}
+
+type ResponseBaseOfClosets {
+  result: Closets
+  status: ResponseStatus!
+}
+
+input PostInput {
+  title: String
+  content: String
+  photo: String
+  brandId: Int
+  styleId: Int
+  postType: PostTypes!
+  sizeTag: Float
+  posterId: Int
+}
+
+type ResponseBaseOfPosts {
+  result: Posts
+  status: ResponseStatus!
+}
+
+input UserInput {
+  id: Int
+  fullName: String
+  accountType: AccountTypes
+  email: String
+  phone: String
+  bio: String
+  socials: [UserSocialInput]
+}
+
+type ResponseBase {
+  status: ResponseStatus!
+}
+
+type ListResponseBaseOfPostDto {
+  result(
+    skip: Int
+    take: Int
+    where: PostDtoFilterInput
+    order: [PostDtoSortInput!]
+  ): PostDtoCollectionSegment
+  status: ResponseStatus!
+}
+
+type ResponseBaseOfBrandDto {
+  result: BrandDto
+  status: ResponseStatus!
+}
+
+type ListResponseBaseOfBrandDto {
+  result(
+    skip: Int
+    take: Int
+    where: BrandDtoFilterInput
+    order: [BrandDtoSortInput!]
+  ): BrandDtoCollectionSegment
+  status: ResponseStatus!
+}
+
+type ResponseBaseOfBrands {
+  result: Brands
+  status: ResponseStatus!
+}
+
+type ResponseBaseOfStyleDto {
+  result: StyleDto
+  status: ResponseStatus!
+}
+
+type ResponseBaseOfUserDto {
+  result: UserDto
+  status: ResponseStatus!
+}
+
+type ListResponseBaseOfBrands {
+  result(
+    skip: Int
+    take: Int
+    where: BrandsFilterInput
+    order: [BrandsSortInput!]
+  ): BrandsCollectionSegment
+  status: ResponseStatus!
+}
+
+type ListResponseBaseOfUsers {
+  result(
+    skip: Int
+    take: Int
+    where: UsersFilterInput
+    order: [UsersSortInput!]
+  ): UsersCollectionSegment
+  status: ResponseStatus!
+}
+
+type ListResponseBaseOfStyles {
+  result(
+    skip: Int
+    take: Int
+    where: StylesFilterInput
+    order: [StylesSortInput!]
+  ): StylesCollectionSegment
+  status: ResponseStatus!
+}
+
+type ResponseBaseOfUsers {
+  result: Users
+  status: ResponseStatus!
+}
+
+input ClosetInput {
+  outfitName: String
+  photo: String
+  closetItems: [ClosetItemInput]
+}
+
+input PostDtoFilterInput {
+  and: [PostDtoFilterInput!]
+  or: [PostDtoFilterInput!]
+  title: StringOperationFilterInput
+  content: StringOperationFilterInput
+  photo: StringOperationFilterInput
+  brand: BrandsFilterInput
+  style: StylesFilterInput
+  postType: PostTypesOperationFilterInput
+  sizeTag: ComparableDoubleOperationFilterInput
+  posterId: ComparableInt32OperationFilterInput
+  poster: UsersFilterInput
+  likesCount: ComparableInt32OperationFilterInput
+  id: ComparableInt32OperationFilterInput
+  postedAt: ComparableDateTimeOperationFilterInput
+  liked: BooleanOperationFilterInput
+  likes: ListFilterInputTypeOfPostLikesFilterInput
+}
+
+input PostDtoSortInput {
+  title: SortEnumType
+  content: SortEnumType
+  photo: SortEnumType
+  brand: BrandsSortInput
+  style: StylesSortInput
+  postType: SortEnumType
+  sizeTag: SortEnumType
+  posterId: SortEnumType
+  poster: UsersSortInput
+  likesCount: SortEnumType
+  id: SortEnumType
+  postedAt: SortEnumType
+  liked: SortEnumType
+}
+
+type PostDtoCollectionSegment {
+  items: [PostDto]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+input BrandDtoFilterInput {
+  and: [BrandDtoFilterInput!]
+  or: [BrandDtoFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  name: StringOperationFilterInput
+  thumbnail: StringOperationFilterInput
+  likesCount: ComparableInt32OperationFilterInput
+  photos: ListStringOperationFilterInput
+  styles: ListFilterInputTypeOfStylesFilterInput
+  inspos: ListFilterInputTypeOfUsersFilterInput
+  liked: BooleanOperationFilterInput
+}
+
+input BrandDtoSortInput {
+  id: SortEnumType
+  name: SortEnumType
+  thumbnail: SortEnumType
+  likesCount: SortEnumType
+  liked: SortEnumType
+}
+
+type BrandDtoCollectionSegment {
+  items: [BrandDto]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+input BrandsFilterInput {
+  and: [BrandsFilterInput!]
+  or: [BrandsFilterInput!]
+  name: StringOperationFilterInput
+  thumbnail: StringOperationFilterInput
+  likesCount: ComparableInt32OperationFilterInput
+  photos: ListStringOperationFilterInput
+  userBrands: ListFilterInputTypeOfUserBrandsFilterInput
+  brandLikes: ListFilterInputTypeOfBrandLikesFilterInput
+  posts: ListFilterInputTypeOfPostsFilterInput
+  styleBrands: ListFilterInputTypeOfStyleBrandsFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input BrandsSortInput {
+  name: SortEnumType
+  thumbnail: SortEnumType
+  likesCount: SortEnumType
+  id: SortEnumType
+  isDeleted: SortEnumType
+}
+
+type BrandsCollectionSegment {
+  items: [Brands]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+input UsersFilterInput {
+  and: [UsersFilterInput!]
+  or: [UsersFilterInput!]
+  fullName: StringOperationFilterInput
+  accountType: AccountTypesOperationFilterInput
+  email: StringOperationFilterInput
+  phone: StringOperationFilterInput
+  bio: StringOperationFilterInput
+  postLikes: ListFilterInputTypeOfPostLikesFilterInput
+  socials: ListFilterInputTypeOfUserSocialsFilterInput
+  closets: ListFilterInputTypeOfClosetsFilterInput
+  userBrands: ListFilterInputTypeOfUserBrandsFilterInput
+  brandLikes: ListFilterInputTypeOfBrandLikesFilterInput
+  userStyles: ListFilterInputTypeOfUserStylesFilterInput
+  styleLikes: ListFilterInputTypeOfStyleLikesFilterInput
+  externalId: StringOperationFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input UsersSortInput {
+  fullName: SortEnumType
+  accountType: SortEnumType
+  email: SortEnumType
+  phone: SortEnumType
+  bio: SortEnumType
+  externalId: SortEnumType
+  id: SortEnumType
+  isDeleted: SortEnumType
+}
+
+type UsersCollectionSegment {
+  items: [Users]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+input StylesFilterInput {
+  and: [StylesFilterInput!]
+  or: [StylesFilterInput!]
+  name: StringOperationFilterInput
+  thumbnail: StringOperationFilterInput
+  colors: ListStringOperationFilterInput
+  photos: ListStringOperationFilterInput
+  likesCount: ComparableInt32OperationFilterInput
+  styleBrands: ListFilterInputTypeOfStyleBrandsFilterInput
+  posts: ListFilterInputTypeOfPostsFilterInput
+  userStyles: ListFilterInputTypeOfUserStylesFilterInput
+  styleLikes: ListFilterInputTypeOfStyleLikesFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input StylesSortInput {
+  name: SortEnumType
+  thumbnail: SortEnumType
+  likesCount: SortEnumType
+  id: SortEnumType
+  isDeleted: SortEnumType
+}
+
+type StylesCollectionSegment {
+  items: [Styles]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input PostTypesOperationFilterInput {
+  eq: PostTypes
+  neq: PostTypes
+  in: [PostTypes!]
+  nin: [PostTypes!]
+}
+
+input ComparableDoubleOperationFilterInput {
+  eq: Float
+  neq: Float
+  in: [Float!]
+  nin: [Float!]
+  gt: Float
+  ngt: Float
+  gte: Float
+  ngte: Float
+  lt: Float
+  nlt: Float
+  lte: Float
+  nlte: Float
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input ComparableDateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input ListFilterInputTypeOfPostLikesFilterInput {
+  all: PostLikesFilterInput
+  none: PostLikesFilterInput
+  some: PostLikesFilterInput
+  any: Boolean
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+"""
+Information about the offset pagination.
+"""
+type CollectionSegmentInfo {
+  """
+  Indicates whether more items exist following the set defined by the clients arguments.
+  """
+  hasNextPage: Boolean!
+
+  """
+  Indicates whether more items exist prior the set defined by the clients arguments.
+  """
+  hasPreviousPage: Boolean!
+}
+
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfStylesFilterInput {
+  all: StylesFilterInput
+  none: StylesFilterInput
+  some: StylesFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfUsersFilterInput {
+  all: UsersFilterInput
+  none: UsersFilterInput
+  some: UsersFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfUserBrandsFilterInput {
+  all: UserBrandsFilterInput
+  none: UserBrandsFilterInput
+  some: UserBrandsFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfBrandLikesFilterInput {
+  all: BrandLikesFilterInput
+  none: BrandLikesFilterInput
+  some: BrandLikesFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfPostsFilterInput {
+  all: PostsFilterInput
+  none: PostsFilterInput
+  some: PostsFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfStyleBrandsFilterInput {
+  all: StyleBrandsFilterInput
+  none: StyleBrandsFilterInput
+  some: StyleBrandsFilterInput
+  any: Boolean
+}
+
+input AccountTypesOperationFilterInput {
+  eq: AccountTypes
+  neq: AccountTypes
+  in: [AccountTypes!]
+  nin: [AccountTypes!]
+}
+
+input ListFilterInputTypeOfUserSocialsFilterInput {
+  all: UserSocialsFilterInput
+  none: UserSocialsFilterInput
+  some: UserSocialsFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfClosetsFilterInput {
+  all: ClosetsFilterInput
+  none: ClosetsFilterInput
+  some: ClosetsFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfUserStylesFilterInput {
+  all: UserStylesFilterInput
+  none: UserStylesFilterInput
+  some: UserStylesFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfStyleLikesFilterInput {
+  all: StyleLikesFilterInput
+  none: StyleLikesFilterInput
+  some: StyleLikesFilterInput
+  any: Boolean
+}
+
+input PostLikesFilterInput {
+  and: [PostLikesFilterInput!]
+  or: [PostLikesFilterInput!]
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  postId: ComparableInt32OperationFilterInput
+  post: PostsFilterInput
+  liked: BooleanOperationFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input UserBrandsFilterInput {
+  and: [UserBrandsFilterInput!]
+  or: [UserBrandsFilterInput!]
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  brandId: ComparableInt32OperationFilterInput
+  brand: BrandsFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input BrandLikesFilterInput {
+  and: [BrandLikesFilterInput!]
+  or: [BrandLikesFilterInput!]
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  brandId: ComparableInt32OperationFilterInput
+  brand: BrandsFilterInput
+  liked: BooleanOperationFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input PostsFilterInput {
+  and: [PostsFilterInput!]
+  or: [PostsFilterInput!]
+  title: StringOperationFilterInput
+  content: StringOperationFilterInput
+  photo: StringOperationFilterInput
+  brandId: ComparableNullableOfInt32OperationFilterInput
+  brand: BrandsFilterInput
+  styleId: ComparableNullableOfInt32OperationFilterInput
+  style: StylesFilterInput
+  postType: PostTypesOperationFilterInput
+  sizeTag: ComparableDoubleOperationFilterInput
+  postLikes: ListFilterInputTypeOfPostLikesFilterInput
+  posterId: ComparableInt32OperationFilterInput
+  poster: UsersFilterInput
+  postedAt: ComparableDateTimeOperationFilterInput
+  likes: ListFilterInputTypeOfPostLikesFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input StyleBrandsFilterInput {
+  and: [StyleBrandsFilterInput!]
+  or: [StyleBrandsFilterInput!]
+  styleId: ComparableInt32OperationFilterInput
+  style: StylesFilterInput
+  brandId: ComparableInt32OperationFilterInput
+  brand: BrandsFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input UserSocialsFilterInput {
+  and: [UserSocialsFilterInput!]
+  or: [UserSocialsFilterInput!]
+  socialNetworks: SocialNetworksOperationFilterInput
+  address: StringOperationFilterInput
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input ClosetsFilterInput {
+  and: [ClosetsFilterInput!]
+  or: [ClosetsFilterInput!]
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  outfitName: StringOperationFilterInput
+  photo: StringOperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
+  closetItems: ListFilterInputTypeOfClosetItemsFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input UserStylesFilterInput {
+  and: [UserStylesFilterInput!]
+  or: [UserStylesFilterInput!]
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  styleId: ComparableInt32OperationFilterInput
+  style: StylesFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input StyleLikesFilterInput {
+  and: [StyleLikesFilterInput!]
+  or: [StyleLikesFilterInput!]
+  userId: ComparableInt32OperationFilterInput
+  user: UsersFilterInput
+  styleId: ComparableInt32OperationFilterInput
+  style: StylesFilterInput
+  liked: BooleanOperationFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input ComparableNullableOfInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input SocialNetworksOperationFilterInput {
+  eq: SocialNetworks
+  neq: SocialNetworks
+  in: [SocialNetworks!]
+  nin: [SocialNetworks!]
+}
+
+input ListFilterInputTypeOfClosetItemsFilterInput {
+  all: ClosetItemsFilterInput
+  none: ClosetItemsFilterInput
+  some: ClosetItemsFilterInput
+  any: Boolean
+}
+
+input ClosetItemsFilterInput {
+  and: [ClosetItemsFilterInput!]
+  or: [ClosetItemsFilterInput!]
+  closetId: ComparableInt32OperationFilterInput
+  closet: ClosetsFilterInput
+  name: StringOperationFilterInput
+  url: StringOperationFilterInput
+  xCoordinate: ComparableInt64OperationFilterInput
+  yCoordinate: ComparableInt64OperationFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input ComparableInt64OperationFilterInput {
+  eq: Long
+  neq: Long
+  in: [Long!]
+  nin: [Long!]
+  gt: Long
+  ngt: Long
+  gte: Long
+  ngte: Long
+  lt: Long
+  nlt: Long
+  lte: Long
+  nlte: Long
+}
+
+input ClosetItemInput {
+  name: String
+  url: String
+  xCoordinate: Long!
+  yCoordinate: Long!
+}
+
+input UserSocialInput {
+  socialNetworks: SocialNetworks!
+  address: String
+}
+
+enum ResponseStatus {
+  SUCCESS
+  NOT_FOUND
+  UNKNOWN_ERROR
+  NOT_ENOUGH_DATA
+  AUTHENTICATION_FAILED
+  USER_NOT_FOUND
+  ALREADY_EXIST
+  SELF_MESSAGE_NOT_ALLOWED
+  ALREADY_REMOVED
+  NOT_ALLOWED
+  ALREADY_FOLLOWED
+  SAME_ID
+  POST_NOT_FOUND
+  COMMENT_NOT_FOUND
+  INVALID_TIME_RANGE
+  TIME_CONFLICT
+  INVALID_TIME_SYNTAX
+  DIFFRENET_IDS
+  HOST_NOT_FOUND
+}
