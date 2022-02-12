@@ -25,11 +25,11 @@ export default function HomeScreen() {
   const {data} = useGetInspos({});
 
   return (
-    <CustomContainer>
+    <CustomContainer pt={0}>
       <FlatList
         ListHeaderComponent={() => (
           <>
-            <HStack justifyContent={'space-between'}>
+            <HStack alignItems={'center'} justifyContent={'space-between'}>
               <Image
                 alt="logo"
                 resizeMode="contain"
