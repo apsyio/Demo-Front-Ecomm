@@ -6,6 +6,7 @@ import {extendTheme, NativeBaseProvider} from 'native-base';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import Config from 'react-native-config';
+import {Settings} from 'react-native-fbsdk-next';
 import SplashScreen from 'react-native-splash-screen';
 import {QueryCache, QueryClient, QueryClientProvider} from 'react-query';
 
@@ -95,6 +96,8 @@ export default function App() {
       iosClientId: Config.GOOGLE_IOS_CLIENT_ID, // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
       googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
     });
+
+    Settings.initializeSDK();
   }, []);
 
   useEffect(() => {

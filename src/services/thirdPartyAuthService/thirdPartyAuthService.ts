@@ -1,3 +1,4 @@
+import facebookAuthService from './facebookAuthService';
 import firebaseAuthService from './firebaseAuthService';
 import googleAuthService from './googleAuthService';
 
@@ -47,6 +48,52 @@ class ThirdPartyAuthService {
     } catch (error) {
       console.error(error);
 
+      return {
+        success: false,
+        thirdPartyAccessToken: null,
+        firebaseIdToken: null,
+        firebaseUser: null,
+      };
+    }
+  };
+
+  loginWithFacebook = async () => {
+    let email;
+    try {
+      facebookAuthService.signOut();
+      firebaseAuthService.signOut();
+
+      const {accessToken, fullResult} = await facebookAuthService.signIn();
+
+      email = fullResult.user?.email;
+
+      if (!email) {
+        throw new Error("Couldn't get user email address");
+      }
+
+      const {idToken, user} = await firebaseAuthService.signInWithThirdParty(
+        'facebook',
+        accessToken,
+      );
+
+      if (!idToken || !user) {
+        return {
+          success: false,
+          thirdPartyAccessToken: null,
+          firebaseIdToken: null,
+          firebaseUser: null,
+        };
+      }
+
+      return {
+        success: true,
+        thirdPartyAccessToken: accessToken,
+        firebaseIdToken: idToken,
+        firebaseUser: user,
+      };
+    } catch (error) {
+      console.error(error);
+      // snackBarService.failed({}, `Something went wrong: ${error?.message ?? 'Please try Again'}`);
       return {
         success: false,
         thirdPartyAccessToken: null,

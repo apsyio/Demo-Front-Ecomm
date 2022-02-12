@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CueTheCurves</string>
+    <string name="facebook_app_id">292494819459912</string>
+    <string name="facebook_client_token">5089f548bd24b191cee5ebf16ef2effd</string>
 </resources>

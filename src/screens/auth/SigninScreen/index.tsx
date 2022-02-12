@@ -60,6 +60,17 @@ export default function SigninScreen() {
     }
   };
 
+  const facebookSignIn = async () => {
+    const {thirdPartyAccessToken, firebaseIdToken, firebaseUser, success} =
+      await thirdPartyAuthService.loginWithFacebook();
+    if (success) {
+      console.log('thirdPartyAccessToken', thirdPartyAccessToken);
+      console.log('firebaseIdToken', firebaseIdToken);
+      console.log('firebaseUser', firebaseUser);
+      onSigninWithSocial(firebaseUser?._user?.email);
+    }
+  };
+
   const signinWithEmail = async () => {
     try {
       await auth().signInWithEmailAndPassword(
@@ -165,10 +176,7 @@ export default function SigninScreen() {
             <LineWithText text="Or continue with " />
 
             <HStack justifyContent={'center'} my={5}>
-              <SocialButton
-                iconName="facebook"
-                onPress={() => console.log('facebook pressed')}
-              />
+              <SocialButton iconName="facebook" onPress={facebookSignIn} />
               <View mx={2} />
               <SocialButton iconName="google" onPress={googleSignin} />
             </HStack>

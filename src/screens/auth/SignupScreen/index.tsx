@@ -68,6 +68,17 @@ export default function SignupScreen() {
     }
   };
 
+  const facebookSignup = async () => {
+    const {thirdPartyAccessToken, firebaseIdToken, firebaseUser, success} =
+      await thirdPartyAuthService.loginWithFacebook();
+    if (success) {
+      console.log('thirdPartyAccessToken', thirdPartyAccessToken);
+      console.log('firebaseIdToken', firebaseIdToken);
+      console.log('firebaseUser', firebaseUser);
+      createUserWithSocial();
+    }
+  };
+
   const completeRegistrationWithEmailPassword = async () => {
     mutate(undefined, {
       onSuccess: data => onSuccessSignup(data),
@@ -160,10 +171,7 @@ export default function SignupScreen() {
             <LineWithText text="Or continue with " />
 
             <HStack justifyContent={'center'} my={5}>
-              <SocialButton
-                iconName="facebook"
-                onPress={() => console.log('facebook pressed')}
-              />
+              <SocialButton iconName="facebook" onPress={facebookSignup} />
               <View mx={2} />
               <SocialButton iconName="google" onPress={googleSignup} />
             </HStack>
