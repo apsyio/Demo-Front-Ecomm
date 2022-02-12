@@ -1,22 +1,47 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail} from '@formiz/validations';
+import auth from '@react-native-firebase/auth';
 import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
+import {Alert} from 'react-native';
 
 import images from '~/assets/images';
-import {CustomContainer, CustomInput} from '~/components/atoms';
+import {CustomContainer, CustomInput, CustomSpinner} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function ForgotPasswordScreen() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const signinForm = useForm();
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     console.log(values);
+
+    setIsLoading(true);
+    try {
+      await auth()
+        .sendPasswordResetEmail(values.email)
+        .then(result => {
+          console.log(result, 'result');
+          setIsLoading(false);
+          Alert.alert(
+            "You've got mail!",
+            'We have sent a password recover link to your email',
+          );
+          return true;
+        });
+    } catch (err) {
+      console.log(err?.message, 'err');
+      Alert.alert('Error', err?.message.split(']')[1]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <CustomContainer bg={Colors.SEA_PINK}>
+      <CustomSpinner visible={isLoading} />
       <ScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image

@@ -1,3 +1,4 @@
+import auth from '@react-native-firebase/auth';
 import {HStack, Icon, ScrollView, Text, useDisclose} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
@@ -5,9 +6,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {ConfirmActionSheet, CustomContainer} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
+import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SettingsScreen() {
+  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
+
   const {
     onClose: onCloseSignOutActionSheet,
     onOpen: onOpenSignOutActionSheet,
@@ -25,8 +29,12 @@ export default function SettingsScreen() {
       <ConfirmActionSheet
         onClose={onCloseSignOutActionSheet}
         isOpen={isOpenSignOutActionSheet}
-        onPressYes={() => {
-          navigate('AuthStack');
+        onPressYes={async () => {
+          try {
+            await auth().signOut();
+          } catch (error) {
+            setIsUserLoggedIn(false);
+          }
         }}
         title="Are you sure you want to sign out?"
       />

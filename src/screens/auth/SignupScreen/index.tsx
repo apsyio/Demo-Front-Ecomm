@@ -1,7 +1,17 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail, isMinLength} from '@formiz/validations';
-import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
-import React from 'react';
+import auth from '@react-native-firebase/auth';
+import {
+  Button,
+  HStack,
+  Image,
+  ScrollView,
+  Spinner,
+  Text,
+  View,
+} from 'native-base';
+import React, {useState} from 'react';
+import {Alert} from 'react-native';
 
 import images from '~/assets/images';
 import {
@@ -10,19 +20,71 @@ import {
   LineWithText,
   SocialButton,
 } from '~/components/atoms';
+import {ResponseStatus} from '~/generated/graphql';
+import useSignup from '~/hooks/auth/useSignup';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function SignupScreen() {
-  const signinForm = useForm();
+  const signupForm = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {mutate} = useSignup();
+
+  const onSuccessSignup = (data: {user_signUp: any}) => {
+    const {user_signUp} = data;
+    const status = user_signUp?.status;
+    if (status === ResponseStatus.Success) {
+      navigate('SelectStyle');
+    } else {
+      Alert.alert('Error', status);
+    }
+  };
+
+  const completeRegistrationWithEmailPassword = async () => {
+    mutate(undefined, {
+      onSuccess: data => onSuccessSignup(data),
+    });
+  };
+
+  const createUser = async () => {
+    setIsLoading(true);
+
+    const email = signupForm.values?.email;
+    const password = signupForm.values?.password;
+    try {
+      await auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(async () => {
+          completeRegistrationWithEmailPassword();
+          return true;
+        })
+        .catch(error => {
+          console.log(error, 'error');
+
+          const errorMessage = error?.message;
+          if (errorMessage) {
+            Alert.alert('Error', errorMessage);
+          }
+        });
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err, 'err*****');
+
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = (values: any) => {
     console.log(values);
-    navigate('SelectStyle');
+    createUser();
   };
 
   return (
     <CustomContainer bg={Colors.SEA_PINK}>
+      {isLoading && <Spinner color={Colors.WHITE} />}
+
+      <Spinner />
       <ScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image
@@ -33,7 +95,7 @@ export default function SignupScreen() {
           source={images.logo}
         />
 
-        <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
+        <Formiz onValidSubmit={handleSubmit} connect={signupForm}>
           <View bg={Colors.WHITE} p={5} borderRadius={20}>
             <Text>Welcome</Text>
             <Text mb={5}>
@@ -64,7 +126,7 @@ export default function SignupScreen() {
               ]}
             />
 
-            <Button my={5} variant={'primary'} onPress={signinForm.submit}>
+            <Button my={5} variant={'primary'} onPress={signupForm.submit}>
               Sign Up
             </Button>
 

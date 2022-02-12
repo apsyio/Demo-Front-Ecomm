@@ -1,9 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {useIsFetching, useIsMutating} from 'react-query';
 
+import {CustomSpinner} from '~/components/atoms';
 import OnboardingScreen from '~/screens/OnboardingScreen';
-import {onboardingStore} from '~/store';
+import {useStore} from '~/store';
 
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
@@ -12,10 +14,16 @@ import {navigationRef} from './methods';
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-  const isOnboardingViewed = onboardingStore(state => state.isOnboardingViewed);
+  const isFetching = useIsFetching();
+  const isMutating = useIsMutating();
+
+  const isOnboardingViewed = useStore(state => state.isOnboardingViewed);
+  const isUserLoggedIn = useStore(state => state.isUserLoggedIn);
 
   return (
     <>
+      <CustomSpinner visible={!!isFetching || !!isMutating} />
+
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           {!isOnboardingViewed && (
@@ -26,17 +34,19 @@ export default function AppNavigator() {
             />
           )}
 
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="AuthStack"
-            component={AuthStack}
-          />
-
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="MainStack"
-            component={MainStack}
-          />
+          {isUserLoggedIn ? (
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="MainStack"
+              component={MainStack}
+            />
+          ) : (
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="AuthStack"
+              component={AuthStack}
+            />
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </>

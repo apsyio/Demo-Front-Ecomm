@@ -4,7 +4,7 @@ import PagerView from 'react-native-pager-view';
 
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
-import {onboardingStore} from '~/store';
+import {useStore} from '~/store';
 import {Colors, Spacing} from '~/styles';
 
 const data = [
@@ -29,9 +29,7 @@ const data = [
 ];
 
 export default function OnboardingScreen() {
-  const setIsOnboardingViewed = onboardingStore(
-    state => state.setIsOnboardingViewed,
-  );
+  const setIsOnboardingViewed = useStore(state => state.setIsOnboardingViewed);
 
   const [page, setPage] = useState(0);
 

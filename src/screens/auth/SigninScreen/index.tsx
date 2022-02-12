@@ -1,28 +1,86 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail, isMinLength} from '@formiz/validations';
+import auth from '@react-native-firebase/auth';
 import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
+import {Alert} from 'react-native';
 
 import images from '~/assets/images';
 import {
   CustomContainer,
   CustomInput,
+  CustomSpinner,
   LineWithText,
   SocialButton,
 } from '~/components/atoms';
+import {Maybe, ResponseBaseOfUsers, ResponseStatus} from '~/generated/graphql';
+import useSignin from '~/hooks/auth/useSignin';
 import {navigate} from '~/navigation/methods';
+import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SigninScreen() {
+  const [isLoading, setIsLoading] = useState(false);
+  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
+
+  const {mutate} = useSignin();
+
   const signinForm = useForm();
 
-  const handleSubmit = (values: any) => {
-    console.log(values);
-    navigate('MainStack');
+  const handleSubmit = () => {
+    onSignin(true);
+  };
+
+  const signinWithEmail = async () => {
+    try {
+      await auth().signInWithEmailAndPassword(
+        signinForm.values.email,
+        signinForm.values.password,
+      );
+      return true;
+    } catch (error) {
+      console.log(error, 'error for get token');
+
+      const errorMessage = error?.message;
+      if (errorMessage) {
+        Alert.alert('Error', errorMessage);
+      }
+      return false;
+    }
+  };
+
+  const onSuccessSignin = (data: {user_login: Maybe<ResponseBaseOfUsers>}) => {
+    const status = data?.user_login?.status;
+    if (status === ResponseStatus.Success) {
+      setIsUserLoggedIn(true);
+    } else {
+      Alert.alert('Error', status || 'Error');
+    }
+  };
+
+  const onSignin = async (withEmail: boolean) => {
+    try {
+      setIsLoading(true);
+      if (withEmail) {
+        const res = await signinWithEmail();
+        if (!res) {
+          return;
+        }
+      }
+
+      mutate(undefined, {
+        onSuccess: onSuccessSignin,
+      });
+    } catch (e) {
+      console.log(e, 'e');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <CustomContainer bg={Colors.SEA_PINK}>
+      <CustomSpinner visible={isLoading} />
       <ScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image

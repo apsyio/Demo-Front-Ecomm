@@ -10,3 +10,6 @@ export {default as PostOrFeedCard} from './PostOrFeedCard';
 export {default as ProfileCard} from './ProfileCard';
 export {default as SocialButton} from './SocialButton';
 export {default as StyleOrBrandCard} from './StyleOrBrandCard';
+
+// libraries
+export {default as CustomSpinner} from 'react-native-loading-spinner-overlay';

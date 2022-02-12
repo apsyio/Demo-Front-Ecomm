@@ -1,6 +1,6 @@
 import {gql} from 'graphql-request';
 
-export const LOGIN = gql`
+export const SIGNIN = gql`
   query user_login {
     user_login {
       result {
