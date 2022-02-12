@@ -16,6 +16,7 @@ import {
 import {Maybe, ResponseBaseOfUsers, ResponseStatus} from '~/generated/graphql';
 import useSignin from '~/hooks/auth/useSignin';
 import {navigate} from '~/navigation/methods';
+import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';
 import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
@@ -29,6 +30,34 @@ export default function SigninScreen() {
 
   const handleSubmit = () => {
     onSignin(true);
+  };
+
+  const onSigninWithSocial = async () => {
+    setIsLoading(true);
+    try {
+      mutate(undefined, {
+        onSuccess: onSuccessSignin,
+      });
+    } catch (e) {
+      console.log(e, 'e!!!!');
+      if (e === ResponseStatus.UserNotFound) {
+        Alert.alert('Error', 'You are not registered!');
+      }
+    }
+    setIsLoading(false);
+  };
+
+  const googleSignin = async () => {
+    const {thirdPartyAccessToken, firebaseIdToken, firebaseUser, success} =
+      await thirdPartyAuthService.loginWithGoogle();
+    console.log(firebaseIdToken, 'firebaseIdToken');
+    if (success) {
+      console.log('thirdPartyAccessToken', thirdPartyAccessToken);
+      console.log('firebaseIdToken', firebaseIdToken);
+      console.log('firebaseUser', firebaseUser);
+
+      onSigninWithSocial();
+    }
   };
 
   const signinWithEmail = async () => {
@@ -141,10 +170,7 @@ export default function SigninScreen() {
                 onPress={() => console.log('facebook pressed')}
               />
               <View mx={2} />
-              <SocialButton
-                iconName="google"
-                onPress={() => console.log('google pressed')}
-              />
+              <SocialButton iconName="google" onPress={googleSignin} />
             </HStack>
 
             <HStack alignItems="center" justifyContent="center">

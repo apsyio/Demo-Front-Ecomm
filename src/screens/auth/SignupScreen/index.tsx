@@ -23,6 +23,7 @@ import {
 import {ResponseStatus} from '~/generated/graphql';
 import useSignup from '~/hooks/auth/useSignup';
 import {navigate} from '~/navigation/methods';
+import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';
 import {Colors} from '~/styles';
 
 export default function SignupScreen() {
@@ -38,6 +39,32 @@ export default function SignupScreen() {
       navigate('SelectStyle');
     } else {
       Alert.alert('Error', status);
+    }
+  };
+
+  const createUserWithSocial = async () => {
+    setIsLoading(true);
+
+    try {
+      mutate(undefined, {
+        onSuccess: data => onSuccessSignup(data),
+      });
+    } catch (err) {
+      Alert.alert('Error', 'Failed');
+    }
+    setIsLoading(false);
+  };
+
+  const googleSignup = async () => {
+    const {thirdPartyAccessToken, firebaseIdToken, firebaseUser, success} =
+      await thirdPartyAuthService.loginWithGoogle();
+    console.log(success, 'success');
+    if (success) {
+      console.log('thirdPartyAccessToken', thirdPartyAccessToken);
+      console.log('firebaseIdToken', firebaseIdToken);
+      console.log('firebaseUser', firebaseUser);
+
+      createUserWithSocial();
     }
   };
 
@@ -138,10 +165,7 @@ export default function SignupScreen() {
                 onPress={() => console.log('facebook pressed')}
               />
               <View mx={2} />
-              <SocialButton
-                iconName="google"
-                onPress={() => console.log('google pressed')}
-              />
+              <SocialButton iconName="google" onPress={googleSignup} />
             </HStack>
 
             <HStack alignItems="center" justifyContent="center">
