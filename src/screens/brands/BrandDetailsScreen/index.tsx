@@ -3,36 +3,30 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
+import useGetBrandByBrandId from '~/hooks/brand/useGetBrandByBrandId';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function BrandDetailsScreen({route}: any) {
   const id = route.params?.id;
 
+  const {brandDetails} = useGetBrandByBrandId(id);
+
   return (
     <CustomContainer p={0}>
       <ScrollView>
         <View p={5}>
-          <StyleOrBrandCard
-            uri="https://picsum.photos/200"
-            title="Torrid"
-            likesCount={12}
-          />
+          <StyleOrBrandCard {...brandDetails} />
 
           <ScrollView horizontal>
-            {[
-              {id: 1, uri: 'https://picsum.photos/200'},
-              {id: 2, uri: 'https://picsum.photos/200'},
-              {id: 3, uri: 'https://picsum.photos/200'},
-              {id: 4, uri: 'https://picsum.photos/200'},
-            ].map(({uri}) => (
+            {brandDetails?.photos?.map((photo, index) => (
               <Image
-                key={uri}
+                key={index}
                 borderRadius={'2xl'}
                 mr={4}
                 width={140}
                 height={180}
-                source={{uri}}
+                source={{uri: photo}}
               />
             ))}
           </ScrollView>
@@ -40,21 +34,14 @@ export default function BrandDetailsScreen({route}: any) {
 
         <HStack mt={3} p={5} justifyContent="space-between" bg={Colors.GREEN}>
           <Text color={Colors.WHITE}>Size offered </Text>
-          <Text color={Colors.WHITE}>{['XS', 'SM'].join('  ')}</Text>
+          <Text color={Colors.WHITE}>{brandDetails?.sizes?.join('  ')}</Text>
         </HStack>
 
         <View p={5}>
           <ScrollView horizontal>
-            {[
-              {id: 1, title: 'CASUAL'},
-              {id: 2, title: 'STREET CASUAL'},
-              {id: 3, title: 'STREET CASUAL'},
-              {id: 4, title: 'CASUAL'},
-              {id: 5, title: 'STREET CASUAL'},
-              {id: 6, title: 'STREET CASUAL'},
-            ].map(({title}) => (
-              <Text fontSize={'sm'} key={title} color={Colors.SEA_PINK}>
-                {title}
+            {brandDetails?.styles?.map((item, index) => (
+              <Text fontSize={'sm'} key={index} color={Colors.SEA_PINK}>
+                {item?.name}
                 {'   '}
               </Text>
             ))}
@@ -86,19 +73,13 @@ export default function BrandDetailsScreen({route}: any) {
           </Text>
 
           <ScrollView horizontal>
-            {[
-              {id: 1, uri: 'https://picsum.photos/200'},
-              {id: 2, uri: 'https://picsum.photos/200'},
-              {id: 3, uri: 'https://picsum.photos/200'},
-              {id: 4, uri: 'https://picsum.photos/200'},
-              {id: 5, uri: 'https://picsum.photos/200'},
-            ].map(({uri}) => (
+            {brandDetails?.inspos?.map((item, index) => (
               <ImageCard
+                key={index}
                 isSmall
                 containerStyle={{marginRight: 10}}
-                key={uri}
-                uri={uri}
-                onPress={() => null}
+                uri={item?.thumbnail}
+                onPress={() => navigate('MyProfile', {id: item?.id})}
               />
             ))}
           </ScrollView>

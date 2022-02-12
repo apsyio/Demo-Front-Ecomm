@@ -56,6 +56,7 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
+      title: 'Brand',
       headerLeft: () => <ChevronBackButton />,
     },
     name: 'BrandDetails',
