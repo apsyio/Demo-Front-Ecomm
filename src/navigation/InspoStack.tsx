@@ -25,7 +25,7 @@ const screens = [
         backgroundColor: Colors.CHABLIS,
       },
       headerLeft: () => <ChevronBackButton />,
-      title: 'inspirations',
+      title: 'Inspirations',
     },
     name: 'Inspo',
     component: InspoScreen,
