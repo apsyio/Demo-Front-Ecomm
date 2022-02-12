@@ -15,11 +15,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
 import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
+import useGetInspos from '~/hooks/inspo/useGetInspos';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function HomeScreen() {
   const {recommendBrand} = useGetRecommendBrand({});
+
+  const {data} = useGetInspos({});
 
   return (
     <CustomContainer>
@@ -177,23 +180,13 @@ export default function HomeScreen() {
         )}
         mt={10}
         numColumns={2}
-        data={[
-          {
-            id: 1,
-            title: 'Isabella Hutton',
-            uri: 'https://picsum.photos/200',
-          },
-          {id: 2, title: 'Isabella Hutton', uri: 'https://picsum.photos/200'},
-          {id: 3, title: 'Isabella Hutton', uri: 'https://picsum.photos/200'},
-          {id: 4, title: 'Isabella Hutton', uri: 'https://picsum.photos/200'},
-          {id: 5, title: 'Isabella Hutton', uri: 'https://picsum.photos/200'},
-          {id: 6, title: 'Isabella Hutton', uri: 'https://picsum.photos/200'},
-        ]}
+        data={data?.pages}
         renderItem={({item}) => (
           <ImageCard
             containerStyle={{marginTop: 16}}
             {...item}
-            bottomTitle={item.title}
+            uri={item.avatar}
+            bottomTitle={item.fullName}
             onPress={() =>
               navigate('MyProfile', {
                 id: item.id,

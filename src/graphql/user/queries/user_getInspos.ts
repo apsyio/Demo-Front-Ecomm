@@ -1,6 +1,6 @@
 import {gql} from 'graphql-request';
 
-export const GET_USER_INSPOS = gql`
+export const GET_INSPOS = gql`
   query user_getInspos(
     $skip: Int
     $take: Int
