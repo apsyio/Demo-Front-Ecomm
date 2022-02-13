@@ -2,7 +2,7 @@ import {useInfiniteQuery} from 'react-query';
 
 import {PAGE_SIZE} from '~/constants/pagination';
 import queryKeys from '~/constants/queryKeys';
-import {StyleDto, Styles_GetStylesQuery} from '~/generated/graphql';
+import {Styles, Styles_GetStylesQuery} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {GET_STYLES} from '~/graphql/styles/queries/styles_getStyles';
 
@@ -15,7 +15,7 @@ const useGetStyles = ({
   order?: any;
   options?: any;
 }) => {
-  return useInfiniteQuery<Styles_GetStylesQuery, any, StyleDto, any>(
+  return useInfiniteQuery<Styles_GetStylesQuery, any, Styles, any>(
     [queryKeys.styles, where, order],
     async ({pageParam = 0}) => {
       return graphQLClient.request(GET_STYLES, {

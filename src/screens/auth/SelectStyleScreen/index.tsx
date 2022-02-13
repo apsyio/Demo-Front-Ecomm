@@ -36,7 +36,7 @@ export default function SelectStyleScreen() {
         refreshing={isRefetching}
         onRefresh={refetch}
         keyExtractor={(item, index) =>
-          item?.name ? item?.name : index?.toString()
+          item?.id ? item?.id?.toString() : index?.toString()
         }
         data={data?.pages}
         renderItem={({item}) => (

@@ -10,6 +10,7 @@ export const GET_USER_STYLES = gql`
     user_getStyles {
       result(skip: $skip, take: $take, where: $where, order: $order) {
         items {
+          id
           name
           thumbnail
           colors
