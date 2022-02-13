@@ -161,36 +161,6 @@ export const GET_STYLE_POSTS = gql`
           id
           postedAt
           liked
-          likes {
-            userId
-            user {
-              fullName
-              accountType
-              email
-              phone
-              bio
-              externalId
-              id
-              isDeleted
-            }
-            postId
-            post {
-              title
-              content
-              photo
-              brandId
-              styleId
-              postType
-              sizeTag
-              posterId
-              postedAt
-              id
-              isDeleted
-            }
-            liked
-            id
-            isDeleted
-          }
         }
         pageInfo {
           hasNextPage

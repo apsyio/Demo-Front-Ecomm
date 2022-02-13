@@ -12,14 +12,53 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
+import useGetBrandPosts from '~/hooks/post/useGetBrandPosts';
+import useGetStylePosts from '~/hooks/post/useGetStylePosts';
+import useGetPosts from '~/hooks/post/useGetUserPosts';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
-export default function PostsScreen() {
+export default function PostsScreen({route}: any) {
+  const brandId = route.params;
+  const styleId = route.params;
+
   const {onClose, onOpen, isOpen} = useDisclose();
 
   const [postType, setPostType] = useState('');
-  const [postSize, setPostSize] = useState('');
+  const [sizeTag, setSizeTag] = useState('');
+
+  const [where, setWhere] = useState<object | undefined>(undefined);
+
+  const {isRefetching, data, fetchNextPage, hasNextPage, refetch} = useGetPosts(
+    {
+      where,
+      options: {
+        enabled: !brandId && !styleId,
+      },
+    },
+  );
+
+  const {
+    isRefetching: isRefetchingBrandPosts,
+    data: brandPostsData,
+    fetchNextPage: fetchNextPageBrandPosts,
+    hasNextPage: hasNextPageBrandPosts,
+    refetch: refetchBrandPosts,
+  } = useGetBrandPosts({
+    brandId,
+    where,
+  });
+
+  const {
+    isRefetching: isRefetchingStylePosts,
+    data: stylePostsData,
+    fetchNextPage: fetchNextPageStylePosts,
+    hasNextPage: hasNextPageStylePosts,
+    refetch: refetchStylePosts,
+  } = useGetStylePosts({
+    styleId,
+    where,
+  });
 
   return (
     <CustomContainer p={0}>
@@ -34,21 +73,26 @@ export default function PostsScreen() {
               placeholder="Type of post"
               mt={1}
               onValueChange={itemValue => setPostType(itemValue)}>
-              {['Food', 'Drink', 'Cleaning', 'Other'].map(item => (
+              {['POST', 'REVIEW'].map(item => (
                 <Select.Item key={item} label={item} value={item} />
               ))}
             </Select>
 
             <Select
               mb={3}
-              selectedValue={postSize}
+              selectedValue={sizeTag}
               minWidth="200"
               accessibilityLabel="Size"
               placeholder="Size"
               mt={1}
-              onValueChange={itemValue => setPostSize(itemValue)}>
-              {['SM', 'MD', 'LG', '2XL'].map(item => (
-                <Select.Item key={item} label={item} value={item} />
+              onValueChange={itemValue => setSizeTag(itemValue)}>
+              {[
+                {label: 'SM', value: '0'},
+                {label: 'MD', value: '1'},
+                {label: 'LG', value: '2'},
+                {label: '2XL', value: '3'},
+              ].map(item => (
+                <Select.Item key={item.value} {...item} />
               ))}
             </Select>
 
@@ -58,6 +102,13 @@ export default function PostsScreen() {
               variant={'primary'}
               onPress={() => {
                 onClose();
+
+                if (postType) {
+                  setWhere(prev => ({...prev, postType: {eq: postType}}));
+                }
+                if (sizeTag) {
+                  setWhere(prev => ({...prev, sizeTag: {eq: +sizeTag}}));
+                }
               }}>
               FILTER
             </Button>
@@ -65,38 +116,56 @@ export default function PostsScreen() {
         </Actionsheet>
       </Center>
 
-      <FlatList
-        data={[
-          {
-            id: 1,
-            fullname: 'Charlotte Oxnam',
-            title: 'Your Size Does Not Dictate Your Dating Standards',
-            desc: ' Now that I am a few months into college and have watched and experienced hook-up culture and dating culture in college I have noticed a consistent theme. There seems to be a common belief that as women.',
-            uri: 'https://picsum.photos/200',
-            isLiked: false,
-            createdAt: '2 days ago',
-          },
-          {
-            id: 2,
-            fullname: 'Feyi Odejimi',
-            title: 'Being Plus-Sized on Social Media',
-            desc: ' Now that I am a few months into college and have watched and experienced hook-up culture and dating culture in college I have noticed a consistent theme. There seems to be a common belief that as women.',
-            uri: 'https://picsum.photos/200',
-            isLiked: true,
-            createdAt: '2 days ago',
-          },
-          {
-            id: 3,
-            fullname: 'Feyi Odejimi',
-            title: 'Your Size Does Not Dictate Your Dating Standards',
-            desc: ' Now that I am a few months into college and have watched and experienced hook-up culture and dating culture in college I have noticed a consistent theme. There seems to be a common belief that as women.',
-            uri: 'https://picsum.photos/200',
-            isLiked: false,
-            createdAt: '2 days ago',
-          },
-        ]}
-        renderItem={({item}) => <PostOrFeedCard {...item} />}
-      />
+      {brandId && (
+        <FlatList
+          refreshing={isRefetchingBrandPosts}
+          onRefresh={refetchBrandPosts}
+          keyExtractor={(item, index) =>
+            item?.id ? item?.id?.toString() : index?.toString()
+          }
+          data={brandPostsData?.pages}
+          renderItem={({item}) => <PostOrFeedCard {...item} />}
+          onEndReached={() => {
+            if (hasNextPageBrandPosts) {
+              fetchNextPageBrandPosts();
+            }
+          }}
+        />
+      )}
+
+      {styleId && (
+        <FlatList
+          refreshing={isRefetchingStylePosts}
+          onRefresh={refetchStylePosts}
+          keyExtractor={(item, index) =>
+            item?.id ? item?.id?.toString() : index?.toString()
+          }
+          data={stylePostsData?.pages}
+          renderItem={({item}) => <PostOrFeedCard {...item} />}
+          onEndReached={() => {
+            if (hasNextPageStylePosts) {
+              fetchNextPageStylePosts();
+            }
+          }}
+        />
+      )}
+
+      {!brandId && !styleId && (
+        <FlatList
+          refreshing={isRefetching}
+          onRefresh={refetch}
+          keyExtractor={(item, index) =>
+            item?.id ? item?.id?.toString() : index?.toString()
+          }
+          data={data?.pages}
+          renderItem={({item}) => <PostOrFeedCard {...item} />}
+          onEndReached={() => {
+            if (hasNextPage) {
+              fetchNextPage();
+            }
+          }}
+        />
+      )}
 
       <TouchableOpacity
         onPress={onOpen}

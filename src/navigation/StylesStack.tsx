@@ -6,7 +6,12 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {BrandDetailsScreen, PostsScreen} from '~/screens/brands';
+import {
+  BrandDetailsScreen,
+  BrandsScreen,
+  PostsScreen,
+  WriteReviewOrPostScreen,
+} from '~/screens/brands';
 import {StyleDetailsScreen, StylesScreen} from '~/screens/styles';
 import {Colors} from '~/styles';
 
@@ -15,6 +20,7 @@ const Stack = createNativeStackNavigator();
 export type StylesStackParamList = {
   Styles: undefined;
   StyleDetails: {id: number};
+  BrandsScreen: undefined;
   BrandDetails: {id: number};
   Posts: undefined;
 };
@@ -56,6 +62,16 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'Brands',
+    component: BrandsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
       title: 'Brand',
       headerLeft: () => <ChevronBackButton />,
     },
@@ -71,6 +87,16 @@ const screens = [
     },
     name: 'Posts',
     component: PostsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'WriteReviewOrPost',
+    component: WriteReviewOrPostScreen,
   },
 ];
 
