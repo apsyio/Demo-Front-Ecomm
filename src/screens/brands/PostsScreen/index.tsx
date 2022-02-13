@@ -12,15 +12,19 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
+import {TAG_SIZES} from '~/constants/data';
 import useGetBrandPosts from '~/hooks/post/useGetBrandPosts';
 import useGetStylePosts from '~/hooks/post/useGetStylePosts';
 import useGetPosts from '~/hooks/post/useGetUserPosts';
 import {navigate} from '~/navigation/methods';
+import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
 export default function PostsScreen({route}: any) {
   const brandId = route.params;
   const styleId = route.params;
+
+  const activeTab = useStore(state => state.activeTab);
 
   const {onClose, onOpen, isOpen} = useDisclose();
 
@@ -86,12 +90,7 @@ export default function PostsScreen({route}: any) {
               placeholder="Size"
               mt={1}
               onValueChange={itemValue => setSizeTag(itemValue)}>
-              {[
-                {label: 'SM', value: '0'},
-                {label: 'MD', value: '1'},
-                {label: 'LG', value: '2'},
-                {label: '2XL', value: '3'},
-              ].map(item => (
+              {TAG_SIZES.map(item => (
                 <Select.Item key={item.value} {...item} />
               ))}
             </Select>
@@ -181,7 +180,12 @@ export default function PostsScreen({route}: any) {
       </TouchableOpacity>
 
       <Button
-        onPress={() => navigate('WriteReviewOrPost', {brandId: 1})}
+        onPress={() =>
+          navigate('WriteReviewOrPost', {
+            brandId: activeTab === 'Brands' ? brandId : undefined,
+            styleId: activeTab === 'Styles' ? styleId : undefined,
+          })
+        }
         borderRadius={0}
         variant={'primary'}>
         WRITE A POST
