@@ -17,13 +17,18 @@ import {CustomContainer, ImageCard} from '~/components/atoms';
 import {noImageUrl} from '~/constants/image';
 import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
 import useGetInspos from '~/hooks/inspo/useGetInspos';
+import useGetPosts from '~/hooks/post/useGetUserPosts';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function HomeScreen() {
   const {recommendBrand} = useGetRecommendBrand({});
 
-  const {data} = useGetInspos({});
+  const {data: posts} = useGetPosts({});
+  const lastPost = posts?.pages?.[0];
+
+  const {data: inspos} = useGetInspos({});
+  const topInspo = inspos?.pages?.[0];
 
   return (
     <CustomContainer pt={0}>
@@ -81,7 +86,8 @@ export default function HomeScreen() {
                 onPress={() => navigate('Inspo')}
                 style={{flex: 1}}>
                 <ImageBackground
-                  source={{uri: 'https://picsum.photos/200'}}
+                  resizeMode="contain"
+                  source={{uri: topInspo?.avatar || noImageUrl}}
                   imageStyle={{borderRadius: 20}}
                   style={{
                     height: 150,
@@ -102,7 +108,7 @@ export default function HomeScreen() {
                       borderBottomLeftRadius={20}
                       borderBottomRightRadius={20}>
                       <Text fontSize={'sm'} color={Colors.WHITE}>
-                        Anna Howard
+                        {topInspo?.fullName}
                       </Text>
                     </View>
                   </Center>
@@ -127,16 +133,17 @@ export default function HomeScreen() {
               }}
               onPress={() => null}>
               <ImageBackground
-                source={{uri: 'https://picsum.photos/200'}}
+                resizeMode="contain"
+                source={{uri: lastPost?.photo || noImageUrl}}
                 imageStyle={{borderTopRightRadius: 20, borderTopLeftRadius: 20}}
                 style={{
                   height: 120,
                 }}
               />
               <View p={3}>
-                <Text>Being Plus-Sized on Social Media</Text>
+                <Text>{lastPost?.title}</Text>
                 <Text fontSize={'sm'} color={Colors.SHADY_LADY} mt={1}>
-                  Oct 22 . 3 min read
+                  {lastPost?.postedAt}
                 </Text>
 
                 <HStack
@@ -146,15 +153,15 @@ export default function HomeScreen() {
                   <HStack alignItems={'center'}>
                     <Image
                       rounded={'full'}
-                      source={{uri: 'https://picsum.photos/200'}}
+                      source={{uri: lastPost?.poster?.avatar || noImageUrl}}
                       width={7}
                       height={7}
                       mr={2}
                     />
-                    <Text fontSize={'sm'}>Feyi Odejimi</Text>
+                    <Text fontSize={'sm'}> {lastPost?.poster?.fullName}</Text>
                   </HStack>
 
-                  <Button variant="t" onPress={() => navigate('Conversation')}>
+                  <Button variant="t" onPress={() => navigate('Posts')}>
                     <HStack alignItems={'center'}>
                       <Text color={Colors.ROUGE} fontSize={'xs'}>
                         Show more
@@ -183,7 +190,7 @@ export default function HomeScreen() {
         )}
         mt={10}
         numColumns={2}
-        data={data?.pages}
+        data={inspos?.pages?.splice(1, 6)}
         renderItem={({item}) => (
           <ImageCard
             containerStyle={{marginTop: 16}}
