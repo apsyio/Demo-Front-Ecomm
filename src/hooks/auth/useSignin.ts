@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import {useMutation} from 'react-query';
 
-import {ResponseStatus} from '~/generated/graphql';
+import {ResponseStatus, User_LoginQuery} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {SIGNIN} from '~/graphql/user/queries/user_login';
 import {useStore} from '~/store';
@@ -9,7 +9,7 @@ import {useStore} from '~/store';
 const useSignin = () => {
   const setUserId = useStore(state => state.setUserId);
 
-  return useMutation(
+  return useMutation<User_LoginQuery>(
     async _data => {
       const idToken = await auth().currentUser?.getIdToken();
       if (idToken) {
@@ -20,8 +20,8 @@ const useSignin = () => {
     },
     {
       onSuccess: data => {
-        if (data.user_signIn?.status === ResponseStatus.Success) {
-          setUserId(data.user_signIn?.result?.user?.id);
+        if (data.user_login?.status === ResponseStatus.Success) {
+          setUserId(data.user_login?.result?.id);
         }
       },
     },

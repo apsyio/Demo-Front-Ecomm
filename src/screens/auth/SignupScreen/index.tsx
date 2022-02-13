@@ -20,7 +20,7 @@ import {
   LineWithText,
   SocialButton,
 } from '~/components/atoms';
-import {ResponseStatus} from '~/generated/graphql';
+import {ResponseStatus, User_SignUpMutation} from '~/generated/graphql';
 import useSignup from '~/hooks/auth/useSignup';
 import {navigate} from '~/navigation/methods';
 import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';
@@ -32,7 +32,7 @@ export default function SignupScreen() {
 
   const {mutate} = useSignup();
 
-  const onSuccessSignup = (data: {user_signUp: any}) => {
+  const onSuccessSignup = (data: User_SignUpMutation) => {
     const {user_signUp} = data;
     const status = user_signUp?.status;
     if (status === ResponseStatus.Success) {

@@ -13,7 +13,7 @@ import {
   LineWithText,
   SocialButton,
 } from '~/components/atoms';
-import {Maybe, ResponseBaseOfUsers, ResponseStatus} from '~/generated/graphql';
+import {ResponseStatus, User_LoginQuery} from '~/generated/graphql';
 import useSignin from '~/hooks/auth/useSignin';
 import {navigate} from '~/navigation/methods';
 import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';
@@ -67,7 +67,7 @@ export default function SigninScreen() {
       console.log('thirdPartyAccessToken', thirdPartyAccessToken);
       console.log('firebaseIdToken', firebaseIdToken);
       console.log('firebaseUser', firebaseUser);
-      onSigninWithSocial(firebaseUser?._user?.email);
+      onSigninWithSocial();
     }
   };
 
@@ -89,7 +89,7 @@ export default function SigninScreen() {
     }
   };
 
-  const onSuccessSignin = (data: {user_login: Maybe<ResponseBaseOfUsers>}) => {
+  const onSuccessSignin = (data: User_LoginQuery) => {
     const status = data?.user_login?.status;
     if (status === ResponseStatus.Success) {
       setIsUserLoggedIn(true);
