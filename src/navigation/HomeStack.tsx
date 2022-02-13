@@ -30,8 +30,8 @@ const Stack = createNativeStackNavigator();
 
 export type HomeStackParamList = {
   Home: undefined;
-  Profile: undefined;
-  MyProfile: {id: number};
+  Profile: {id: number};
+  MyProfile: undefined;
   CreateCloset: undefined;
   TagClothesScreen: undefined;
   Settings: undefined;
@@ -60,11 +60,6 @@ const screens = [
       },
       title: 'Profile',
       headerLeft: () => <ChevronBackButton />,
-      headerRight: () => (
-        <TouchableOpacity onPress={() => navigate('Settings')}>
-          <Icon as={<MaterialCommunityIcon name="cog" />} />
-        </TouchableOpacity>
-      ),
     },
     name: 'Profile',
     component: ProfileScreen,
@@ -76,6 +71,11 @@ const screens = [
       },
       title: 'Profile',
       headerLeft: () => <ChevronBackButton />,
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigate('Settings')}>
+          <Icon as={<MaterialCommunityIcon name="cog" />} />
+        </TouchableOpacity>
+      ),
     },
     name: 'MyProfile',
     component: MyProfileScreen,

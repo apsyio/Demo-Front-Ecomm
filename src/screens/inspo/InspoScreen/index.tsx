@@ -26,7 +26,7 @@ export default function InspoScreen() {
             hasBorder
             {...item}
             bottomTitle={item.fullName}
-            onPress={() => navigate('MyProfile', {id: item.id})}
+            onPress={() => navigate('Profile', {id: item.id})}
           />
         )}
         onEndReached={() => {

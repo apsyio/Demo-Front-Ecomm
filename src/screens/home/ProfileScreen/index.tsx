@@ -1,96 +1,104 @@
-import {
-  Button,
-  Center,
-  HStack,
-  Icon,
-  ScrollView,
-  Text,
-  View,
-} from 'native-base';
+import {Center, FlatList, HStack, ScrollView, Text, View} from 'native-base';
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Linking} from 'react-native';
 
 import {
   AvatarWithTitle,
   CustomContainer,
-  ProfileCard,
+  ImageCard,
+  SocialButton,
 } from '~/components/atoms';
+import {SocialNetworks} from '~/generated/graphql';
+import useGetInspoByInspoId from '~/hooks/inspo/useGetInspo';
 import {navigate} from '~/navigation/methods';
-import {Colors} from '~/styles';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({route}: any) {
+  const id = route?.params?.id;
+  const {inspo} = useGetInspoByInspoId(id);
+
   return (
     <CustomContainer>
       <ScrollView>
-        <Center>
-          <AvatarWithTitle
-            title="Anna Howard"
-            uri="https://picsum.photos/200"
-          />
+        <AvatarWithTitle title={inspo?.fullName || ''} uri={inspo?.avatar} />
 
-          <Button
-            onPress={() => navigate('MyProfile')}
-            variant={'outline'}
-            rounded="md"
-            borderColor={Colors.SEA_PINK}
-            _text={{color: Colors.SEA_PINK}}>
-            My Profile
-          </Button>
+        <Center>
+          <HStack>
+            <SocialButton
+              iconName="instagram"
+              onPress={() => {
+                const address = inspo?.socials?.find(
+                  a => a?.socialNetworks === SocialNetworks.Instagram,
+                )?.address;
+                if (address) {
+                  Linking.openURL(address);
+                }
+              }}
+            />
+            <View mx={3} />
+            <SocialButton
+              iconName="facebook"
+              onPress={() => {
+                const address = inspo?.socials?.find(
+                  a => a?.socialNetworks === SocialNetworks.Facebook,
+                )?.address;
+                if (address) {
+                  Linking.openURL(address);
+                }
+              }}
+            />
+            <View mx={3} />
+            <SocialButton
+              iconName="tiktok"
+              onPress={() => {
+                const address = inspo?.socials?.find(
+                  a => a?.socialNetworks === SocialNetworks.TikTok,
+                )?.address;
+                if (address) {
+                  Linking.openURL(address);
+                }
+              }}
+            />
+          </HStack>
         </Center>
 
-        <Button
-          mt={5}
-          variant={'primary'}
-          onPress={() => navigate('CreateCloset')}>
-          Create a new closet
-        </Button>
+        <Text fontSize={'xl'} mt={3} mb={1}>
+          Bio
+        </Text>
+        <Text mb={5}>{inspo?.bio}</Text>
 
-        {[
-          {
-            title: 'Information',
-            onPressEdit: () => navigate('EditProfileInformation'),
-            items: [
-              {label: 'Full Name', value: 'Anna Howard'},
-              {label: 'Email', value: 'Anna.Howard@gmail.com'},
-              {
-                label: 'Bio',
-                value:
-                  'Occaecat cillum commodo ad commodo esse proident sunt ex aute. Exercitation ea elit aliquip minim ad nulla aliquip Lorem enim quis duis consequat est. Cupidatat ullamco magna proident nulla cillum mollit magna cillum ad do. Lorem dolor tempor eiusmod velit id veniam cupidatat irure nisi.',
-              },
-              {label: 'Phone Number', value: '+13245675423'},
-            ],
-          },
-          {
-            title: 'Social Network',
-            onPressEdit: () => navigate('EditProfileSocialNetworks'),
-            items: [
-              {label: 'Instagram', value: '@Anna.howard'},
-              {label: 'TikTok', value: '@Anna.howard'},
-              {label: 'Pinterest', value: '@Anna.howard'},
-            ],
-          },
-        ].map(({title, items, onPressEdit}) => (
-          <View key={title}>
-            <HStack mt={10} justifyContent={'space-between'}>
-              <Text fontWeight={'bold'}>{title}</Text>
+        <Text fontSize={'xl'} mt={3}>
+          Creator Closet
+        </Text>
 
-              <TouchableOpacity onPress={onPressEdit}>
-                <HStack alignItems={'center'}>
-                  <Icon
-                    color={Colors.SEA_PINK}
-                    as={<MaterialCommunityIcon name="square-edit-outline" />}
-                    size={'sm'}
-                  />
-                  <Text color={Colors.SEA_PINK}>Edit</Text>
-                </HStack>
-              </TouchableOpacity>
-            </HStack>
-            {items.map(item => (
-              <ProfileCard key={item.label} {...item} />
-            ))}
-          </View>
-        ))}
+        <FlatList
+          numColumns={3}
+          data={inspo?.closets}
+          renderItem={({item}) => (
+            <ImageCard
+              key={item.id}
+              containerStyle={{marginTop: 12}}
+              isSmall
+              uri={item?.photo}
+              onPress={() => navigate('Outfit', {photo: item?.photo})}
+            />
+          )}
+        />
+
+        <Text fontSize={'xl'} mt={7} mb={2}>
+          Favorite Brand
+        </Text>
+
+        <ScrollView horizontal>
+          {inspo?.brands?.map(item => (
+            <ImageCard
+              key={item?.id}
+              containerStyle={{marginRight: 12}}
+              isSmall
+              uri={item?.thumbnail}
+              onPress={() => navigate('BrandDetails', {id: item?.id})}
+            />
+          ))}
+        </ScrollView>
       </ScrollView>
     </CustomContainer>
   );

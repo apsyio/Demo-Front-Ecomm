@@ -38,7 +38,7 @@ export default function HomeScreen() {
                 width={200}
                 source={images.logo}
               />
-              <Button variant={'sub'} onPress={() => navigate('Profile')}>
+              <Button variant={'sub'} onPress={() => navigate('MyProfile')}>
                 <Icon
                   as={MaterialCommunityIcons}
                   size="md"
@@ -191,7 +191,7 @@ export default function HomeScreen() {
             uri={item.avatar}
             bottomTitle={item.fullName}
             onPress={() =>
-              navigate('MyProfile', {
+              navigate('Profile', {
                 id: item.id,
               })
             }

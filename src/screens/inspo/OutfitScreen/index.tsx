@@ -5,11 +5,15 @@ import {CustomContainer} from '~/components/atoms';
 import {deviceHeight} from '~/utils/style';
 
 export default function OutfitScreen({route}: any) {
-  const uri = route?.params?.uri;
+  const photo = route?.params?.photo;
 
   return (
     <CustomContainer>
-      <Image borderRadius={'2xl'} height={deviceHeight - 170} source={{uri}} />
+      <Image
+        borderRadius={'2xl'}
+        height={deviceHeight - 170}
+        source={{uri: photo}}
+      />
     </CustomContainer>
   );
 }

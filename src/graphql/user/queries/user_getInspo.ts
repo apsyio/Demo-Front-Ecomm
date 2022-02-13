@@ -1,6 +1,6 @@
 import {gql} from 'graphql-request';
 
-export const GET_USER_INSPO_BY_INSPO_ID = gql`
+export const GET_INSPO_BY_INSPO_ID = gql`
   query user_getInspo($inspoId: Int!) {
     user_getInspo(inspoId: $inspoId) {
       result {

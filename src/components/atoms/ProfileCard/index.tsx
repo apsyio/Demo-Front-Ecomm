@@ -7,8 +7,8 @@ export default function ProfileCard({
   label,
   value,
 }: {
-  label: string;
-  value: string;
+  label?: string | null;
+  value?: string | null;
 }) {
   return (
     <Box key={label} mt={3} p={4} bg={Colors.CHABLIS}>

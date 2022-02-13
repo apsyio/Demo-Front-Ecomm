@@ -99,7 +99,7 @@ const MainTabs = () => {
 
 export type MainStackParamList = {
   Home: undefined;
-  Profile: undefined;
+  Profile: {id: number};
   Settings: undefined;
 };
 

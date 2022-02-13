@@ -1,9 +1,10 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useIsFetching, useIsMutating} from 'react-query';
 
 import {CustomSpinner} from '~/components/atoms';
+import useSignin from '~/hooks/auth/useSignin';
 import OnboardingScreen from '~/screens/OnboardingScreen';
 import {useStore} from '~/store';
 
@@ -19,6 +20,12 @@ export default function AppNavigator() {
 
   const isOnboardingViewed = useStore(state => state.isOnboardingViewed);
   const isUserLoggedIn = useStore(state => state.isUserLoggedIn);
+
+  const {mutate} = useSignin();
+
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
 
   return (
     <>

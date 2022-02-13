@@ -4,7 +4,7 @@ import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
 import {BrandDetailsScreen, PostsScreen} from '~/screens/brands';
-import {MyProfileScreen} from '~/screens/home';
+import {ProfileScreen} from '~/screens/home';
 import {InspoScreen, OutfitScreen} from '~/screens/inspo';
 import {Colors} from '~/styles';
 
@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 export type InspoStackParamList = {
   InspoScreen: undefined;
-  Outfit: {uri: string};
+  Outfit: {photo: string};
   BrandDetails: {id: number};
   Posts: undefined;
   MyProfile: {id: number};
@@ -49,8 +49,8 @@ const screens = [
       title: 'Profile',
       headerLeft: () => <ChevronBackButton />,
     },
-    name: 'MyProfile',
-    component: MyProfileScreen,
+    name: 'Profile',
+    component: ProfileScreen,
   },
   {
     options: {
