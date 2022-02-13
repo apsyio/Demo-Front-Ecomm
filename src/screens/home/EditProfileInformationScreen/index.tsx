@@ -8,28 +8,42 @@ import {
   CustomContainer,
   CustomInput,
 } from '~/components/atoms';
+import useGetInspoByInspoId from '~/hooks/inspo/useGetInspo';
+import useUpdateUser from '~/hooks/inspo/useUpdateUser';
+import {navigate} from '~/navigation/methods';
+import {useStore} from '~/store';
 
 export default function EditProfileInformationScreen() {
+  const userId = useStore(state => state.userId);
+  const {inspo} = useGetInspoByInspoId(userId);
+
+  const {mutate} = useUpdateUser();
+
   const editForm = useForm();
 
   const handleSubmit = (values: any) => {
     console.log(values);
+
+    mutate(values, {
+      onSuccess: data => {
+        console.log('data', data);
+        navigate('MyProfile');
+      },
+    });
   };
 
   return (
     <CustomContainer>
       <ScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={editForm}>
-          <AvatarWithTitle
-            uri="https://picsum.photos/200"
-            title="Anna Howard"
-          />
+          <AvatarWithTitle uri={inspo?.avatar} title={inspo?.fullName} />
 
           <Text fontWeight={'bold'} fontSize="lg" mb={3}>
             Information
           </Text>
 
           <CustomInput
+            defaultValue={inspo?.fullName}
             label="Full Name"
             name="fullName"
             placeholder="Enter your full name"
@@ -37,6 +51,7 @@ export default function EditProfileInformationScreen() {
           />
 
           <CustomInput
+            defaultValue={inspo?.email}
             label="Email"
             name="email"
             placeholder="Enter your email"
@@ -50,12 +65,14 @@ export default function EditProfileInformationScreen() {
           />
 
           <CustomInput
+            defaultValue={inspo?.phone}
             label="Phone Number"
-            name="phoneNumber"
+            name="phone"
             placeholder="Enter your phone number"
           />
 
           <CustomInput
+            defaultValue={inspo?.bio}
             multiline
             minHeight={150}
             label="Bio"
@@ -63,7 +80,11 @@ export default function EditProfileInformationScreen() {
             placeholder="Enter your bio"
           />
 
-          <Button my={5} variant={'primary'} onPress={editForm.submit}>
+          <Button
+            disabled={!editForm.isValid}
+            my={5}
+            variant={'primary'}
+            onPress={editForm.submit}>
             Done
           </Button>
         </Formiz>
