@@ -115,7 +115,6 @@ export const GET_ALL_BRANDS = gql`
             id
             isDeleted
           }
-          liked
         }
         pageInfo {
           hasNextPage
