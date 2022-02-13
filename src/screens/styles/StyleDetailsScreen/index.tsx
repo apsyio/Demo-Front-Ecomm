@@ -4,6 +4,7 @@ import {TouchableOpacity} from 'react-native';
 
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
 import BrandCard from '~/components/atoms/BrandCard';
+import {noImageUrl} from '~/constants/image';
 import useGetStyleByStyleId from '~/hooks/styles/useGetStyleByStyleId';
 import {navigate} from '~/navigation/methods';
 
@@ -39,13 +40,12 @@ export default function StyleDetailsScreen({route}: any) {
                   mr={2}
                   width={130}
                   height={160}
-                  source={{uri: photo}}
+                  source={{uri: photo ?? noImageUrl}}
                 />
               </HStack>
             ))}
           </ScrollView>
         </View>
-
         <TouchableOpacity
           style={{marginVertical: 20, alignItems: 'center'}}
           onPress={() => console.log(null)}>

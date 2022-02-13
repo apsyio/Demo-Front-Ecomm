@@ -46,7 +46,7 @@ export default function SelectFavoriteBrandScreen() {
           <ImageCard
             containerStyle={{width: '50%', marginTop: 10}}
             {...item}
-            uri={item?.thumbnail || ''}
+            uri={item?.thumbnail}
             onPress={() => {
               if (favoriteBrands?.includes(item.id)) {
                 setFavoriteBrands(prev => prev?.filter(a => a !== item.id));

@@ -7,6 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import {noImageUrl} from '~/constants/image';
 import {Colors} from '~/styles';
 
 export default function ImageCard({
@@ -40,7 +41,7 @@ export default function ImageCard({
           // justifyContent: 'space-between',
           borderRadius: 12,
         }}
-        source={{uri}}>
+        source={{uri: uri ?? noImageUrl}}>
         {children}
         <View flex={1} justifyContent="flex-end">
           <Text fontSize={'sm'} mb={2} fontWeight={'bold'} color={Colors.WHITE}>

@@ -2,6 +2,7 @@ import {Avatar, Button, HStack, Icon, Image, Text, VStack} from 'native-base';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {noImageUrl} from '~/constants/image';
 import {PostDto} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
@@ -18,11 +19,7 @@ export default function PostOrFeedCard({
       <VStack p={5}>
         <HStack alignItems={'center'} justifyContent={'space-between'}>
           <HStack>
-            <Avatar
-              mr={2}
-              size={10}
-              source={{uri: 'https://picsum.photos/200'}}
-            />
+            <Avatar mr={2} size={10} source={{uri: photo ?? noImageUrl}} />
             <VStack>
               <Text>{poster?.fullName}</Text>
               <Text fontSize={'sm'} color={Colors.EMPRESS}>

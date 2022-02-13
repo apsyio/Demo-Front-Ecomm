@@ -43,7 +43,7 @@ export default function SelectStyleScreen() {
           <View style={{width: '50%', marginTop: 10}}>
             <ImageCard
               {...item}
-              uri={item?.thumbnail || ''}
+              uri={item?.thumbnail}
               onPress={() => {
                 if (styles?.includes(item.id)) {
                   setStyles(prev => prev?.filter(a => a !== item.id));

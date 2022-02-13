@@ -14,6 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import {noImageUrl} from '~/constants/image';
 import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
 import useGetInspos from '~/hooks/inspo/useGetInspos';
 import {navigate} from '~/navigation/methods';
@@ -68,8 +69,10 @@ export default function HomeScreen() {
                 onPress={() => navigate('Brands')}>
                 <Center p={5}>
                   <Image
+                    height={150}
+                    width={120}
                     resizeMode="contain"
-                    source={recommendBrand?.thumbnail || ''}
+                    source={{uri: recommendBrand?.thumbnail ?? noImageUrl}}
                   />
                 </Center>
               </Button>

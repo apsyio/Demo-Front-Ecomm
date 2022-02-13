@@ -3,6 +3,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
+import {noImageUrl} from '~/constants/image';
 import useGetBrandByBrandId from '~/hooks/brand/useGetBrandByBrandId';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
@@ -26,7 +27,7 @@ export default function BrandDetailsScreen({route}: any) {
                 mr={4}
                 width={140}
                 height={180}
-                source={{uri: photo}}
+                source={{uri: photo ?? noImageUrl}}
               />
             ))}
           </ScrollView>
