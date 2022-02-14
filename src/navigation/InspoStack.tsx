@@ -15,7 +15,7 @@ export type InspoStackParamList = {
   Outfit: {photo: string};
   BrandDetails: {id: number};
   Posts: undefined;
-  MyProfile: {id: number};
+  Profile: {id: number};
 };
 
 const screens = [
