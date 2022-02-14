@@ -21,13 +21,18 @@ import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {cameraOptions} from '~/constants/camera';
+import uploader from '~/services/uploader';
 import {Colors} from '~/styles';
+
+import {CustomSpinner} from '..';
 
 interface PhotoInputProps extends ImageProps {
   onChange?: (file: ImageOrVideo) => void;
 }
 
 const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {id, isValid, isSubmitted, resetKey, setValue, value, errorMessage} =
     useField(props);
 
@@ -52,17 +57,30 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
     setIsTouched(false);
   }, [resetKey]);
 
-  //@ts-ignore
-
   const [visible, setVisible] = useState(false);
   const close = () => setVisible(false);
   const open = () => setVisible(true);
 
+  const onSuccessImagePick = async (image: ImageOrVideo) => {
+    try {
+      setIsLoading(true);
+      const data: any = await uploader(image);
+
+      if (data?.uploadedUrl) {
+        setValue(data?.uploadedUrl);
+        props.onChange?.(data?.uploadedUrl);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const chooseImage = async () => {
     try {
       const image = await ImagePicker.openPicker(cameraOptions);
-      setValue(image.path);
-      props.onChange?.(image);
+      onSuccessImagePick(image);
     } catch (error) {
       console.log(error);
     } finally {
@@ -73,8 +91,7 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
   const openCamera = async () => {
     try {
       const image = await ImagePicker.openCamera(cameraOptions);
-      setValue(image.path);
-      props.onChange?.(image);
+      onSuccessImagePick(image);
     } catch (error) {
       console.log(error);
     } finally {
@@ -84,6 +101,7 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
 
   return (
     <>
+      <CustomSpinner visible={isLoading} />
       <Modal
         animationType="slide"
         transparent
@@ -176,7 +194,7 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
                 //@ts-ignore
                 value || props.source?.uri ? (
                   <ImageBackground
-                    style={{width: 180, height: '100%'}}
+                    style={{width: 180, height: 300}}
                     resizeMode="contain"
                     // height={180}
                     {...props}
