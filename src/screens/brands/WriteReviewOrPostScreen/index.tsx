@@ -36,11 +36,11 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
     if (data.post_createPost?.status === ResponseStatus.Success) {
       if (brandId) {
         navigate('BrandDetails', {
-          brandId,
+          id: brandId,
         });
       } else {
         navigate('StyleDetails', {
-          styleId,
+          id: styleId,
         });
       }
     }
@@ -103,7 +103,9 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
               variant={m === mode ? 'primary' : 'outline'}
               width={'45%'}>
               <Text
-                style={{color: m === mode ? Colors.WHITE : Colors.SHADY_LADY}}>
+                style={{
+                  color: m === mode ? Colors.WHITE : Colors.SHADY_LADY,
+                }}>
                 Write a {m}
               </Text>
             </Button>
@@ -132,10 +134,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
                 minHeight={150}
               />
 
-              <PhotoInput
-                name="photo"
-                onChange={e => console.log('e', e.path)}
-              />
+              <PhotoInput name="photo" />
             </Formiz>
           )}
 
