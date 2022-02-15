@@ -3,18 +3,22 @@ import React, {useState} from 'react';
 
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import {ResponseStatus} from '~/generated/graphql';
 import useGetAllBrands from '~/hooks/brand/useGetBrands';
+import useSetBrands from '~/hooks/inspo/useSetBrands';
 import {goBack} from '~/navigation/methods';
 import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SelectFavoriteBrandScreen() {
-  const [favoriteBrands, setFavoriteBrands] = useState<number[]>([]);
+  const [brandIds, setBrandIds] = useState<number[]>([]);
 
   const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
 
   const {isRefetching, data, fetchNextPage, hasNextPage, refetch} =
     useGetAllBrands({});
+
+  const {mutate} = useSetBrands();
 
   return (
     <CustomContainer>
@@ -39,7 +43,7 @@ export default function SelectFavoriteBrandScreen() {
         refreshing={isRefetching}
         onRefresh={refetch}
         keyExtractor={(item, index) =>
-          item?.name ? item?.name : index?.toString()
+          item?.id ? item?.id?.toString() : index?.toString()
         }
         data={data?.pages}
         renderItem={({item}) => (
@@ -48,10 +52,10 @@ export default function SelectFavoriteBrandScreen() {
             {...item}
             uri={item?.thumbnail}
             onPress={() => {
-              if (favoriteBrands?.includes(item.id)) {
-                setFavoriteBrands(prev => prev?.filter(a => a !== item.id));
+              if (brandIds?.includes(item.id)) {
+                setBrandIds(prev => prev?.filter(a => a !== item.id));
               } else {
-                setFavoriteBrands(prev => [...prev, item.id]);
+                setBrandIds(prev => [...prev, item.id]);
               }
             }}>
             <Center
@@ -63,7 +67,7 @@ export default function SelectFavoriteBrandScreen() {
               m={2}
               borderWidth={1}
               borderColor={Colors.SEA_PINK}>
-              {favoriteBrands?.includes(item.id) && (
+              {brandIds?.includes(item.id) && (
                 <View
                   bg={Colors.SEA_PINK}
                   borderRadius={4}
@@ -89,7 +93,19 @@ export default function SelectFavoriteBrandScreen() {
         <Button
           variant="primary"
           width={'45%'}
-          onPress={() => setIsUserLoggedIn(true)}>
+          onPress={() => {
+            if (brandIds && brandIds?.length > 0) {
+              mutate(brandIds, {
+                onSuccess: res => {
+                  if (res.user_setBrands?.status === ResponseStatus.Success) {
+                    setIsUserLoggedIn(true);
+                  }
+                },
+              });
+            } else {
+              setIsUserLoggedIn(true);
+            }
+          }}>
           Next
         </Button>
       </HStack>
