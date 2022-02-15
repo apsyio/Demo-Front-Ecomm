@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import {noImageUrl} from '~/constants/image';
+import {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 export default function ImageCard({
@@ -19,8 +20,8 @@ export default function ImageCard({
   containerStyle,
   isSmall,
 }: {
-  bottomTitle?: string;
-  uri: string;
+  bottomTitle?: string | null;
+  uri: Maybe<string> | undefined;
   children?: any;
   onPress: () => void;
   hasBorder?: boolean;

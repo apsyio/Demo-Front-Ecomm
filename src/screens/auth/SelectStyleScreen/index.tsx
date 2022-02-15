@@ -3,15 +3,19 @@ import React, {useState} from 'react';
 
 import images from '~/assets/images';
 import {CustomContainer, ImageCard} from '~/components/atoms';
+import {ResponseStatus} from '~/generated/graphql';
+import useSetStyles from '~/hooks/inspo/useSetStyles';
 import useGetStyles from '~/hooks/styles/useGetStyles';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function SelectStyleScreen() {
-  const [styles, setStyles] = useState<number[]>([]);
+  const [styleIds, setStyleIds] = useState<number[]>([]);
 
   const {isRefetching, data, fetchNextPage, hasNextPage, refetch} =
     useGetStyles({});
+
+  const {mutate} = useSetStyles();
 
   return (
     <CustomContainer>
@@ -45,10 +49,10 @@ export default function SelectStyleScreen() {
               {...item}
               uri={item?.thumbnail}
               onPress={() => {
-                if (styles?.includes(item.id)) {
-                  setStyles(prev => prev?.filter(a => a !== item.id));
+                if (styleIds?.includes(item.id)) {
+                  setStyleIds(prev => prev?.filter(a => a !== item.id));
                 } else {
-                  setStyles(prev => [...prev, item.id]);
+                  setStyleIds(prev => [...prev, item.id]);
                 }
               }}>
               <Center
@@ -60,7 +64,7 @@ export default function SelectStyleScreen() {
                 m={2}
                 borderWidth={1}
                 borderColor={Colors.SEA_PINK}>
-                {styles?.includes(item.id) && (
+                {styleIds?.includes(item.id) && (
                   <View
                     bg={Colors.SEA_PINK}
                     borderRadius={4}
@@ -72,7 +76,9 @@ export default function SelectStyleScreen() {
             </ImageCard>
 
             <Text
-              color={styles?.includes(item.id) ? Colors.ROUGE : Colors.EMPRESS}>
+              color={
+                styleIds?.includes(item.id) ? Colors.ROUGE : Colors.EMPRESS
+              }>
               {item.name}
             </Text>
           </View>
@@ -95,7 +101,19 @@ export default function SelectStyleScreen() {
         <Button
           variant="primary"
           width={'100%'}
-          onPress={() => navigate('SelectFavoriteBrand')}>
+          onPress={() => {
+            if (styleIds && styleIds?.length > 0) {
+              mutate(styleIds, {
+                onSuccess: res => {
+                  if (res.user_setStyles?.status === ResponseStatus.Success) {
+                    navigate('SelectFavoriteBrand');
+                  }
+                },
+              });
+            } else {
+              navigate('SelectFavoriteBrand');
+            }
+          }}>
           Next
         </Button>
       </HStack>
