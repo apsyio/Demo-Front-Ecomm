@@ -87,7 +87,7 @@ export default function HomeScreen() {
                 style={{flex: 1}}>
                 <ImageBackground
                   resizeMode="contain"
-                  source={{uri: topInspo?.avatar || noImageUrl}}
+                  source={{uri: topInspo?.avatarUrl || noImageUrl}}
                   imageStyle={{borderRadius: 20}}
                   style={{
                     height: 150,
@@ -143,7 +143,10 @@ export default function HomeScreen() {
               <View p={3}>
                 <Text>{lastPost?.title}</Text>
                 <Text fontSize={'sm'} color={Colors.SHADY_LADY} mt={1}>
-                  {lastPost?.postedAt}
+                  {new Date(lastPost?.postedAt)?.toLocaleString('en-us', {
+                    month: 'short',
+                  })}{' '}
+                  {new Date(lastPost?.postedAt)?.getDate()}
                 </Text>
 
                 <HStack
@@ -153,7 +156,7 @@ export default function HomeScreen() {
                   <HStack alignItems={'center'}>
                     <Image
                       rounded={'full'}
-                      source={{uri: lastPost?.poster?.avatar || noImageUrl}}
+                      source={{uri: lastPost?.poster?.avatarUrl || noImageUrl}}
                       width={7}
                       height={7}
                       mr={2}
@@ -195,7 +198,7 @@ export default function HomeScreen() {
           <ImageCard
             containerStyle={{marginTop: 16}}
             {...item}
-            uri={item.avatar}
+            uri={item.avatarUrl}
             bottomTitle={item.fullName}
             onPress={() =>
               navigate('Profile', {
