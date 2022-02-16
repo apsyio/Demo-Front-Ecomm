@@ -27,7 +27,7 @@ export default function EditProfileSocialNetworksScreen() {
         socials: [
           {address: values.instagram, socialNetworks: SocialNetworks.Instagram},
           {address: values.tikTok, socialNetworks: SocialNetworks.TikTok},
-          {address: values.facebook, socialNetworks: SocialNetworks.Facebook},
+          {address: values.pinterest, socialNetworks: SocialNetworks.Pinterest},
         ],
       },
       {
@@ -42,7 +42,7 @@ export default function EditProfileSocialNetworksScreen() {
     <CustomContainer>
       <ScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={editForm}>
-          <AvatarWithTitle uri={inspo?.avatar} title={inspo?.fullName} />
+          <AvatarWithTitle uri={inspo?.avatarUrl} title={inspo?.fullName} />
 
           <Text fontWeight={'bold'} fontSize="lg" mb={3}>
             Social Network
@@ -73,12 +73,12 @@ export default function EditProfileSocialNetworksScreen() {
           <CustomInput
             defaultValue={
               inspo?.socials?.find(
-                a => a?.socialNetworks === SocialNetworks.Facebook,
+                a => a?.socialNetworks === SocialNetworks.Pinterest,
               )?.address
             }
-            label="Facebook"
-            name="facebook"
-            placeholder="Enter Your Facebook Link"
+            label="Pinterest"
+            name="pinterest"
+            placeholder="Enter Your Pinterest Link"
           />
 
           <Button my={5} variant={'primary'} onPress={editForm.submit}>

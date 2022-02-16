@@ -2,7 +2,7 @@ import {useInfiniteQuery} from 'react-query';
 
 import {PAGE_SIZE} from '~/constants/pagination';
 import queryKeys from '~/constants/queryKeys';
-import {User_GetInsposQuery, UserDto} from '~/generated/graphql';
+import {User_GetInsposQuery, Users} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {GET_INSPOS} from '~/graphql/user/queries/user_getInspos';
 
@@ -19,7 +19,7 @@ const useGetInspos = ({
   isRandom?: boolean;
   options?: any;
 }) => {
-  return useInfiniteQuery<User_GetInsposQuery, any, UserDto, any>(
+  return useInfiniteQuery<User_GetInsposQuery, any, Users, any>(
     [queryKeys.brands, where, order, isCommon, isRandom],
     async ({pageParam = 0}) => {
       return graphQLClient.request(GET_INSPOS, {

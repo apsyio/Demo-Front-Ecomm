@@ -781,6 +781,7 @@ export enum SocialNetworks {
   Facebook = 'FACEBOOK',
   Google = 'GOOGLE',
   Instagram = 'INSTAGRAM',
+  Pinterest = 'PINTEREST',
   TikTok = 'TIK_TOK',
 }
 
@@ -1007,6 +1008,7 @@ export type UserStylesFilterInput = {
 export type Users = {
   __typename?: 'Users';
   accountType: AccountTypes;
+  avatarUrl?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   brandLikes?: Maybe<Array<Maybe<BrandLikes>>>;
   closets?: Maybe<Array<Maybe<Closets>>>;
@@ -1034,6 +1036,7 @@ export type UsersCollectionSegment = {
 export type UsersFilterInput = {
   accountType?: InputMaybe<AccountTypesOperationFilterInput>;
   and?: InputMaybe<Array<UsersFilterInput>>;
+  avatarUrl?: InputMaybe<StringOperationFilterInput>;
   bio?: InputMaybe<StringOperationFilterInput>;
   brandLikes?: InputMaybe<ListFilterInputTypeOfBrandLikesFilterInput>;
   closets?: InputMaybe<ListFilterInputTypeOfClosetsFilterInput>;
@@ -1053,6 +1056,7 @@ export type UsersFilterInput = {
 
 export type UsersSortInput = {
   accountType?: InputMaybe<SortEnumType>;
+  avatarUrl?: InputMaybe<SortEnumType>;
   bio?: InputMaybe<SortEnumType>;
   email?: InputMaybe<SortEnumType>;
   externalId?: InputMaybe<SortEnumType>;
@@ -1098,7 +1102,6 @@ export type Brand_GetAllBrandsQuery = {
         thumbnail?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
-        liked: boolean;
         styles?: Array<{
           __typename?: 'Styles';
           name?: string | null;
@@ -3139,39 +3142,6 @@ export type Post_GetBrandPostsQuery = {
             isDeleted: boolean;
           } | null> | null;
         } | null;
-        likes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -3368,39 +3338,6 @@ export type Post_GetStylePostsQuery = {
             isDeleted: boolean;
           } | null> | null;
         } | null;
-        likes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -3596,39 +3533,6 @@ export type Post_GetUserPostsQuery = {
             isDeleted: boolean;
           } | null> | null;
         } | null;
-        likes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -5940,12 +5844,12 @@ export type User_GetStylesQuery = {
       totalCount: number;
       items?: Array<{
         __typename?: 'Styles';
+        id: number;
         name?: string | null;
         thumbnail?: string | null;
         colors?: Array<string | null> | null;
         photos?: Array<string | null> | null;
         likesCount: number;
-        id: number;
         isDeleted: boolean;
         styleBrands?: Array<{
           __typename?: 'StyleBrands';

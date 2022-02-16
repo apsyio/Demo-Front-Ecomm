@@ -19,7 +19,7 @@ export default function ProfileScreen({route}: any) {
   return (
     <CustomContainer>
       <ScrollView>
-        <AvatarWithTitle title={inspo?.fullName || ''} uri={inspo?.avatar} />
+        <AvatarWithTitle title={inspo?.fullName || ''} uri={inspo?.avatarUrl} />
 
         <Center>
           <HStack>
@@ -36,10 +36,10 @@ export default function ProfileScreen({route}: any) {
             />
             <View mx={3} />
             <SocialButton
-              iconName="facebook"
+              iconName="pinterest"
               onPress={() => {
                 const address = inspo?.socials?.find(
-                  a => a?.socialNetworks === SocialNetworks.Facebook,
+                  a => a?.socialNetworks === SocialNetworks.Pinterest,
                 )?.address;
                 if (address) {
                   Linking.openURL(address);
@@ -75,7 +75,7 @@ export default function ProfileScreen({route}: any) {
           data={inspo?.closets}
           renderItem={({item}) => (
             <ImageCard
-              key={item.id}
+              key={item?.id}
               containerStyle={{marginTop: 12}}
               isSmall
               uri={item?.photo}

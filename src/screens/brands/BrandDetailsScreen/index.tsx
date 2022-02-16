@@ -79,8 +79,8 @@ export default function BrandDetailsScreen({route}: any) {
                 key={index}
                 isSmall
                 containerStyle={{marginRight: 10}}
-                uri={item?.thumbnail}
-                onPress={() => navigate('MyProfile', {id: item?.id})}
+                uri={item?.avatarUrl}
+                onPress={() => navigate('Profile', {id: item?.id})}
               />
             ))}
           </ScrollView>

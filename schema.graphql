@@ -1,8 +1,5 @@
 """
-The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A import {gql} from 'graphql-request';
-
-export const GET_ADVERTISEMENTS = gql`
-  query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
+The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
 """
 directive @defer(
   """
@@ -35,6 +32,23 @@ directive @stream(
   """
   if: Boolean
 ) on FIELD
+
+directive @authorize(
+  """
+  The name of the authorization policy that determines access to the annotated resource.
+  """
+  policy: String
+
+  """
+  Roles that are allowed to access the annotated resource.
+  """
+  roles: [String!]
+
+  """
+  Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field.
+  """
+  apply: ApplyPolicy! = BEFORE_RESOLVER
+) repeatable on SCHEMA | OBJECT | FIELD_DEFINITION
 
 type Query {
   styles_getStyles: ListResponseBaseOfStyles
@@ -197,6 +211,7 @@ type Users {
   accountType: AccountTypes!
   email: String
   phone: String
+  avatarUrl: String
   bio: String
   postLikes: [PostLikes]
   socials: [UserSocials]
@@ -311,6 +326,7 @@ enum SocialNetworks {
   INSTAGRAM
   GOOGLE
   TIK_TOK
+  PINTEREST
 }
 
 type ResponseBaseOfClosets {
@@ -545,6 +561,7 @@ input UsersFilterInput {
   accountType: AccountTypesOperationFilterInput
   email: StringOperationFilterInput
   phone: StringOperationFilterInput
+  avatarUrl: StringOperationFilterInput
   bio: StringOperationFilterInput
   postLikes: ListFilterInputTypeOfPostLikesFilterInput
   socials: ListFilterInputTypeOfUserSocialsFilterInput
@@ -563,6 +580,7 @@ input UsersSortInput {
   accountType: SortEnumType
   email: SortEnumType
   phone: SortEnumType
+  avatarUrl: SortEnumType
   bio: SortEnumType
   externalId: SortEnumType
   id: SortEnumType

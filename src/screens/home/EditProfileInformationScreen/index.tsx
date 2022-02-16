@@ -36,7 +36,7 @@ export default function EditProfileInformationScreen() {
     <CustomContainer>
       <ScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={editForm}>
-          <AvatarWithTitle uri={inspo?.avatar} title={inspo?.fullName} />
+          <AvatarWithTitle uri={inspo?.avatarUrl} title={inspo?.fullName} />
 
           <Text fontWeight={'bold'} fontSize="lg" mb={3}>
             Information

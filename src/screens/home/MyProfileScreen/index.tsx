@@ -31,7 +31,7 @@ export default function MyProfileScreen() {
     <CustomContainer>
       <ScrollView>
         <Center>
-          <AvatarWithTitle title={inspo?.fullName} uri={inspo?.avatar} />
+          <AvatarWithTitle title={inspo?.fullName} uri={inspo?.avatarUrl} />
 
           <Button
             onPress={() => navigate('Profile', {id: userId})}
