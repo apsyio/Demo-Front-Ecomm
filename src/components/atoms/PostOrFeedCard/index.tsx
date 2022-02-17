@@ -4,9 +4,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {noImageUrl} from '~/constants/image';
 import {PostDto} from '~/generated/graphql';
+import useLikePost from '~/hooks/post/useLikePost';
 import {Colors} from '~/styles';
 
 export default function PostOrFeedCard({
+  id,
   poster,
   title,
   content,
@@ -14,6 +16,8 @@ export default function PostOrFeedCard({
   liked,
   postedAt,
 }: PostDto) {
+  const {mutate} = useLikePost();
+
   return (
     <>
       <VStack p={5}>
@@ -27,7 +31,11 @@ export default function PostOrFeedCard({
               </Text>
             </VStack>
           </HStack>
-          <Button onPress={() => null} variant={'sub'}>
+          <Button
+            onPress={() => {
+              mutate({postId: id, liked: !liked});
+            }}
+            variant={'sub'}>
             <Icon
               as={MaterialCommunityIcons}
               size="md"
