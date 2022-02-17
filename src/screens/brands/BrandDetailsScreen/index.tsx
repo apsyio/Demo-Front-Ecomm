@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native';
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
 import {noImageUrl} from '~/constants/image';
 import useGetBrandByBrandId from '~/hooks/brand/useGetBrandByBrandId';
+import useLikeBrand from '~/hooks/brand/useLikeBrand';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
@@ -13,11 +14,18 @@ export default function BrandDetailsScreen({route}: any) {
 
   const {brandDetails} = useGetBrandByBrandId(id);
 
+  const {mutate} = useLikeBrand();
+
   return (
     <CustomContainer p={0}>
       <ScrollView>
         <View p={5}>
-          <StyleOrBrandCard {...brandDetails} />
+          <StyleOrBrandCard
+            {...brandDetails}
+            onPressLike={() => {
+              mutate({brandId: id, liked: !brandDetails?.liked});
+            }}
+          />
 
           <ScrollView horizontal>
             {brandDetails?.photos?.map((photo, index) => (
