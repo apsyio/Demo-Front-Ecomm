@@ -6,6 +6,7 @@ import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
 import BrandCard from '~/components/atoms/BrandCard';
 import {noImageUrl} from '~/constants/image';
 import useGetStyleByStyleId from '~/hooks/styles/useGetStyleByStyleId';
+import useLikeStyle from '~/hooks/styles/useLikeStyle';
 import {navigate} from '~/navigation/methods';
 
 export default function StyleDetailsScreen({route}: any) {
@@ -13,10 +14,17 @@ export default function StyleDetailsScreen({route}: any) {
 
   const {styleDetails} = useGetStyleByStyleId(id);
 
+  const {mutate} = useLikeStyle();
+
   return (
     <CustomContainer>
       <ScrollView>
-        <StyleOrBrandCard {...styleDetails} />
+        <StyleOrBrandCard
+          {...styleDetails}
+          onPressLike={() => {
+            mutate({styleId: id, liked: !styleDetails?.liked});
+          }}
+        />
 
         <View mt={3}>
           <ScrollView horizontal>
