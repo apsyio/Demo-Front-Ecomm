@@ -11,7 +11,7 @@ import {
   View,
 } from 'native-base';
 import React, {useState} from 'react';
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 
 import images from '~/assets/images';
 import {
@@ -78,6 +78,19 @@ export default function SignupScreen() {
       createUserWithSocial();
     }
   };
+
+  async function doAppleSignup() {
+    const {thirdPartyAccessToken, firebaseIdToken, firebaseUser, success} =
+      await thirdPartyAuthService.loginWithApple();
+    console.log(firebaseIdToken, 'firebaseIdToken');
+    if (success) {
+      console.log('thirdPartyAccessToken', thirdPartyAccessToken);
+      console.log('firebaseIdToken', firebaseIdToken);
+      console.log('firebaseUser', firebaseUser);
+
+      createUserWithSocial();
+    }
+  }
 
   const completeRegistrationWithEmailPassword = async () => {
     mutate(undefined, {
@@ -174,6 +187,13 @@ export default function SignupScreen() {
               <SocialButton iconName="facebook" onPress={facebookSignup} />
               <View mx={2} />
               <SocialButton iconName="google" onPress={googleSignup} />
+
+              {Platform.OS === 'ios' && (
+                <>
+                  <View mx={2} />
+                  <SocialButton iconName="apple" onPress={doAppleSignup} />
+                </>
+              )}
             </HStack>
 
             <HStack alignItems="center" justifyContent="center">

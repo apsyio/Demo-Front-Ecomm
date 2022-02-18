@@ -3,7 +3,7 @@ import {isEmail, isMinLength} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
 import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
 import React, {useState} from 'react';
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 
 import images from '~/assets/images';
 import {
@@ -118,6 +118,19 @@ export default function SigninScreen() {
     }
   };
 
+  async function doAppleSignin() {
+    const {thirdPartyAccessToken, firebaseIdToken, firebaseUser, success} =
+      await thirdPartyAuthService.loginWithApple();
+
+    if (success) {
+      console.log('thirdPartyAccessToken', thirdPartyAccessToken);
+      console.log('firebaseIdToken', firebaseIdToken);
+      console.log('firebaseUser', firebaseUser);
+
+      onSigninWithSocial();
+    }
+  }
+
   return (
     <CustomContainer bg={Colors.SEA_PINK}>
       <CustomSpinner visible={isLoading} />
@@ -179,6 +192,12 @@ export default function SigninScreen() {
               <SocialButton iconName="facebook" onPress={facebookSignIn} />
               <View mx={2} />
               <SocialButton iconName="google" onPress={googleSignin} />
+              {Platform.OS === 'ios' && (
+                <>
+                  <View mx={2} />
+                  <SocialButton iconName="apple" onPress={doAppleSignin} />
+                </>
+              )}
             </HStack>
 
             <HStack alignItems="center" justifyContent="center">

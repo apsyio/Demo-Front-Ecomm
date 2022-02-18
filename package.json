@@ -13,6 +13,7 @@
   "dependencies": {
     "@formiz/core": "^1.8.0",
     "@formiz/validations": "^1.0.0",
+    "@invertase/react-native-apple-authentication": "^2.1.5",
     "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-firebase/app": "^14.3.2",
     "@react-native-firebase/auth": "^14.3.2",
