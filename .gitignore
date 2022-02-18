@@ -53,6 +53,13 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
+# scan temporary files
+*/fastlane/test_output
+
+# fastlane builds
+builds/*
+*.xcarchive
+
 # Bundle artifact
 *.jsbundle
 
