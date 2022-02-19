@@ -66,4 +66,7 @@ builds/*
 # CocoaPods
 /ios/Pods/
 
+/ios/builds/*
+
 .env
+
