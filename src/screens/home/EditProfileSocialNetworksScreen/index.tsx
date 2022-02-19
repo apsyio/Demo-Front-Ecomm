@@ -1,6 +1,7 @@
 import {Formiz, useForm} from '@formiz/core';
-import {Button, ScrollView, Text} from 'native-base';
+import {Button, Text} from 'native-base';
 import React from 'react';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {
   AvatarWithTitle,
@@ -40,7 +41,7 @@ export default function EditProfileSocialNetworksScreen() {
   };
   return (
     <CustomContainer>
-      <ScrollView>
+      <KeyboardAwareScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={editForm}>
           <AvatarWithTitle uri={inspo?.avatarUrl} title={inspo?.fullName} />
 
@@ -85,7 +86,7 @@ export default function EditProfileSocialNetworksScreen() {
             Done
           </Button>
         </Formiz>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </CustomContainer>
   );
 }

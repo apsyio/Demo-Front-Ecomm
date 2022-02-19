@@ -1,6 +1,7 @@
 import {Formiz, useForm} from '@formiz/core';
 import {Button, HStack, ScrollView, Text, Toast, View} from 'native-base';
 import React, {useLayoutEffect, useState} from 'react';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {
   CustomContainer,
@@ -94,107 +95,111 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
 
   return (
     <CustomContainer>
-      <HStack justifyContent="space-around" my={3}>
-        {activeTab === 'Brands' &&
-          ['post', 'review'].map(m => (
-            <Button
-              key={m}
-              onPress={() => setMode(m)}
-              style={{
-                borderColor: m === mode ? undefined : Colors.GALLERY,
-              }}
-              _text={{
-                color: m === mode ? Colors.WHITE : Colors.SHADY_LADY,
-              }}
-              borderRadius={'md'}
-              variant={m === mode ? 'primary' : 'outline'}
-              width={'45%'}>
-              <Text
+      <KeyboardAwareScrollView>
+        <HStack justifyContent="space-around" my={3}>
+          {activeTab === 'Brands' &&
+            ['post', 'review'].map(m => (
+              <Button
+                key={m}
+                onPress={() => setMode(m)}
                 style={{
+                  borderColor: m === mode ? undefined : Colors.GALLERY,
+                }}
+                _text={{
                   color: m === mode ? Colors.WHITE : Colors.SHADY_LADY,
-                }}>
-                Write a {m}
-              </Text>
-            </Button>
-          ))}
-      </HStack>
+                }}
+                borderRadius={'md'}
+                variant={m === mode ? 'primary' : 'outline'}
+                width={'45%'}>
+                <Text
+                  style={{
+                    color: m === mode ? Colors.WHITE : Colors.SHADY_LADY,
+                  }}>
+                  Write a {m}
+                </Text>
+              </Button>
+            ))}
+        </HStack>
 
-      <View flex={1}>
-        <ScrollView>
-          {mode === 'post' && (
-            <Formiz
-              onValidSubmit={handleWritePostFormSubmit}
-              connect={writePostForm}>
-              <CustomInput
-                name="title"
-                label="Post title"
-                placeholder="Name of item"
-                required="Name of item is required"
-              />
+        <View flex={1}>
+          <ScrollView>
+            {mode === 'post' && (
+              <Formiz
+                onValidSubmit={handleWritePostFormSubmit}
+                connect={writePostForm}>
+                <CustomInput
+                  name="title"
+                  label="Post title"
+                  placeholder="Name of item"
+                  required="Name of item is required"
+                />
 
-              <CustomInput
-                name="content"
-                label="Write post here"
-                placeholder="Your post"
-                required="Your post is required"
-                multiline
-                minHeight={150}
-              />
+                <CustomInput
+                  name="content"
+                  label="Write post here"
+                  placeholder="Your post"
+                  required="Your post is required"
+                  multiline
+                  minHeight={150}
+                />
 
-              <PhotoInput name="photo" />
-            </Formiz>
-          )}
+                <PhotoInput name="photo" />
+              </Formiz>
+            )}
 
-          {mode === 'review' && (
-            <Formiz
-              onValidSubmit={handleWriteReviewFormSubmit}
-              connect={writeReviewForm}>
-              <CustomInput
-                name="title"
-                label="Item Name"
-                placeholder="Name of item"
-                required="Name of item is required"
-              />
+            {mode === 'review' && (
+              <Formiz
+                onValidSubmit={handleWriteReviewFormSubmit}
+                connect={writeReviewForm}>
+                <CustomInput
+                  name="title"
+                  label="Item Name"
+                  placeholder="Name of item"
+                  required="Name of item is required"
+                />
 
-              <CustomSelect
-                name="sizeTag"
-                label={'Size'}
-                minWidth="200"
-                accessibilityLabel="Size"
-                placeholder="Size"
-                required="Size is required"
-                options={TAG_SIZES}
-              />
+                <CustomSelect
+                  name="sizeTag"
+                  label={'Size'}
+                  minWidth="200"
+                  accessibilityLabel="Size"
+                  placeholder="Size"
+                  required="Size is required"
+                  options={TAG_SIZES}
+                />
 
-              <CustomInput
-                multiline
-                minHeight={150}
-                name="content"
-                label="Review"
-                placeholder="Write review here"
-                required="Your review is required"
-              />
+                <CustomInput
+                  multiline
+                  minHeight={150}
+                  name="content"
+                  label="Review"
+                  placeholder="Write review here"
+                  required="Your review is required"
+                />
 
-              <PhotoInput
-                name="photo"
-                onChange={e => console.log('e', e.path)}
-              />
-            </Formiz>
-          )}
-        </ScrollView>
+                <PhotoInput
+                  name="photo"
+                  onChange={e => console.log('e', e.path)}
+                />
+              </Formiz>
+            )}
+          </ScrollView>
 
-        <Button
-          isDisabled={
-            mode === 'post' ? !writePostForm.isValid : !writeReviewForm.isValid
-          }
-          onPress={
-            mode === 'post' ? writePostForm.submit : writeReviewForm.submit
-          }
-          variant={'primary'}
-          mt={5}>
-          POST
-        </Button>
-      </View>
+          <Button
+            isDisabled={
+              mode === 'post'
+                ? !writePostForm.isValid
+                : !writeReviewForm.isValid
+            }
+            onPress={
+              mode === 'post' ? writePostForm.submit : writeReviewForm.submit
+            }
+            variant={'primary'}
+            mt={5}>
+            POST
+          </Button>
+        </View>
+      </KeyboardAwareScrollView>
     </CustomContainer>
   );
 }
