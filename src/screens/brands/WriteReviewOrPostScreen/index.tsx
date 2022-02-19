@@ -1,5 +1,5 @@
 import {Formiz, useForm} from '@formiz/core';
-import {Button, HStack, ScrollView, Text, View} from 'native-base';
+import {Button, HStack, ScrollView, Text, Toast, View} from 'native-base';
 import React, {useLayoutEffect, useState} from 'react';
 
 import {
@@ -33,7 +33,8 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
   const {mutate} = useCreatePost();
 
   const onSuccess = (data: Post_CreatePostMutation) => {
-    if (data.post_createPost?.status === ResponseStatus.Success) {
+    const status = data.post_createPost?.status;
+    if (status === ResponseStatus.Success) {
       if (brandId) {
         navigate('BrandDetails', {
           id: brandId,
@@ -43,6 +44,12 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
           id: styleId,
         });
       }
+    } else {
+      Toast.show({
+        title: 'Error',
+        status: 'error',
+        description: status,
+      });
     }
   };
 

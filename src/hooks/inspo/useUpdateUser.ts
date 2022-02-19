@@ -1,3 +1,4 @@
+import {Toast} from 'native-base';
 import {useMutation, useQueryClient} from 'react-query';
 
 import {
@@ -20,9 +21,16 @@ const useUpdateUser = () => {
     },
     {
       onSuccess: data => {
-        if (data.user_updateUser?.status === ResponseStatus.Success) {
+        const status = data.user_updateUser?.status;
+        if (status === ResponseStatus.Success) {
           queryClient.invalidateQueries('inspos');
           queryClient.invalidateQueries('inspo');
+        } else {
+          Toast.show({
+            title: 'Error',
+            status: 'error',
+            description: status,
+          });
         }
       },
     },

@@ -1,4 +1,13 @@
-import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
+import {
+  Button,
+  Center,
+  FlatList,
+  HStack,
+  Image,
+  Text,
+  Toast,
+  View,
+} from 'native-base';
 import React, {useState} from 'react';
 
 import images from '~/assets/images';
@@ -105,8 +114,15 @@ export default function SelectStyleScreen() {
             if (styleIds && styleIds?.length > 0) {
               mutate(styleIds, {
                 onSuccess: res => {
-                  if (res.user_setStyles?.status === ResponseStatus.Success) {
+                  const status = res.user_setStyles?.status;
+                  if (status === ResponseStatus.Success) {
                     navigate('SelectFavoriteBrand');
+                  } else {
+                    Toast.show({
+                      title: 'Error',
+                      status: 'error',
+                      description: status,
+                    });
                   }
                 },
               });

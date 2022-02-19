@@ -1,3 +1,4 @@
+import {Toast} from 'native-base';
 import {useMutation, useQueryClient} from 'react-query';
 
 import {
@@ -20,8 +21,15 @@ const useSetBrands = () => {
     },
     {
       onSuccess: data => {
-        if (data?.user_setBrands?.status === ResponseStatus.Success) {
+        const status = data?.user_setBrands?.status;
+        if (status === ResponseStatus.Success) {
           queryClient.invalidateQueries('inspo');
+        } else {
+          Toast.show({
+            title: 'Error',
+            status: 'error',
+            description: status,
+          });
         }
       },
     },

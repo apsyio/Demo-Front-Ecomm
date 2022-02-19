@@ -1,9 +1,16 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
-import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
+import {
+  Button,
+  HStack,
+  Image,
+  ScrollView,
+  Text,
+  Toast,
+  View,
+} from 'native-base';
 import React, {useState} from 'react';
-import {Alert} from 'react-native';
 
 import images from '~/assets/images';
 import {CustomContainer, CustomInput, CustomSpinner} from '~/components/atoms';
@@ -25,15 +32,23 @@ export default function ForgotPasswordScreen() {
         .then(result => {
           console.log(result, 'result');
           setIsLoading(false);
-          Alert.alert(
-            "You've got mail!",
-            'We have sent a password recover link to your email',
-          );
+
+          Toast.show({
+            title: "You've got mail!",
+            status: 'success',
+            description: 'We have sent a password recover link to your email',
+          });
+
           return true;
         });
-    } catch (err) {
+    } catch (err: any) {
       console.log(err?.message, 'err');
-      Alert.alert('Error', err?.message.split(']')[1]);
+
+      Toast.show({
+        title: 'Error',
+        status: 'error',
+        description: err?.message.split(']')[1],
+      });
     } finally {
       setIsLoading(false);
     }

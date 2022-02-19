@@ -1,9 +1,17 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail, isMinLength} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
-import {Button, HStack, Image, ScrollView, Text, View} from 'native-base';
+import {
+  Button,
+  HStack,
+  Image,
+  ScrollView,
+  Text,
+  Toast,
+  View,
+} from 'native-base';
 import React, {useState} from 'react';
-import {Alert, Platform} from 'react-native';
+import {Platform} from 'react-native';
 
 import images from '~/assets/images';
 import {
@@ -41,7 +49,11 @@ export default function SigninScreen() {
     } catch (e) {
       console.log(e, 'e!!!!');
       if (e === ResponseStatus.UserNotFound) {
-        Alert.alert('Error', 'You are not registered!');
+        Toast.show({
+          title: 'Error',
+          status: 'error',
+          description: 'You are not registered!',
+        });
       }
     }
     setIsLoading(false);
@@ -78,12 +90,16 @@ export default function SigninScreen() {
         signinForm.values.password,
       );
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error, 'error for get token');
 
       const errorMessage = error?.message;
       if (errorMessage) {
-        Alert.alert('Error', errorMessage);
+        Toast.show({
+          title: 'Error',
+          status: 'error',
+          description: errorMessage,
+        });
       }
       return false;
     }
@@ -94,7 +110,11 @@ export default function SigninScreen() {
     if (status === ResponseStatus.Success) {
       setIsUserLoggedIn(true);
     } else {
-      Alert.alert('Error', status || 'Error');
+      Toast.show({
+        title: 'Error',
+        status: 'error',
+        description: status,
+      });
     }
   };
 

@@ -1,3 +1,4 @@
+import {Toast} from 'native-base';
 import {useMutation, useQueryClient} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
@@ -21,8 +22,15 @@ const useLikeBrand = () => {
     },
     {
       onSuccess: data => {
-        if (data?.brand_likeBrand?.status === ResponseStatus.Success) {
+        const status = data?.brand_likeBrand?.status;
+        if (status === ResponseStatus.Success) {
           queryClient.invalidateQueries(queryKeys.brand);
+        } else {
+          Toast.show({
+            title: 'Error',
+            status: 'error',
+            description: status,
+          });
         }
       },
     },

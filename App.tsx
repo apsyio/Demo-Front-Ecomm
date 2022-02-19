@@ -2,9 +2,8 @@ console.warn = () => null;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {extendTheme, NativeBaseProvider} from 'native-base';
+import {extendTheme, NativeBaseProvider, Toast} from 'native-base';
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert} from 'react-native';
 import Config from 'react-native-config';
 import {Settings} from 'react-native-fbsdk-next';
 import SplashScreen from 'react-native-splash-screen';
@@ -61,7 +60,11 @@ export default function App() {
       onError: (error: any) => {
         console.log(error);
 
-        Alert.alert('Error', `Something went wrong: ${error.message}`);
+        Toast.show({
+          title: 'Error',
+          status: 'error',
+          description: `Something went wrong: ${error.message}`,
+        });
       },
       onSuccess: async (data: any) => {
         const apiName = Object.keys(data)[0];
@@ -106,6 +109,11 @@ export default function App() {
 
   const theme = extendTheme({
     components: {
+      Toast: {
+        defaultProps: {
+          placement: 'top',
+        },
+      },
       Text: {
         defaultProps: {
           fontSize: 'md',

@@ -8,10 +8,11 @@ import {
   ScrollView,
   Spinner,
   Text,
+  Toast,
   View,
 } from 'native-base';
 import React, {useState} from 'react';
-import {Alert, Platform} from 'react-native';
+import {Platform} from 'react-native';
 
 import images from '~/assets/images';
 import {
@@ -38,7 +39,11 @@ export default function SignupScreen() {
     if (status === ResponseStatus.Success) {
       navigate('SelectStyle');
     } else {
-      Alert.alert('Error', status);
+      Toast.show({
+        title: 'Error',
+        status: 'error',
+        description: status,
+      });
     }
   };
 
@@ -50,7 +55,11 @@ export default function SignupScreen() {
         onSuccess: data => onSuccessSignup(data),
       });
     } catch (err) {
-      Alert.alert('Error', 'Failed');
+      Toast.show({
+        title: 'Error',
+        status: 'error',
+        description: JSON.stringify(error),
+      });
     }
     setIsLoading(false);
   };
@@ -115,7 +124,11 @@ export default function SignupScreen() {
 
           const errorMessage = error?.message;
           if (errorMessage) {
-            Alert.alert('Error', errorMessage);
+            Toast.show({
+              title: 'Error',
+              status: 'error',
+              description: errorMessage,
+            });
           }
         });
       setIsLoading(false);

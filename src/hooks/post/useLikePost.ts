@@ -1,3 +1,4 @@
+import {Toast} from 'native-base';
 import {useMutation, useQueryClient} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
@@ -21,8 +22,15 @@ const useLikePost = () => {
     },
     {
       onSuccess: data => {
-        if (data?.post_likePost?.status === ResponseStatus.Success) {
+        const status = data?.post_likePost?.status;
+        if (status === ResponseStatus.Success) {
           queryClient.invalidateQueries(queryKeys.posts);
+        } else {
+          Toast.show({
+            title: 'Error',
+            status: 'error',
+            description: status,
+          });
         }
       },
     },

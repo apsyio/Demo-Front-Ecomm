@@ -1,4 +1,5 @@
-import {Alert, Platform} from 'react-native';
+import {Toast} from 'native-base';
+import {Platform} from 'react-native';
 import Config from 'react-native-config';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -32,7 +33,12 @@ const uploader = async (response: any) => {
     } catch (error) {
       console.log(error, 'error');
 
-      Alert.alert('Error!', JSON.stringify(error));
+      Toast.show({
+        title: 'Error',
+        status: 'error',
+        description: JSON.stringify(error),
+      });
+
       reject(error);
     } finally {
     }
