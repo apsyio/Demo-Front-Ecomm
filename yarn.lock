@@ -812,7 +812,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@expo/config-plugins@^4.0.17", "@expo/config-plugins@^4.0.18":
+"@expo/config-plugins@^4.0.18":
   version "4.0.18"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.0.18.tgz#80cf6a3aed83e78f714ad097d80e5a7cca48591a"
   integrity sha512-tW4bnrnKhn+PPHF8wf1KAoubICAVUHW8CcagvyFqaRIzeh6yavMIOsQShxOVTbgx7LzSyymZ1nEs45yCGAiMfA==
@@ -2108,19 +2108,19 @@
   dependencies:
     invariant "^2.2.4"
 
-"@react-native-firebase/app@^14.3.2":
-  version "14.3.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-14.3.2.tgz#b66d69362e6ec592c6a1bb526fe3e4066159e1b3"
-  integrity sha512-R08q7t8BRdn66adY+/Sz1gmqvulGvNYee31/dKfUsMKGilQdua08crh0oznKfU+qiU53eymlFXZIDBHo9CPEQg==
+"@react-native-firebase/app@^14.5.0":
+  version "14.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-14.5.0.tgz#677a3965d172d3bde12690bcc993176943f3a99d"
+  integrity sha512-pMTYZA4gQl/m4+9tYE9/3YpGVfuqePg2RF1Fj+/6EUyt6w8y8ADvJyTXzFmJwEkG5CdyWaqvtEyZmsifInUp3w==
   dependencies:
-    "@expo/config-plugins" "^4.0.17"
+    "@expo/config-plugins" "^4.0.18"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@^14.3.2":
-  version "14.3.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-14.3.2.tgz#1f8dba69776b6f68ce7073aee2f308bb637725eb"
-  integrity sha512-/nPSCi99/Z4SE5y/G6+4i2vYN5p4nCb6zw4wIsLUMIH91yzYP5yf8UYN7Ok3ImihvrGRYTO0vCzL7xSCnuvPZA==
+"@react-native-firebase/auth@^14.5.0":
+  version "14.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-14.5.0.tgz#890b9cf4ae8eef4b6fc4cb5f762d54144df70ac8"
+  integrity sha512-4Gu7VjxLxa7x/0dcfhT/woUCPIWq2jzLaIAca2wrg7xS3x6egFIXC/GiVGJ3WPD9pe0XJDi/lcISR+F8j2Gc2w==
 
 "@react-native-firebase/crashlytics@^14.5.0":
   version "14.5.0"
