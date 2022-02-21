@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import {HStack, Icon, ScrollView, Text, useDisclose} from 'native-base';
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {Share, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ConfirmActionSheet, CustomContainer} from '~/components/atoms';
@@ -52,7 +52,14 @@ export default function SettingsScreen() {
           {
             title: 'Share App',
             iconName: 'share',
-            onPress: () => navigate('ShareApp'),
+            onPress: async () => {
+              await Share.share({
+                message: `Please download Cue The Curves from Google Play Store:
+https://play.google.com/store/apps/details?id=io.apsy.cuethecurves
+Or download Cue The Curves from App Store:
+https://play.google.com/store/apps/details?id=io.apsy.cuethecurves`,
+              });
+            },
           },
           {
             title: 'Support',
