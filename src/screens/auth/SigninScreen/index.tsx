@@ -35,21 +35,10 @@ export default function SigninScreen() {
 
   const onSigninWithSocial = async () => {
     setIsLoading(true);
-    try {
-      mutate(undefined, {
-        onSuccess: onSuccessSignin,
-      });
-    } catch (e) {
-      console.log(e, 'e!!!!');
-      if (e === ResponseStatus.UserNotFound) {
-        Toast.show({
-          title: 'Error',
-          status: 'error',
-          description: 'You are not registered!',
-        });
-      }
-    }
-    setIsLoading(false);
+    mutate(undefined, {
+      onSuccess: onSuccessSignin,
+      onSettled: () => setIsLoading(false),
+    });
   };
 
   const googleSignin = async () => {
@@ -102,12 +91,6 @@ export default function SigninScreen() {
     const status = data?.user_login?.status;
     if (status === ResponseStatus.Success) {
       setIsUserLoggedIn(true);
-    } else {
-      Toast.show({
-        title: 'Error',
-        status: 'error',
-        description: status,
-      });
     }
   };
 

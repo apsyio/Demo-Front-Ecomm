@@ -1,4 +1,5 @@
 console.warn = () => null;
+console.error = () => null;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -7,7 +8,12 @@ import React, {useCallback, useEffect, useState} from 'react';
 import Config from 'react-native-config';
 import {Settings} from 'react-native-fbsdk-next';
 import SplashScreen from 'react-native-splash-screen';
-import {QueryCache, QueryClient, QueryClientProvider} from 'react-query';
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
 
 import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
@@ -82,6 +88,43 @@ export default function App() {
           } catch (error) {
             setIsUserLoggedIn(false);
           }
+        }
+
+        if (status && status !== ResponseStatus.Success) {
+          Toast.show({
+            title: 'Error',
+            status: 'error',
+            description: status,
+          });
+        }
+      },
+    }),
+    mutationCache: new MutationCache({
+      onError: (error: any) => {
+        Toast.show({
+          title: 'Error',
+          status: 'error',
+          description: `Something went wrong: ${error?.message}`,
+        });
+      },
+      onSuccess: async (data: any) => {
+        const apiName = Object.keys(data)[0];
+        const first = data[apiName];
+        const status = first?.status;
+
+        if (status === ResponseStatus.AuthenticationFailed) {
+          try {
+            await auth().signOut();
+          } catch (error) {
+            setIsUserLoggedIn(false);
+          }
+        }
+        if (status && status !== ResponseStatus.Success) {
+          Toast.show({
+            title: 'Error',
+            status: 'error',
+            description: status,
+          });
         }
       },
     }),

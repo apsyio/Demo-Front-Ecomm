@@ -1,4 +1,3 @@
-import {Toast} from 'native-base';
 import {useMutation} from 'react-query';
 
 import {ResponseStatus, User_SignUpMutation} from '~/generated/graphql';
@@ -17,12 +16,6 @@ const useSignup = () => {
         const status = data.user_signUp?.status;
         if (status === ResponseStatus.Success) {
           setUserId(data.user_signUp?.result?.id);
-        } else {
-          Toast.show({
-            title: 'Error',
-            status: 'error',
-            description: status,
-          });
         }
       },
     },

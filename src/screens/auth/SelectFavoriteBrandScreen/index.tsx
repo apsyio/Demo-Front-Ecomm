@@ -1,13 +1,4 @@
-import {
-  Button,
-  Center,
-  FlatList,
-  HStack,
-  Image,
-  Text,
-  Toast,
-  View,
-} from 'native-base';
+import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
 import React, {useState} from 'react';
 
 import images from '~/assets/images';
@@ -109,12 +100,6 @@ export default function SelectFavoriteBrandScreen() {
                   const status = res.user_setBrands?.status;
                   if (status === ResponseStatus.Success) {
                     setIsUserLoggedIn(true);
-                  } else {
-                    Toast.show({
-                      title: 'Error',
-                      status: 'error',
-                      description: status,
-                    });
                   }
                 },
               });

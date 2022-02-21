@@ -20,20 +20,15 @@ export default function ForgotPasswordScreen() {
 
     setIsLoading(true);
     try {
-      await auth()
-        .sendPasswordResetEmail(values.email)
-        .then(result => {
-          console.log(result, 'result');
-          setIsLoading(false);
+      const result = await auth().sendPasswordResetEmail(values.email);
+      console.log(result, 'result');
+      Toast.show({
+        title: "You've got mail!",
+        status: 'success',
+        description: 'We have sent a password recover link to your email',
+      });
 
-          Toast.show({
-            title: "You've got mail!",
-            status: 'success',
-            description: 'We have sent a password recover link to your email',
-          });
-
-          return true;
-        });
+      return true;
     } catch (err: any) {
       console.log(err?.message, 'err');
 

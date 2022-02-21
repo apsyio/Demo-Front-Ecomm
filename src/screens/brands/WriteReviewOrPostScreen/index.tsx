@@ -1,5 +1,5 @@
 import {Formiz, useForm} from '@formiz/core';
-import {Button, HStack, ScrollView, Text, Toast, View} from 'native-base';
+import {Button, HStack, ScrollView, Text, View} from 'native-base';
 import React, {useLayoutEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -45,12 +45,6 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
           id: styleId,
         });
       }
-    } else {
-      Toast.show({
-        title: 'Error',
-        status: 'error',
-        description: status,
-      });
     }
   };
 

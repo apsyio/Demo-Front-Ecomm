@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import {Toast} from 'native-base';
 import {useMutation} from 'react-query';
 
 import {ResponseStatus, User_LoginQuery} from '~/generated/graphql';
@@ -24,12 +23,6 @@ const useSignin = () => {
         const status = data.user_login?.status;
         if (status === ResponseStatus.Success) {
           setUserId(data.user_login?.result?.id);
-        } else {
-          Toast.show({
-            title: 'Error',
-            status: 'error',
-            description: status,
-          });
         }
       },
     },

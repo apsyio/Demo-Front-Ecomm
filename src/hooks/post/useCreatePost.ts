@@ -1,4 +1,3 @@
-import {Toast} from 'native-base';
 import {useMutation, useQueryClient} from 'react-query';
 
 import {
@@ -24,12 +23,6 @@ const useCreatePost = () => {
         const status = data.post_createPost?.status;
         if (status === ResponseStatus.Success) {
           queryClient.invalidateQueries('posts');
-        } else {
-          Toast.show({
-            title: 'Error',
-            status: 'error',
-            description: status,
-          });
         }
       },
     },
