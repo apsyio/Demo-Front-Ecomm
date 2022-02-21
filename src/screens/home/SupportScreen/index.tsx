@@ -2,9 +2,12 @@ import {Formiz, useForm} from '@formiz/core';
 import {isEmail} from '@formiz/validations';
 import {Button, View} from 'native-base';
 import React from 'react';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-import {CustomContainer, CustomInput} from '~/components/atoms';
+import {
+  CustomContainer,
+  CustomInput,
+  CustomKeyboardAwareScrollView,
+} from '~/components/atoms';
 
 export default function SupportScreen() {
   const supportForm = useForm();
@@ -15,7 +18,7 @@ export default function SupportScreen() {
 
   return (
     <CustomContainer>
-      <KeyboardAwareScrollView>
+      <CustomKeyboardAwareScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={supportForm}>
           <View flex={1}>
             <CustomInput
@@ -52,7 +55,7 @@ export default function SupportScreen() {
             Send
           </Button>
         </Formiz>
-      </KeyboardAwareScrollView>
+      </CustomKeyboardAwareScrollView>
     </CustomContainer>
   );
 }

@@ -1,11 +1,11 @@
 import {Formiz, useForm} from '@formiz/core';
 import {Button, HStack, ScrollView, Text, View} from 'native-base';
 import React, {useLayoutEffect, useState} from 'react';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {
   CustomContainer,
   CustomInput,
+  CustomKeyboardAwareScrollView,
   CustomSelect,
   PhotoInput,
 } from '~/components/atoms';
@@ -89,7 +89,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
 
   return (
     <CustomContainer>
-      <KeyboardAwareScrollView>
+      <CustomKeyboardAwareScrollView>
         <HStack justifyContent="space-around" my={3}>
           {activeTab === 'Brands' &&
             ['post', 'review'].map(m => (
@@ -193,7 +193,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
             POST
           </Button>
         </View>
-      </KeyboardAwareScrollView>
+      </CustomKeyboardAwareScrollView>
     </CustomContainer>
   );
 }

@@ -4,12 +4,12 @@ import auth from '@react-native-firebase/auth';
 import {Button, HStack, Image, Text, Toast, View} from 'native-base';
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import images from '~/assets/images';
 import {
   CustomContainer,
   CustomInput,
+  CustomKeyboardAwareScrollView,
   CustomSpinner,
   LineWithText,
   SocialButton,
@@ -121,7 +121,7 @@ export default function SignupScreen() {
     <CustomContainer bg={Colors.SEA_PINK}>
       <CustomSpinner visible={isLoading} />
 
-      <KeyboardAwareScrollView
+      <CustomKeyboardAwareScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image
           alt="logo"
@@ -195,7 +195,7 @@ export default function SignupScreen() {
             </HStack>
           </View>
         </Formiz>
-      </KeyboardAwareScrollView>
+      </CustomKeyboardAwareScrollView>
     </CustomContainer>
   );
 }
