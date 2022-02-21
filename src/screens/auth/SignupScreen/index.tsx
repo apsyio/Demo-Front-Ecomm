@@ -1,7 +1,7 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail, isMinLength} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
-import {Button, HStack, Image, Spinner, Text, Toast, View} from 'native-base';
+import {Button, HStack, Image, Text, Toast, View} from 'native-base';
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -10,6 +10,7 @@ import images from '~/assets/images';
 import {
   CustomContainer,
   CustomInput,
+  CustomSpinner,
   LineWithText,
   SocialButton,
 } from '~/components/atoms';
@@ -30,30 +31,16 @@ export default function SignupScreen() {
     const status = user_signUp?.status;
     if (status === ResponseStatus.Success) {
       navigate('SelectStyle');
-    } else {
-      Toast.show({
-        title: 'Error',
-        status: 'error',
-        description: status,
-      });
     }
   };
 
   const createUserWithSocial = async () => {
     setIsLoading(true);
 
-    try {
-      mutate(undefined, {
-        onSuccess: data => onSuccessSignup(data),
-      });
-    } catch (err) {
-      Toast.show({
-        title: 'Error',
-        status: 'error',
-        description: JSON.stringify(error),
-      });
-    }
-    setIsLoading(false);
+    mutate(undefined, {
+      onSuccess: data => onSuccessSignup(data),
+      onSettled: () => setIsLoading(false),
+    });
   };
 
   const googleSignup = async () => {
@@ -95,7 +82,7 @@ export default function SignupScreen() {
 
   const completeRegistrationWithEmailPassword = async () => {
     mutate(undefined, {
-      onSuccess: data => onSuccessSignup(data),
+      onSuccess: onSuccessSignup,
     });
   };
 
@@ -105,28 +92,22 @@ export default function SignupScreen() {
     const email = signupForm.values?.email;
     const password = signupForm.values?.password;
     try {
-      await auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(async () => {
-          completeRegistrationWithEmailPassword();
-          return true;
-        })
-        .catch(error => {
-          console.log(error, 'error');
+      await auth().createUserWithEmailAndPassword(email, password);
+      await auth().currentUser?.getIdToken();
+      completeRegistrationWithEmailPassword();
+      return true;
+    } catch (error: any) {
+      console.log(error, 'error');
 
-          const errorMessage = error?.message;
-          if (errorMessage) {
-            Toast.show({
-              title: 'Error',
-              status: 'error',
-              description: errorMessage,
-            });
-          }
+      const errorMessage = error?.message;
+      if (errorMessage) {
+        Toast.show({
+          title: 'Error',
+          status: 'error',
+          description: errorMessage,
         });
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err, 'err*****');
-
+      }
+    } finally {
       setIsLoading(false);
     }
   };
@@ -138,9 +119,8 @@ export default function SignupScreen() {
 
   return (
     <CustomContainer bg={Colors.SEA_PINK}>
-      {isLoading && <Spinner color={Colors.WHITE} />}
+      <CustomSpinner visible={isLoading} />
 
-      <Spinner />
       <KeyboardAwareScrollView
         contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
         <Image
