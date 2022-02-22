@@ -1,10 +1,18 @@
 import React from 'react';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {
+  KeyboardAwareScrollView,
+  KeyboardAwareScrollViewProps,
+} from 'react-native-keyboard-aware-scroll-view';
 
-export default function CustomKeyboardAwareScrollView({children}: any) {
+const CustomKeyboardAwareScrollView = ({
+  children,
+  ...otherProps
+}: KeyboardAwareScrollViewProps) => {
   return (
-    <KeyboardAwareScrollView enableResetScrollToCoords={false}>
+    <KeyboardAwareScrollView enableResetScrollToCoords={false} {...otherProps}>
       {children}
     </KeyboardAwareScrollView>
   );
-}
+};
+
+export default CustomKeyboardAwareScrollView;
