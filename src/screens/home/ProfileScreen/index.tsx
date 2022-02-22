@@ -1,6 +1,7 @@
 import {Center, FlatList, HStack, ScrollView, Text, View} from 'native-base';
 import React from 'react';
 import {Linking} from 'react-native';
+import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro';
 
 import {
   AvatarWithTitle,
@@ -48,6 +49,7 @@ export default function ProfileScreen({route}: any) {
             />
             <View mx={3} />
             <SocialButton
+              iconType={FontAwesome5Pro}
               iconName="tiktok"
               onPress={() => {
                 const address = inspo?.socials?.find(

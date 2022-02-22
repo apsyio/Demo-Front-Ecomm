@@ -6,9 +6,11 @@ import {Colors} from '~/styles';
 
 export default function SocialButton({
   iconName,
+  iconType,
   onPress,
 }: {
   iconName: string;
+  iconType?: any;
   onPress: () => void;
 }) {
   return (
@@ -20,7 +22,7 @@ export default function SocialButton({
       fontWeight={'bold'}
       onPress={onPress}>
       <Icon
-        as={MaterialCommunityIcons}
+        as={iconType ?? MaterialCommunityIcons}
         size="7"
         name={iconName}
         color={Colors.ROUGE}
