@@ -25,6 +25,7 @@ export default function InspoScreen() {
             containerStyle={{marginTop: 16}}
             hasBorder
             {...item}
+            uri={item?.avatarUrl}
             bottomTitle={item.fullName}
             onPress={() => navigate('Profile', {id: item.id})}
           />
