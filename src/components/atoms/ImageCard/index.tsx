@@ -29,7 +29,12 @@ export default function ImageCard({
   isSmall?: boolean;
 }) {
   return (
-    <TouchableOpacity onPress={onPress} style={[{flex: 1}, containerStyle]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[
+        {flex: 1, justifyContent: 'center', alignItems: 'center'},
+        containerStyle,
+      ]}>
       <ImageBackground
         imageStyle={[
           {borderRadius: 12},
