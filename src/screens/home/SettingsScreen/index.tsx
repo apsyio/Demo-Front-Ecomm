@@ -1,10 +1,12 @@
 import auth from '@react-native-firebase/auth';
-import {HStack, Icon, ScrollView, Text, useDisclose} from 'native-base';
+import {HStack, Icon, ScrollView, Text, Toast, useDisclose} from 'native-base';
 import React from 'react';
 import {Share, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ConfirmActionSheet, CustomContainer} from '~/components/atoms';
+import {ResponseStatus} from '~/generated/graphql';
+import useDeactiveUser from '~/hooks/inspo/useDeactiveUser';
 import {navigate} from '~/navigation/methods';
 import {useStore} from '~/store';
 import {Colors} from '~/styles';
@@ -23,6 +25,8 @@ export default function SettingsScreen() {
     onOpen: onOpenDeactiveAccountOutActionSheet,
     isOpen: isOpenDeactiveAccountOutActionSheet,
   } = useDisclose();
+
+  const {mutate} = useDeactiveUser();
 
   return (
     <CustomContainer>
@@ -43,7 +47,19 @@ export default function SettingsScreen() {
         onClose={onCloseDeactiveAccountOutActionSheet}
         isOpen={isOpenDeactiveAccountOutActionSheet}
         onPressYes={() => {
-          navigate('AuthStack');
+          mutate(undefined, {
+            onSuccess: data => {
+              if (data.user_deactive?.status === ResponseStatus.Success) {
+                Toast.show({
+                  title: 'Success',
+                  status: 'success',
+                  description:
+                    'Your account has been deactivated successfully!',
+                });
+                navigate('AuthStack');
+              }
+            },
+          });
         }}
         title="Are you sure you want to de-activate your account?"
       />

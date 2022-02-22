@@ -76,6 +76,8 @@ type Mutation {
   user_setStyles(styleIds: [Int!]): ResponseBase
   user_setBrands(brandIds: [Int!]): ResponseBase
   user_updateUser(input: UserInput): ResponseBaseOfUsers
+  user_deactive: ResponseBase
+  user_support(email: EmailInput): ResponseBase
   post_createPost(postInput: PostInput): ResponseBaseOfPosts
   post_likePost(postId: Int!, liked: Boolean! = true): ResponseBase
   style_likeStyle(styleId: Int!, liked: Boolean! = true): ResponseBase
@@ -329,11 +331,6 @@ enum SocialNetworks {
   PINTEREST
 }
 
-type ResponseBaseOfClosets {
-  result: Closets
-  status: ResponseStatus!
-}
-
 input PostInput {
   title: String
   content: String
@@ -348,6 +345,12 @@ input PostInput {
 type ResponseBaseOfPosts {
   result: Posts
   status: ResponseStatus!
+}
+
+input EmailInput {
+  subject: String
+  plainTextContent: String
+  htmlContent: String
 }
 
 input UserInput {
@@ -436,6 +439,11 @@ type ListResponseBaseOfStyles {
 
 type ResponseBaseOfUsers {
   result: Users
+  status: ResponseStatus!
+}
+
+type ResponseBaseOfClosets {
+  result: Closets
   status: ResponseStatus!
 }
 

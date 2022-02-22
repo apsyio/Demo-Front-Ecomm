@@ -301,6 +301,12 @@ export type ComparableNullableOfInt32OperationFilterInput = {
   nlte?: InputMaybe<Scalars['Int']>;
 };
 
+export type EmailInput = {
+  htmlContent?: InputMaybe<Scalars['String']>;
+  plainTextContent?: InputMaybe<Scalars['String']>;
+  subject?: InputMaybe<Scalars['String']>;
+};
+
 export type ListFilterInputTypeOfBrandLikesFilterInput = {
   all?: InputMaybe<BrandLikesFilterInput>;
   any?: InputMaybe<Scalars['Boolean']>;
@@ -464,9 +470,11 @@ export type Mutation = {
   post_createPost?: Maybe<ResponseBaseOfPosts>;
   post_likePost?: Maybe<ResponseBase>;
   style_likeStyle?: Maybe<ResponseBase>;
+  user_deactive?: Maybe<ResponseBase>;
   user_setBrands?: Maybe<ResponseBase>;
   user_setStyles?: Maybe<ResponseBase>;
   user_signUp?: Maybe<ResponseBaseOfUsers>;
+  user_support?: Maybe<ResponseBase>;
   user_updateUser?: Maybe<ResponseBaseOfUsers>;
 };
 
@@ -499,6 +507,10 @@ export type MutationUser_SetBrandsArgs = {
 
 export type MutationUser_SetStylesArgs = {
   styleIds?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type MutationUser_SupportArgs = {
+  email?: InputMaybe<EmailInput>;
 };
 
 export type MutationUser_UpdateUserArgs = {
@@ -4076,6 +4088,13 @@ export type Styles_GetStylesQuery = {
   } | null;
 };
 
+export type User_DeactiveMutationVariables = Exact<{[key: string]: never}>;
+
+export type User_DeactiveMutation = {
+  __typename?: 'Mutation';
+  user_deactive?: {__typename?: 'ResponseBase'; status: ResponseStatus} | null;
+};
+
 export type User_SetBrandsMutationVariables = Exact<{
   brandIds?: InputMaybe<Array<Scalars['Int']> | Scalars['Int']>;
 }>;
@@ -4492,6 +4511,15 @@ export type User_SignUpMutation = {
       } | null> | null;
     } | null;
   } | null;
+};
+
+export type User_SupportMutationVariables = Exact<{
+  email?: InputMaybe<EmailInput>;
+}>;
+
+export type User_SupportMutation = {
+  __typename?: 'Mutation';
+  user_support?: {__typename?: 'ResponseBase'; status: ResponseStatus} | null;
 };
 
 export type User_UpdateUserMutationVariables = Exact<{

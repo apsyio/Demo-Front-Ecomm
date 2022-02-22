@@ -1,6 +1,5 @@
 import {Formiz, useForm} from '@formiz/core';
-import {isEmail} from '@formiz/validations';
-import {Button, View} from 'native-base';
+import {Button, Toast, View} from 'native-base';
 import React from 'react';
 
 import {
@@ -8,12 +7,29 @@ import {
   CustomInput,
   CustomKeyboardAwareScrollView,
 } from '~/components/atoms';
+import {ResponseStatus} from '~/generated/graphql';
+import useSupportUser from '~/hooks/inspo/useSupportUser';
+import {goBack} from '~/navigation/methods';
 
 export default function SupportScreen() {
   const supportForm = useForm();
 
+  const {mutate} = useSupportUser();
+
   const handleSubmit = (values: any) => {
     console.log(values);
+    mutate(values, {
+      onSuccess: data => {
+        if (data.user_support?.status === ResponseStatus.Success) {
+          Toast.show({
+            title: 'Success',
+            status: 'success',
+            description: 'Your message has been sent successfully!',
+          });
+          goBack();
+        }
+      },
+    });
   };
 
   return (
@@ -22,23 +38,10 @@ export default function SupportScreen() {
         <Formiz onValidSubmit={handleSubmit} connect={supportForm}>
           <View flex={1}>
             <CustomInput
-              label="Full Name"
-              name="fullName"
-              placeholder="Full Name"
-              required="Full Name is required"
-            />
-
-            <CustomInput
-              label="Email"
-              name="email"
-              placeholder="Email"
-              required="Email is required"
-              validations={[
-                {
-                  rule: isEmail(),
-                  message: 'Email is invalid',
-                },
-              ]}
+              label="Subject"
+              name="subject"
+              placeholder="Subject"
+              required="Subject is required"
             />
 
             <CustomInput
@@ -46,7 +49,7 @@ export default function SupportScreen() {
               numberOfLines={4}
               minHeight={150}
               label="Message"
-              name="Message"
+              name="htmlContent"
               placeholder="Message"
               required="Message is required"
             />
