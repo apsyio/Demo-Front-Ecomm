@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import {HStack, Icon, ScrollView, Text, Toast, useDisclose} from 'native-base';
 import React from 'react';
-import {Share, TouchableOpacity} from 'react-native';
+import {Linking, Share, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ConfirmActionSheet, CustomContainer} from '~/components/atoms';
@@ -94,12 +94,19 @@ https://play.google.com/store/apps/details?id=io.apsy.cuethecurves`,
           {
             title: 'Terms of service',
             iconName: 'file',
-            onPress: () => navigate('TermsOfService'),
+            onPress: () =>
+              Linking.openURL(
+                'https://apscueonthecurvesstorage.blob.core.windows.net/images/terms-and-conditions?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2032-02-13T22:28:12Z&st=2022-02-13T14:28:12Z&spr=https&sig=C6sTxlQCBZLQOoRT5%2Bk9mJxqxDkPszoiA0gcvsdQyoE%3D',
+              ),
           },
           {
             title: 'Privacy policy',
             iconName: 'security',
-            onPress: () => navigate('PrivacyPolicy'),
+            onPress: () => {
+              Linking.openURL(
+                'https://apscueonthecurvesstorage.blob.core.windows.net/images/privacy-policy?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2032-02-13T22:28:12Z&st=2022-02-13T14:28:12Z&spr=https&sig=C6sTxlQCBZLQOoRT5%2Bk9mJxqxDkPszoiA0gcvsdQyoE%3D',
+              );
+            },
           },
           {
             title: 'Sign out',
