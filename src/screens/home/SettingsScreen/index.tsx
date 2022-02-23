@@ -48,7 +48,7 @@ export default function SettingsScreen() {
         isOpen={isOpenDeactiveAccountOutActionSheet}
         onPressYes={() => {
           mutate(undefined, {
-            onSuccess: data => {
+            onSuccess: async data => {
               if (data.user_deactive?.status === ResponseStatus.Success) {
                 Toast.show({
                   title: 'Success',
@@ -56,7 +56,11 @@ export default function SettingsScreen() {
                   description:
                     'Your account has been deactivated successfully!',
                 });
-                navigate('AuthStack');
+                try {
+                  await auth().signOut();
+                } catch (error) {
+                  setIsUserLoggedIn(false);
+                }
               }
             },
           });
