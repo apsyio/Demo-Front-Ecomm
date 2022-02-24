@@ -36,7 +36,7 @@ export default function CreateClosetScreen() {
           )}
 
           <Button
-            disabled={!form.isValid}
+            isDisabled={!form.isValid}
             onPress={form.submit}
             variant={'primary'}>
             Confirm

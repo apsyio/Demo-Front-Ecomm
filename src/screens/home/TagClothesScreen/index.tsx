@@ -34,7 +34,7 @@ export default function TagClothesScreen() {
           </View>
 
           <Button
-            disabled={!form.isValid}
+            isDisabled={!form.isValid}
             onPress={form.submit}
             variant={'primary'}>
             Confirm

@@ -82,7 +82,7 @@ export default function EditProfileInformationScreen() {
           />
 
           <Button
-            disabled={!editForm.isValid}
+            isDisabled={!editForm.isValid}
             my={5}
             variant={'primary'}
             onPress={editForm.submit}>
