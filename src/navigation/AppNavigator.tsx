@@ -10,11 +10,32 @@ import {useStore} from '~/store';
 
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
-import {navigationRef} from './methods';
+import {navigate, navigationRef} from './methods';
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
+  const linking = {
+    prefixes: ['https://cuethecurves.com', 'cuethecurves://'],
+    config: {
+      screens: {
+        StyleDetails: 'StyleDetails/:id',
+      },
+    },
+    getStateFromPath: (path: string) => {
+      // Return a state object here
+      // You can also reuse the default logic by importing `getStateFromPath` from `@react-navigation/native`
+
+      if (path) {
+        const splitedPath = path?.split('/');
+        if (splitedPath[0] === 'StyleDetails') {
+          const id = +splitedPath[1];
+          navigate('StyleDetails', {id});
+        }
+      }
+    },
+  };
+
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
 
@@ -31,7 +52,7 @@ export default function AppNavigator() {
     <>
       <CustomSpinner visible={!!isFetching || !!isMutating} />
 
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer ref={navigationRef} linking={linking}>
         <Stack.Navigator>
           {!isOnboardingViewed && (
             <Stack.Screen

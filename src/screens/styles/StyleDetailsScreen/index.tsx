@@ -1,6 +1,7 @@
-import {HStack, Image, ScrollView, Text, View} from 'native-base';
-import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {HStack, Icon, Image, ScrollView, Text, View} from 'native-base';
+import React, {useLayoutEffect} from 'react';
+import {Share, TouchableOpacity} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
 import BrandCard from '~/components/atoms/BrandCard';
@@ -8,13 +9,33 @@ import {noImageUrl} from '~/constants/image';
 import useGetStyleByStyleId from '~/hooks/styles/useGetStyleByStyleId';
 import useLikeStyle from '~/hooks/styles/useLikeStyle';
 import {navigate} from '~/navigation/methods';
+import {Colors} from '~/styles';
 
-export default function StyleDetailsScreen({route}: any) {
+export default function StyleDetailsScreen({navigation, route}: any) {
   const id = route.params?.id;
 
   const {styleDetails} = useGetStyleByStyleId(id);
 
   const {mutate} = useLikeStyle();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            Share.share({
+              message: 'cuethecurves://StyleDetails/' + id,
+            });
+          }}>
+          <Icon
+            color={Colors.SHADY_LADY}
+            as={MaterialCommunityIcons}
+            name="share-variant"
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [id, navigation]);
 
   return (
     <CustomContainer>

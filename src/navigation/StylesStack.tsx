@@ -1,9 +1,6 @@
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Icon} from 'native-base';
 import React, {useLayoutEffect} from 'react';
-import {TouchableOpacity} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
 import {
@@ -44,15 +41,6 @@ const screens = [
       },
       title: 'Style',
       headerLeft: () => <ChevronBackButton />,
-      headerRight: () => (
-        <TouchableOpacity onPress={() => null}>
-          <Icon
-            color={Colors.SHADY_LADY}
-            as={MaterialCommunityIcons}
-            name="share-variant"
-          />
-        </TouchableOpacity>
-      ),
     },
     name: 'StyleDetails',
     component: StyleDetailsScreen,
