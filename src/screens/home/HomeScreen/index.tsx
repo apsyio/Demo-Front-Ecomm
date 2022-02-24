@@ -116,70 +116,82 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </HStack>
 
-            <Text
-              mt={7}
-              mb={1}
-              fontSize={'lg'}
-              color={Colors.ROUGE}
-              fontWeight="bold">
-              Whats new
-            </Text>
-
-            <TouchableOpacity
-              style={{
-                borderRadius: 20,
-                borderWidth: 1,
-                borderColor: Colors.CHABLIS,
-              }}
-              onPress={() => null}>
-              <ImageBackground
-                resizeMode="contain"
-                source={{uri: lastPost?.photo || noImageUrl}}
-                imageStyle={{borderTopRightRadius: 20, borderTopLeftRadius: 20}}
-                style={{
-                  height: 120,
-                }}
-              />
-              <View p={3}>
-                <Text>{lastPost?.title}</Text>
-                <Text fontSize={'sm'} color={Colors.SHADY_LADY} mt={1}>
-                  {new Date(lastPost?.postedAt)?.toLocaleString('en-us', {
-                    month: 'short',
-                  })}{' '}
-                  {new Date(lastPost?.postedAt)?.getDate()}
+            {lastPost && (
+              <>
+                <Text
+                  mt={7}
+                  mb={1}
+                  fontSize={'lg'}
+                  color={Colors.ROUGE}
+                  fontWeight="bold">
+                  Whats new
                 </Text>
 
-                <HStack
-                  mt={4}
-                  alignItems={'center'}
-                  justifyContent="space-between">
-                  <HStack alignItems={'center'}>
-                    <Image
-                      rounded={'full'}
-                      source={{uri: lastPost?.poster?.avatarUrl || noImageUrl}}
-                      width={7}
-                      height={7}
-                      mr={2}
-                    />
-                    <Text fontSize={'sm'}> {lastPost?.poster?.fullName}</Text>
-                  </HStack>
+                <TouchableOpacity
+                  style={{
+                    borderRadius: 20,
+                    borderWidth: 1,
+                    borderColor: Colors.CHABLIS,
+                  }}
+                  onPress={() => navigate('Posts')}>
+                  <ImageBackground
+                    resizeMode="contain"
+                    source={{uri: lastPost?.photo || noImageUrl}}
+                    imageStyle={{
+                      borderTopRightRadius: 20,
+                      borderTopLeftRadius: 20,
+                    }}
+                    style={{
+                      height: 120,
+                    }}
+                  />
+                  <View p={3}>
+                    <Text>{lastPost?.title}</Text>
+                    <Text fontSize={'sm'} color={Colors.SHADY_LADY} mt={1}>
+                      {new Date(lastPost?.postedAt)?.toLocaleString('en-us', {
+                        month: 'short',
+                      })}{' '}
+                      {new Date(lastPost?.postedAt)?.getDate()}
+                    </Text>
 
-                  <Button variant="t" onPress={() => navigate('Posts')}>
-                    <HStack alignItems={'center'}>
-                      <Text color={Colors.ROUGE} fontSize={'xs'}>
-                        Show more
-                      </Text>
-                      <Icon
-                        as={MaterialCommunityIcons}
-                        size="xs"
-                        name={'arrow-right'}
-                        color={Colors.ROUGE}
-                      />
+                    <HStack
+                      mt={4}
+                      alignItems={'center'}
+                      justifyContent="space-between">
+                      <HStack alignItems={'center'}>
+                        <Image
+                          rounded={'full'}
+                          source={{
+                            uri: lastPost?.poster?.avatarUrl || noImageUrl,
+                          }}
+                          width={7}
+                          height={7}
+                          mr={2}
+                        />
+                        <Text fontSize={'sm'}>
+                          {' '}
+                          {lastPost?.poster?.fullName}
+                        </Text>
+                      </HStack>
+
+                      <Button variant="t" onPress={() => navigate('Posts')}>
+                        <HStack alignItems={'center'}>
+                          <Text color={Colors.ROUGE} fontSize={'xs'}>
+                            Show more
+                          </Text>
+                          <Icon
+                            as={MaterialCommunityIcons}
+                            size="xs"
+                            name={'arrow-right'}
+                            color={Colors.ROUGE}
+                          />
+                        </HStack>
+                      </Button>
                     </HStack>
-                  </Button>
-                </HStack>
-              </View>
-            </TouchableOpacity>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
 
             <Text
               mt={7}
