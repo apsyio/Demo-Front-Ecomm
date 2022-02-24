@@ -6,7 +6,12 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {BrandDetailsScreen, BrandsScreen, PostsScreen} from '~/screens/brands';
+import {
+  BrandDetailsScreen,
+  BrandsScreen,
+  PostsScreen,
+  WriteReviewOrPostScreen,
+} from '~/screens/brands';
 import {
   CreateClosetScreen,
   EditProfileInformationScreen,
@@ -219,6 +224,16 @@ const screens = [
     },
     name: 'Posts',
     component: PostsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'WriteReviewOrPost',
+    component: WriteReviewOrPostScreen,
   },
 ];
 
