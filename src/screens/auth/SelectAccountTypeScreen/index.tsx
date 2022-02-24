@@ -14,13 +14,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
+import {AccountTypes, ResponseStatus} from '~/generated/graphql';
+import useUpdateUser from '~/hooks/inspo/useUpdateUser';
+import {goBack} from '~/navigation/methods';
+import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
-export default function SelectAccountTypeScreen({
-  navigation: {navigate, goBack},
-}: any) {
-  const [accountType, setAccountType] = useState<number>();
+export default function SelectAccountTypeScreen() {
+  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
 
+  const [accountType, setAccountType] = useState<AccountTypes>();
+
+  const {mutate} = useUpdateUser();
+
+  console.log(accountType);
   return (
     <CustomContainer px={5} pt={16} pb={5}>
       <ScrollView>
@@ -41,7 +48,7 @@ export default function SelectAccountTypeScreen({
         {[
           {
             id: 1,
-            title: 'Private',
+            title: AccountTypes.Private,
             iconName: 'key-outline',
             subTitles: [
               ['Favorite', 'Brand And Write Post'],
@@ -50,7 +57,7 @@ export default function SelectAccountTypeScreen({
           },
           {
             id: 2,
-            title: 'Public',
+            title: AccountTypes.Public,
             iconName: 'eye-outline',
             subTitles: [
               ['Can recommended', 'Outfits an and be'],
@@ -60,7 +67,7 @@ export default function SelectAccountTypeScreen({
         ].map(({id, title, iconName, subTitles}) => (
           <TouchableOpacity
             key={id}
-            onPress={() => setAccountType(id)}
+            onPress={() => setAccountType(title)}
             style={{
               marginTop: 40,
               marginHorizontal: 40,
@@ -68,7 +75,7 @@ export default function SelectAccountTypeScreen({
               padding: 20,
               paddingBottom: 40,
               backgroundColor:
-                accountType === id ? Colors.APRICOT_PEACH : Colors.CHABLIS,
+                accountType === title ? Colors.APRICOT_PEACH : Colors.CHABLIS,
             }}>
             <Center
               mt={-10}
@@ -77,7 +84,9 @@ export default function SelectAccountTypeScreen({
               borderRadius={100}
               width={60}
               height={60}
-              bg={accountType === id ? Colors.APRICOT_PEACH : Colors.SEA_PINK}>
+              bg={
+                accountType === title ? Colors.APRICOT_PEACH : Colors.SEA_PINK
+              }>
               <Icon
                 as={MaterialCommunityIcons}
                 size="md"
@@ -111,14 +120,31 @@ export default function SelectAccountTypeScreen({
         ))}
 
         <HStack mt={10} justifyContent="space-around" m={2}>
-          <Button
-            variant="outline"
-            width={'45%'}
-            onPress={() => navigate('SelectAccountType')}>
+          <Button variant="outline" width={'45%'} onPress={() => goBack()}>
             Back
           </Button>
 
-          <Button variant="primary" width={'45%'} onPress={() => goBack()}>
+          <Button
+            isDisabled={!accountType}
+            variant="primary"
+            width={'45%'}
+            onPress={() => {
+              if (accountType) {
+                mutate(
+                  {accountType},
+                  {
+                    onSuccess: res => {
+                      const status = res.user_updateUser?.status;
+                      if (status === ResponseStatus.Success) {
+                        setIsUserLoggedIn(true);
+                      }
+                    },
+                  },
+                );
+              } else {
+                setIsUserLoggedIn(true);
+              }
+            }}>
             Next
           </Button>
         </HStack>

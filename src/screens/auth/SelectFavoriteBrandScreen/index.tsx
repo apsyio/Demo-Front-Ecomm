@@ -6,14 +6,11 @@ import {CustomContainer, ImageCard} from '~/components/atoms';
 import {ResponseStatus} from '~/generated/graphql';
 import useGetAllBrands from '~/hooks/brand/useGetBrands';
 import useSetBrands from '~/hooks/inspo/useSetBrands';
-import {goBack} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {goBack, navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
 
 export default function SelectFavoriteBrandScreen() {
   const [brandIds, setBrandIds] = useState<number[]>([]);
-
-  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
 
   const {isRefetching, data, fetchNextPage, hasNextPage, refetch} =
     useGetAllBrands({});
@@ -99,12 +96,12 @@ export default function SelectFavoriteBrandScreen() {
                 onSuccess: res => {
                   const status = res.user_setBrands?.status;
                   if (status === ResponseStatus.Success) {
-                    setIsUserLoggedIn(true);
+                    navigate('SelectAccountType');
                   }
                 },
               });
             } else {
-              setIsUserLoggedIn(true);
+              navigate('SelectAccountType');
             }
           }}>
           Next
