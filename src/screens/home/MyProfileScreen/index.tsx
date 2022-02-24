@@ -70,7 +70,10 @@ export default function MyProfileScreen() {
             title: 'Social Network',
             onPressEdit: () => navigate('EditProfileSocialNetworks'),
             items: inspo?.socials?.map(social => ({
-              label: social?.socialNetworks,
+              label: social?.socialNetworks
+                .toLowerCase()
+                .replace('_', ' ')
+                .replace(/^./, str => str.toUpperCase()),
               value: social?.address,
             })),
           },
