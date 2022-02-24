@@ -27,7 +27,10 @@ export default function PostOrFeedCard({
             <VStack>
               <Text>{poster?.fullName}</Text>
               <Text fontSize={'sm'} color={Colors.EMPRESS}>
-                {postedAt}
+                {new Date(postedAt)?.toLocaleString('en-us', {
+                  month: 'short',
+                })}{' '}
+                {new Date(postedAt)?.getDate()}
               </Text>
             </VStack>
           </HStack>
