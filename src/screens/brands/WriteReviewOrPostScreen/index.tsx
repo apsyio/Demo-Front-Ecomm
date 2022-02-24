@@ -24,8 +24,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
   const activeTab = useStore(state => state.activeTab);
 
   const modeInParams = route.params?.mode || 'post';
-  const brandId = route.params?.brandId;
-  const styleId = route.params?.styleId;
+  const {styleId, brandId} = route.params;
   const [mode, setMode] = useState(modeInParams);
 
   const writePostForm = useForm();

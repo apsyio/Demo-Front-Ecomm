@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 export type BrandsStackParamList = {
   Brands: undefined;
   BrandDetails: {id: number};
-  Posts: undefined;
+  Posts: {brandId?: number; styleId?: number};
   WriteReviewOrPost: {brandId?: number; styleId?: number};
 };
 

@@ -56,7 +56,7 @@ export default function BrandDetailsScreen({route}: any) {
             ))}
           </ScrollView>
 
-          <TouchableOpacity onPress={() => navigate('Posts')}>
+          <TouchableOpacity onPress={() => navigate('Posts', {brandId: id})}>
             <View
               my={5}
               p={4}

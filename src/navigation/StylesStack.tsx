@@ -22,7 +22,7 @@ export type StylesStackParamList = {
   StyleDetails: {id: number};
   BrandsScreen: undefined;
   BrandDetails: {id: number};
-  Posts: undefined;
+  Posts: {brandId?: number; styleId?: number};
 };
 
 const screens = [

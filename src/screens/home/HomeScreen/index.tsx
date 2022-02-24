@@ -133,7 +133,9 @@ export default function HomeScreen() {
                     borderWidth: 1,
                     borderColor: Colors.CHABLIS,
                   }}
-                  onPress={() => navigate('Posts')}>
+                  onPress={() =>
+                    navigate('Posts', {brandId: lastPost?.brand?.id})
+                  }>
                   <ImageBackground
                     resizeMode="contain"
                     source={{uri: lastPost?.photo || noImageUrl}}

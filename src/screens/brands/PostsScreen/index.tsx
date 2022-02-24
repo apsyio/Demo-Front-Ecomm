@@ -21,8 +21,7 @@ import {useStore} from '~/store';
 import {Colors} from '~/styles';
 
 export default function PostsScreen({route}: any) {
-  const brandId = route.params;
-  const styleId = route.params;
+  const {styleId, brandId} = route.params;
 
   const activeTab = useStore(state => state.activeTab);
 
@@ -182,7 +181,10 @@ export default function PostsScreen({route}: any) {
       <Button
         onPress={() =>
           navigate('WriteReviewOrPost', {
-            brandId: activeTab === 'Brands' ? brandId : undefined,
+            brandId:
+              activeTab === 'Brands' || activeTab === 'Home'
+                ? brandId
+                : undefined,
             styleId: activeTab === 'Styles' ? styleId : undefined,
           })
         }

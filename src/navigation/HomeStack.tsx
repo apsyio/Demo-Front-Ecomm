@@ -49,7 +49,7 @@ export type HomeStackParamList = {
   Outfit: {uri: string};
   Brands: undefined;
   BrandDetails: {id: number};
-  Posts: undefined;
+  Posts: {brandId?: number; styleId?: number};
 };
 
 const screens = [
