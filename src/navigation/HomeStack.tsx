@@ -46,7 +46,7 @@ export type HomeStackParamList = {
   TermsOfService: undefined;
   EditProfileInformation: undefined;
   EditProfileSocialNetworks: undefined;
-  Outfit: {uri: string};
+  Outfit: {photo: string};
   Brands: undefined;
   BrandDetails: {id: number};
   Posts: {brandId?: number; styleId?: number};
