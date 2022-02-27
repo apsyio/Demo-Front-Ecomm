@@ -6,6 +6,7 @@ export {default as CustomFlatList} from './CustomFlatList';
 export {default as CustomInput} from './CustomInput';
 export {default as CustomKeyboardAwareScrollView} from './CustomKeyboardAwareScrollView';
 export {default as CustomSelect} from './CustomSelect';
+export {default as CustomTag} from './CustomTag';
 export {default as ImageCard} from './ImageCard';
 export {default as LineWithText} from './LineWithText';
 export {default as PhotoInput} from './PhotoInput';

@@ -6,6 +6,7 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
+import {ClosetItems} from '~/generated/graphql';
 import {
   BrandDetailsScreen,
   BrandsScreen,
@@ -21,6 +22,7 @@ import {
   MyProfileScreen,
   PrivacyPolicyScreen,
   ProfileScreen,
+  SelectItemForTagScreen,
   SettingsScreen,
   SupportScreen,
   TagClothesScreen,
@@ -37,8 +39,20 @@ export type HomeStackParamList = {
   Home: undefined;
   Profile: {id: number};
   MyProfile: undefined;
-  CreateCloset: undefined;
-  TagClothesScreen: undefined;
+  CreateCloset: {
+    photo: string;
+    closetItems?: Partial<ClosetItems>[];
+  };
+  TagClothes: {
+    photo: string;
+    closetItems: ClosetItems[];
+    xCoordinate: number;
+    yCoordinate: number;
+  };
+  SelectItemForTag: {
+    photo: string;
+    closetItems?: Partial<ClosetItems>[];
+  };
   Settings: undefined;
   Support: undefined;
   FAQ: undefined;
@@ -96,6 +110,18 @@ const screens = [
     name: 'CreateCloset',
     component: CreateClosetScreen,
   },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Tag Clothes',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'SelectItemForTag',
+    component: SelectItemForTagScreen,
+  },
+
   {
     options: {
       headerStyle: {

@@ -5,12 +5,24 @@ import React from 'react';
 import {CustomContainer, CustomInput} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 
-export default function TagClothesScreen() {
+export default function TagClothesScreen({route}: any) {
+  const {photo, closetItems, xCoordinate, yCoordinate} = route.params;
+
   const form = useForm();
 
   const handleSubmit = (values: any) => {
-    console.log(values);
-    navigate('Profile', {...values});
+    navigate('CreateCloset', {
+      photo,
+      closetItems: [
+        ...closetItems,
+        {
+          xCoordinate,
+          yCoordinate,
+          name: values.name,
+          url: values.url,
+        },
+      ],
+    });
   };
 
   return (
@@ -27,7 +39,7 @@ export default function TagClothesScreen() {
 
             <CustomInput
               label="Item link"
-              name="link"
+              name="url"
               placeholder="Enter Item link "
               required="Item link is required"
             />
@@ -37,7 +49,7 @@ export default function TagClothesScreen() {
             isDisabled={!form.isValid}
             onPress={form.submit}
             variant={'primary'}>
-            Confirm
+            Done
           </Button>
         </Formiz>
       </ScrollView>
