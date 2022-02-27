@@ -6,7 +6,7 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {ClosetItems} from '~/generated/graphql';
+import {ClosetItems, Closets} from '~/generated/graphql';
 import {
   BrandDetailsScreen,
   BrandsScreen,
@@ -60,7 +60,7 @@ export type HomeStackParamList = {
   TermsOfService: undefined;
   EditProfileInformation: undefined;
   EditProfileSocialNetworks: undefined;
-  Outfit: {photo: string};
+  Outfit: {outfit: Closets | undefined};
   Brands: undefined;
   BrandDetails: {id: number};
   Posts: {brandId?: number; styleId?: number};

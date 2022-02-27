@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
+import {Closets} from '~/generated/graphql';
 import {BrandDetailsScreen, PostsScreen} from '~/screens/brands';
 import {ProfileScreen} from '~/screens/home';
 import {InspoScreen, OutfitScreen} from '~/screens/inspo';
@@ -12,7 +13,7 @@ const Stack = createNativeStackNavigator();
 
 export type InspoStackParamList = {
   InspoScreen: undefined;
-  Outfit: {photo: string};
+  Outfit: {outfit: Closets | undefined};
   BrandDetails: {id: number};
   Posts: {brandId?: number; styleId?: number};
   Profile: {id: number};

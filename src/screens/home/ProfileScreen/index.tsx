@@ -83,7 +83,9 @@ export default function ProfileScreen({route}: any) {
               uri={item?.photo}
               onPress={() => {
                 if (item?.photo) {
-                  navigate('Outfit', {photo: item?.photo});
+                  navigate('Outfit', {
+                    outfit: item,
+                  });
                 }
               }}
             />
