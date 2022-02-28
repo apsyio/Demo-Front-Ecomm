@@ -1,0 +1,13 @@
+export {default as CreateClosetScreen} from './CreateClosetScreen';
+export {default as EditProfileInformationScreen} from './EditProfileInformationScreen';
+export {default as EditProfileSocialNetworksScreen} from './EditProfileSocialNetworksScreen';
+export {default as FAQScreen} from './FAQScreen';
+export {default as HomeScreen} from './HomeScreen';
+export {default as MyProfileScreen} from './MyProfileScreen';
+export {default as PrivacyPolicyScreen} from './PrivacyPolicyScreen';
+export {default as ProfileScreen} from './ProfileScreen';
+export {default as SelectItemForTagScreen} from './SelectItemForTagScreen';
+export {default as SettingsScreen} from './SettingsScreen';
+export {default as SupportScreen} from './SupportScreen';
+export {default as TagClothesScreen} from './TagClothesScreen';
+export {default as TermsOfServiceScreen} from './TermsOfServiceScreen';

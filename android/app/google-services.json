@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "556527230052",
+    "project_id": "aps-cueoncurves-dev",
+    "storage_bucket": "aps-cueoncurves-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556527230052:android:9bd11bd5ea6b7908821371",
+        "android_client_info": {
+          "package_name": "io.apsy.cuethecurves"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556527230052-cubk6qu7klltlievknrfgep2129chhrt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.apsy.cuethecurves",
+            "certificate_hash": "71e68650285f7a2842130a4b1eb232b801a477dc"
+          }
+        },
+        {
+          "client_id": "556527230052-k45dsnlt6j2m2i1927d56n5f11qbnfq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIMt4qyQCLLr2XU7csnGzKeLq-UAXr2eE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556527230052-k45dsnlt6j2m2i1927d56n5f11qbnfq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
