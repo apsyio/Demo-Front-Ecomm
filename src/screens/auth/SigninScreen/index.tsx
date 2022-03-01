@@ -14,7 +14,8 @@ import {
   LineWithText,
   SocialButton,
 } from '~/components/atoms';
-import {ResponseStatus, User_LoginQuery} from '~/generated/graphql';
+import type {User_LoginQuery} from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import useSignin from '~/hooks/auth/useSignin';
 import {navigate} from '~/navigation/methods';
 import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';

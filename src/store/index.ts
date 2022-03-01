@@ -1,10 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import create, {GetState, SetState, StoreApi} from 'zustand';
+import type {GetState, SetState, StoreApi} from 'zustand';
+import create from 'zustand';
 import {persist} from 'zustand/middleware';
 
-import createActiveTabSlice, {ActiveTabState} from './createActiveTabSlice';
-import {AuthState, createAuthSlice} from './createAuthSlice';
-import {createOnboardingSlice, OnboardingState} from './createOnboardingSlice';
+import type {ActiveTabState} from './createActiveTabSlice';
+import createActiveTabSlice from './createActiveTabSlice';
+import type {AuthState} from './createAuthSlice';
+import {createAuthSlice} from './createAuthSlice';
+import type {OnboardingState} from './createOnboardingSlice';
+import {createOnboardingSlice} from './createOnboardingSlice';
 
 interface IStore extends AuthState, OnboardingState, ActiveTabState {}
 

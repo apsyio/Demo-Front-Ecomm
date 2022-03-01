@@ -1,5 +1,5 @@
 import {View} from 'native-base';
-import {IViewProps} from 'native-base/lib/typescript/components/basic/View/types';
+import type {IViewProps} from 'native-base/lib/typescript/components/basic/View/types';
 import React from 'react';
 
 import {Colors} from '~/styles';

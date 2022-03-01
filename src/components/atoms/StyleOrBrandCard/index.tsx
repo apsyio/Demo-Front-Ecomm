@@ -3,7 +3,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {BrandDto, StyleDto} from '~/generated/graphql';
+import type {BrandDto, StyleDto} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 export default function StyleOrBrandCard({

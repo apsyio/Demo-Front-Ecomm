@@ -2,7 +2,7 @@ import {Text} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
-import {Maybe} from '~/generated/graphql';
+import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 import {ImageCard} from '..';

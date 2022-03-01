@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  KeyboardAwareScrollView,
-  KeyboardAwareScrollViewProps,
-} from 'react-native-keyboard-aware-scroll-view';
+import type {KeyboardAwareScrollViewProps} from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const CustomKeyboardAwareScrollView = ({
   children,

@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
-import {Styles_GetStyleQuery} from '~/generated/graphql';
+import type {Styles_GetStyleQuery} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {GET_STYLE_BY_STYLE_ID} from '~/graphql/styles/queries/styles_getStyle';
 

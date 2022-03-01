@@ -3,7 +3,7 @@ import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {noImageUrl} from '~/constants/image';
-import {PostDto} from '~/generated/graphql';
+import type {PostDto} from '~/generated/graphql';
 import useLikePost from '~/hooks/post/useLikePost';
 import {Colors} from '~/styles';
 

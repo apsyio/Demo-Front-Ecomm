@@ -73,7 +73,7 @@ export default function App() {
         });
       },
       onSuccess: async (data: any) => {
-        const apiName = Object.keys(data)[0];
+        const [apiName] = Object.keys(data);
         const first = data[apiName];
         const status = first?.status;
 
@@ -108,7 +108,7 @@ export default function App() {
         });
       },
       onSuccess: async (data: any) => {
-        const apiName = Object.keys(data)[0];
+        const [apiName] = Object.keys(data);
         const first = data[apiName];
         const status = first?.status;
 

@@ -5,7 +5,8 @@ import React, {useEffect, useState} from 'react';
 import {Linking} from 'react-native';
 
 import {CustomContainer, CustomTag, PhotoInput} from '~/components/atoms';
-import {ClosetItems, ResponseStatus} from '~/generated/graphql';
+import type {ClosetItems} from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import useCreateCloset from '~/hooks/closet/useCreateCloset';
 import {goBack, navigate} from '~/navigation/methods';
 import {deviceHeight, deviceWidth} from '~/utils/style';

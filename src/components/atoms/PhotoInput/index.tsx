@@ -9,15 +9,16 @@ import {
   View,
 } from 'native-base';
 import React, {useEffect, useState} from 'react';
+import type {ImageProps} from 'react-native';
 import {
   ImageBackground,
-  ImageProps,
   Modal,
   SafeAreaView,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import type {ImageOrVideo} from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {cameraOptions} from '~/constants/camera';

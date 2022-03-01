@@ -1,11 +1,11 @@
 import {useMutation, useQueryClient} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
-import {
+import type {
   Closet_CreateClosetMutation,
   Closet_CreateClosetMutationVariables,
-  ResponseStatus,
 } from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import {CREATE_CLOSET} from '~/graphql/closet/mutations/closet_createCloset';
 import graphQLClient from '~/graphql/graphQLClient';
 

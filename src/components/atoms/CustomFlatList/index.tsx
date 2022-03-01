@@ -1,5 +1,5 @@
 import {FlatList} from 'native-base';
-import {IFlatListProps} from 'native-base/lib/typescript/components/basic/FlatList';
+import type {IFlatListProps} from 'native-base/lib/typescript/components/basic/FlatList';
 import React from 'react';
 
 export default function CustomFlatList(props: IFlatListProps<any>) {

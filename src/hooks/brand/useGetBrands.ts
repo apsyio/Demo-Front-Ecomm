@@ -2,7 +2,7 @@ import {useInfiniteQuery} from 'react-query';
 
 import {PAGE_SIZE} from '~/constants/pagination';
 import queryKeys from '~/constants/queryKeys';
-import {Brand_GetAllBrandsQuery, BrandDto} from '~/generated/graphql';
+import type {Brand_GetAllBrandsQuery, BrandDto} from '~/generated/graphql';
 import {GET_ALL_BRANDS} from '~/graphql/brand/queries/brand_getAllBrands';
 import graphQLClient from '~/graphql/graphQLClient';
 

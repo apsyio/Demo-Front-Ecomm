@@ -17,6 +17,9 @@ module.exports = {
     'unused-imports',
   ],
   rules: {
+    'react/jsx-filename-extension': ['error', {extensions: ['.tsx']}],
+    '@typescript-eslint/consistent-type-imports': 2,
+    'prefer-destructuring': 2,
     '@typescript-eslint/ban-ts-comment': 'off',
 
     'object-shorthand': ['error', 'always'],

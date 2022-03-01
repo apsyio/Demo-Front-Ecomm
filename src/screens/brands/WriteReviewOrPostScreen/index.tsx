@@ -10,11 +10,8 @@ import {
   PhotoInput,
 } from '~/components/atoms';
 import {TAG_SIZES} from '~/constants/data';
-import {
-  Post_CreatePostMutation,
-  PostTypes,
-  ResponseStatus,
-} from '~/generated/graphql';
+import type {Post_CreatePostMutation} from '~/generated/graphql';
+import {PostTypes, ResponseStatus} from '~/generated/graphql';
 import useCreatePost from '~/hooks/post/useCreatePost';
 import {navigate} from '~/navigation/methods';
 import {useStore} from '~/store';

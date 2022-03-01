@@ -1,7 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import {useMutation} from 'react-query';
 
-import {ResponseStatus, User_LoginQuery} from '~/generated/graphql';
+import type {User_LoginQuery} from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {SIGNIN} from '~/graphql/user/queries/user_login';
 import {useStore} from '~/store';

@@ -3,7 +3,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Maybe} from '~/generated/graphql';
+import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 export default function Tag({

@@ -1,6 +1,7 @@
 import {useMutation} from 'react-query';
 
-import {ResponseStatus, User_SignUpMutation} from '~/generated/graphql';
+import type {User_SignUpMutation} from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {SIGNUP} from '~/graphql/user/mutations/user_signUp';
 import {useStore} from '~/store';

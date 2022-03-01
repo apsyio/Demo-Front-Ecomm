@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Linking, TouchableWithoutFeedback} from 'react-native';
 
 import {CustomContainer, CustomTag} from '~/components/atoms';
-import {ClosetItems} from '~/generated/graphql';
+import type {ClosetItems} from '~/generated/graphql';
 import {navigate} from '~/navigation/methods';
 import {deviceHeight, deviceWidth} from '~/utils/style';
 

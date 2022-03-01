@@ -1,11 +1,11 @@
 import {useMutation, useQueryClient} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
-import {
+import type {
   Post_LikePostMutation,
   Post_LikePostMutationVariables,
-  ResponseStatus,
 } from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {LIKE_POST} from '~/graphql/post/mutations/post_likePost';
 

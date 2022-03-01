@@ -1,11 +1,11 @@
 import {useMutation, useQueryClient} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
-import {
-  ResponseStatus,
+import type {
   Style_LikeStyleMutation,
   Style_LikeStyleMutationVariables,
 } from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {LIKE_STYLE} from '~/graphql/styles/mutations/style_likeStyle';
 

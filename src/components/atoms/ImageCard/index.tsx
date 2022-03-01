@@ -1,14 +1,10 @@
 import {Text, View} from 'native-base';
 import React from 'react';
-import {
-  ImageBackground,
-  StyleProp,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native';
+import type {StyleProp, ViewStyle} from 'react-native';
+import {ImageBackground, TouchableOpacity} from 'react-native';
 
 import {noImageUrl} from '~/constants/image';
-import {Maybe} from '~/generated/graphql';
+import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 export default function ImageCard({

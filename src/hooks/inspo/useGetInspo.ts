@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
-import {User_GetInspoQuery} from '~/generated/graphql';
+import type {User_GetInspoQuery} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {GET_INSPO_BY_INSPO_ID} from '~/graphql/user/queries/user_getInspo';
 

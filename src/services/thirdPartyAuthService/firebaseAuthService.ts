@@ -27,7 +27,7 @@ class FirebaseAuthService {
         throw new Error('This login provider is not supported');
       }
       await firebaseAuth.signInWithCredential(credential);
-      const currentUser = firebaseAuth.currentUser;
+      const {currentUser} = firebaseAuth;
       const fbIdToken = await currentUser?.getIdToken();
 
       return {

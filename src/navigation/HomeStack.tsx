@@ -6,7 +6,7 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {ClosetItems, Closets} from '~/generated/graphql';
+import type {ClosetItems, Closets} from '~/generated/graphql';
 import {
   BrandDetailsScreen,
   BrandsScreen,

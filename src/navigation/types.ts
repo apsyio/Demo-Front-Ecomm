@@ -1,10 +1,10 @@
-import {AuthStackParamList} from './AuthStack';
-import {BrandsStackParamList} from './BrandsStack';
-import {FeedStackParamList} from './FeedStack';
-import {HomeStackParamList} from './HomeStack';
-import {InspoStackParamList} from './InspoStack';
-import {MainStackParamList} from './MainStack';
-import {StylesStackParamList} from './StylesStack';
+import type {AuthStackParamList} from './AuthStack';
+import type {BrandsStackParamList} from './BrandsStack';
+import type {FeedStackParamList} from './FeedStack';
+import type {HomeStackParamList} from './HomeStack';
+import type {InspoStackParamList} from './InspoStack';
+import type {MainStackParamList} from './MainStack';
+import type {StylesStackParamList} from './StylesStack';
 
 export type RootStackParamList = AuthStackParamList &
   MainStackParamList &
