@@ -3587,6 +3587,7 @@ export type Styles_GetStyleQuery = {
       liked: boolean;
       inspos?: Array<{
         __typename?: 'Users';
+        avatarUrl?: string | null;
         fullName?: string | null;
         accountType: AccountTypes;
         email?: string | null;

@@ -11,6 +11,7 @@ export const GET_STYLE_BY_STYLE_ID = gql`
         likesCount
         liked
         inspos {
+          avatarUrl
           fullName
           accountType
           email
