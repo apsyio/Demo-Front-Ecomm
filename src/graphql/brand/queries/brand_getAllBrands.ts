@@ -16,47 +16,6 @@ export const GET_ALL_BRANDS = gql`
           thumbnail
           likesCount
           photos
-          styles {
-            name
-            thumbnail
-            colors
-            photos
-            likesCount
-            styleBrands {
-              styleId
-              brandId
-              id
-              isDeleted
-            }
-            posts {
-              title
-              content
-              photo
-              brandId
-              styleId
-              postType
-              sizeTag
-              posterId
-              postedAt
-              id
-              isDeleted
-            }
-            userStyles {
-              userId
-              styleId
-              id
-              isDeleted
-            }
-            styleLikes {
-              userId
-              styleId
-              liked
-              id
-              isDeleted
-            }
-            id
-            isDeleted
-          }
           inspos {
             fullName
             accountType

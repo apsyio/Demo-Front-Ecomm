@@ -1114,52 +1114,6 @@ export type Brand_GetAllBrandsQuery = {
         thumbnail?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
-        styles?: Array<{
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
         inspos?: Array<{
           __typename?: 'Users';
           fullName?: string | null;
