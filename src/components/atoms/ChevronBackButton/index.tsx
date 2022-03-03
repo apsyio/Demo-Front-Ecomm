@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {goBack} from '~/navigation/methods';
 import {Colors, Spacing} from '~/styles';
 
-export default function ChevronBackButton({
+export default memo(function ChevronBackButton({
   color = Colors.BLACK,
   onPress,
   testID,
@@ -25,4 +25,4 @@ export default function ChevronBackButton({
       />
     </TouchableOpacity>
   );
-}
+});

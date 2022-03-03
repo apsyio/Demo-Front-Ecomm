@@ -1,5 +1,5 @@
 import {Text, View} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import type {StyleProp, ViewStyle} from 'react-native';
 import {ImageBackground, TouchableOpacity} from 'react-native';
 
@@ -7,7 +7,7 @@ import {noImageUrl} from '~/constants/image';
 import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
-export default function ImageCard({
+export default memo(function ImageCard({
   bottomTitle,
   uri,
   children,
@@ -53,4 +53,4 @@ export default function ImageCard({
       </ImageBackground>
     </TouchableOpacity>
   );
-}
+});

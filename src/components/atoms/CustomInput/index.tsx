@@ -1,6 +1,6 @@
 import {useField} from '@formiz/core';
 import {FormControl, Input, Stack} from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 
 const CustomInput = React.forwardRef((props, ref) => {
   const {id, isValid, isSubmitted, resetKey, setValue, value, errorMessage} =
@@ -65,4 +65,4 @@ const CustomInput = React.forwardRef((props, ref) => {
 
 CustomInput.displayName = 'CustomInput';
 
-export default CustomInput;
+export default memo(CustomInput);

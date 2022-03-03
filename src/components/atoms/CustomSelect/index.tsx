@@ -1,6 +1,6 @@
 import {useField} from '@formiz/core';
 import {FormControl, Select, Stack} from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 
 const CustomSelect = React.forwardRef((props, ref) => {
   const {id, isValid, isSubmitted, resetKey, setValue, value, errorMessage} =
@@ -57,4 +57,4 @@ const CustomSelect = React.forwardRef((props, ref) => {
 
 CustomSelect.displayName = 'CustomSelect';
 
-export default CustomSelect;
+export default memo(CustomSelect);

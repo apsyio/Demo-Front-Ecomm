@@ -1,7 +1,7 @@
 import {Avatar, Center, Text} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 
-export default function AvatarWithTitle({
+export default memo(function AvatarWithTitle({
   title,
   uri,
 }: {
@@ -16,4 +16,4 @@ export default function AvatarWithTitle({
       </Text>
     </Center>
   );
-}
+});

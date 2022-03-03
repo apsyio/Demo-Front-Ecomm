@@ -1,5 +1,5 @@
 import {Text} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 
 import type {Maybe} from '~/generated/graphql';
@@ -7,7 +7,7 @@ import {Colors} from '~/styles';
 
 import {ImageCard} from '..';
 
-export default function BrandCard({
+export default memo(function BrandCard({
   thumbnail,
   onPress,
   sizes,
@@ -52,4 +52,4 @@ export default function BrandCard({
       )}
     </TouchableOpacity>
   );
-}
+});

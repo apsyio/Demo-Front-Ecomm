@@ -1,9 +1,9 @@
 import {Box, Text} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 
 import {Colors} from '~/styles';
 
-export default function ProfileCard({
+export default memo(function ProfileCard({
   label,
   value,
 }: {
@@ -16,4 +16,4 @@ export default function ProfileCard({
       <Text mt={1}>{value}</Text>
     </Box>
   );
-}
+});

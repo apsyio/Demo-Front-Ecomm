@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import type {ImageProps} from 'react-native';
 import {
   ImageBackground,
@@ -235,4 +235,4 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
 
 PhotoInput.displayName = 'PhotoInput';
 
-export default PhotoInput;
+export default memo(PhotoInput);
