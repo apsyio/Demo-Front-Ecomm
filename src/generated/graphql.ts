@@ -14,7 +14,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Any: any;
   /** The `DateTime` scalar represents an ISO-8601 compliant date time type. */
   DateTime: any;
   /** The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1. */
@@ -51,7 +50,7 @@ export type BrandDto = {
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   photos?: Maybe<Array<Maybe<Scalars['String']>>>;
-  sizes?: Maybe<Array<Maybe<Scalars['Any']>>>;
+  sizeOffered?: Maybe<Scalars['String']>;
   styles?: Maybe<Array<Maybe<Styles>>>;
   thumbnail?: Maybe<Scalars['String']>;
 };
@@ -73,6 +72,7 @@ export type BrandDtoFilterInput = {
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<BrandDtoFilterInput>>;
   photos?: InputMaybe<ListStringOperationFilterInput>;
+  sizeOffered?: InputMaybe<StringOperationFilterInput>;
   styles?: InputMaybe<ListFilterInputTypeOfStylesFilterInput>;
   thumbnail?: InputMaybe<StringOperationFilterInput>;
 };
@@ -82,6 +82,7 @@ export type BrandDtoSortInput = {
   liked?: InputMaybe<SortEnumType>;
   likesCount?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
+  sizeOffered?: InputMaybe<SortEnumType>;
   thumbnail?: InputMaybe<SortEnumType>;
 };
 
@@ -117,7 +118,7 @@ export type Brands = {
   name?: Maybe<Scalars['String']>;
   photos?: Maybe<Array<Maybe<Scalars['String']>>>;
   posts?: Maybe<Array<Maybe<Posts>>>;
-  sizes?: Maybe<Array<Maybe<Scalars['Any']>>>;
+  sizeOffered?: Maybe<Scalars['String']>;
   styleBrands?: Maybe<Array<Maybe<StyleBrands>>>;
   thumbnail?: Maybe<Scalars['String']>;
   userBrands?: Maybe<Array<Maybe<UserBrands>>>;
@@ -141,6 +142,7 @@ export type BrandsFilterInput = {
   or?: InputMaybe<Array<BrandsFilterInput>>;
   photos?: InputMaybe<ListStringOperationFilterInput>;
   posts?: InputMaybe<ListFilterInputTypeOfPostsFilterInput>;
+  sizeOffered?: InputMaybe<StringOperationFilterInput>;
   styleBrands?: InputMaybe<ListFilterInputTypeOfStyleBrandsFilterInput>;
   thumbnail?: InputMaybe<StringOperationFilterInput>;
   userBrands?: InputMaybe<ListFilterInputTypeOfUserBrandsFilterInput>;
@@ -151,6 +153,7 @@ export type BrandsSortInput = {
   isDeleted?: InputMaybe<SortEnumType>;
   likesCount?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
+  sizeOffered?: InputMaybe<SortEnumType>;
   thumbnail?: InputMaybe<SortEnumType>;
 };
 
@@ -175,8 +178,8 @@ export type ClosetItems = {
   isDeleted: Scalars['Boolean'];
   name?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
-  xCoordinate: Scalars['Long'];
-  yCoordinate: Scalars['Long'];
+  xCoordinate?: Maybe<Scalars['String']>;
+  yCoordinate?: Maybe<Scalars['String']>;
 };
 
 export type ClosetItemsFilterInput = {
@@ -188,8 +191,8 @@ export type ClosetItemsFilterInput = {
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<ClosetItemsFilterInput>>;
   url?: InputMaybe<StringOperationFilterInput>;
-  xCoordinate?: InputMaybe<ComparableInt64OperationFilterInput>;
-  yCoordinate?: InputMaybe<ComparableInt64OperationFilterInput>;
+  xCoordinate?: InputMaybe<StringOperationFilterInput>;
+  yCoordinate?: InputMaybe<StringOperationFilterInput>;
 };
 
 export type Closets = {
@@ -269,21 +272,6 @@ export type ComparableInt32OperationFilterInput = {
   nin?: InputMaybe<Array<Scalars['Int']>>;
   nlt?: InputMaybe<Scalars['Int']>;
   nlte?: InputMaybe<Scalars['Int']>;
-};
-
-export type ComparableInt64OperationFilterInput = {
-  eq?: InputMaybe<Scalars['Long']>;
-  gt?: InputMaybe<Scalars['Long']>;
-  gte?: InputMaybe<Scalars['Long']>;
-  in?: InputMaybe<Array<Scalars['Long']>>;
-  lt?: InputMaybe<Scalars['Long']>;
-  lte?: InputMaybe<Scalars['Long']>;
-  neq?: InputMaybe<Scalars['Long']>;
-  ngt?: InputMaybe<Scalars['Long']>;
-  ngte?: InputMaybe<Scalars['Long']>;
-  nin?: InputMaybe<Array<Scalars['Long']>>;
-  nlt?: InputMaybe<Scalars['Long']>;
-  nlte?: InputMaybe<Scalars['Long']>;
 };
 
 export type ComparableNullableOfInt32OperationFilterInput = {
@@ -638,7 +626,7 @@ export type Posts = {
   postedAt: Scalars['DateTime'];
   poster?: Maybe<Users>;
   posterId: Scalars['Int'];
-  sizeTag: Scalars['Float'];
+  sizeOffered?: Maybe<Scalars['String']>;
   style?: Maybe<Styles>;
   styleId?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
@@ -659,7 +647,7 @@ export type PostsFilterInput = {
   postedAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   poster?: InputMaybe<UsersFilterInput>;
   posterId?: InputMaybe<ComparableInt32OperationFilterInput>;
-  sizeTag?: InputMaybe<ComparableDoubleOperationFilterInput>;
+  sizeOffered?: InputMaybe<StringOperationFilterInput>;
   style?: InputMaybe<StylesFilterInput>;
   styleId?: InputMaybe<ComparableNullableOfInt32OperationFilterInput>;
   title?: InputMaybe<StringOperationFilterInput>;
@@ -781,13 +769,6 @@ export enum ResponseStatus {
   UnknownError = 'UNKNOWN_ERROR',
   UserNotFound = 'USER_NOT_FOUND',
 }
-
-export type Sizes = {
-  __typename?: 'Sizes';
-  id: Scalars['Int'];
-  isDeleted: Scalars['Boolean'];
-  size?: Maybe<Scalars['String']>;
-};
 
 export enum SocialNetworks {
   Facebook = 'FACEBOOK',
@@ -951,6 +932,7 @@ export type UserBrandsFilterInput = {
 export type UserDto = {
   __typename?: 'UserDto';
   accountType: AccountTypes;
+  avatarUrl?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   brands?: Maybe<Array<Maybe<Brands>>>;
   closets?: Maybe<Array<Maybe<Closets>>>;
@@ -1108,78 +1090,12 @@ export type Brand_GetAllBrandsQuery = {
       totalCount: number;
       items?: Array<{
         __typename?: 'BrandDto';
-        sizes?: Array<any | null> | null;
         id: number;
         name?: string | null;
         thumbnail?: string | null;
+        sizeOffered?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
-        inspos?: Array<{
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1201,10 +1117,10 @@ export type Brand_GetBrandQuery = {
     status: ResponseStatus;
     result?: {
       __typename?: 'BrandDto';
-      sizes?: Array<any | null> | null;
       id: number;
       name?: string | null;
       thumbnail?: string | null;
+      sizeOffered?: string | null;
       likesCount: number;
       photos?: Array<string | null> | null;
       liked: boolean;
@@ -1217,151 +1133,6 @@ export type Brand_GetBrandQuery = {
         likesCount: number;
         id: number;
         isDeleted: boolean;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       inspos?: Array<{
         __typename?: 'Users';
@@ -1369,164 +1140,11 @@ export type Brand_GetBrandQuery = {
         accountType: AccountTypes;
         email?: string | null;
         phone?: string | null;
+        avatarUrl?: string | null;
         bio?: string | null;
         externalId?: string | null;
         id: number;
         isDeleted: boolean;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        socials?: Array<{
-          __typename?: 'UserSocials';
-          socialNetworks: SocialNetworks;
-          address?: string | null;
-          userId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        closets?: Array<{
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
       } | null> | null;
     } | null;
   } | null;
@@ -1550,158 +1168,13 @@ export type Brand_GetBrandsQuery = {
       totalCount: number;
       items?: Array<{
         __typename?: 'Brands';
-        sizes?: Array<any | null> | null;
         name?: string | null;
         thumbnail?: string | null;
+        sizeOffered?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1721,9 +1194,9 @@ export type Brand_RecommendBrandQuery = {
     status: ResponseStatus;
     result?: {
       __typename?: 'Brands';
-      sizes?: Array<any | null> | null;
       name?: string | null;
       thumbnail?: string | null;
+      sizeOffered?: string | null;
       likesCount: number;
       photos?: Array<string | null> | null;
       id: number;
@@ -1734,118 +1207,6 @@ export type Brand_RecommendBrandQuery = {
         brandId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       brandLikes?: Array<{
         __typename?: 'BrandLikes';
@@ -1854,27 +1215,6 @@ export type Brand_RecommendBrandQuery = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       posts?: Array<{
         __typename?: 'Posts';
@@ -1884,199 +1224,11 @@ export type Brand_RecommendBrandQuery = {
         brandId?: number | null;
         styleId?: number | null;
         postType: PostTypes;
-        sizeTag: number;
+        sizeOffered?: string | null;
         posterId: number;
         postedAt: any;
         id: number;
         isDeleted: boolean;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        poster?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        likes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       styleBrands?: Array<{
         __typename?: 'StyleBrands';
@@ -2084,26 +1236,6 @@ export type Brand_RecommendBrandQuery = {
         brandId: number;
         id: number;
         isDeleted: boolean;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
     } | null;
   } | null;
@@ -2132,246 +1264,21 @@ export type Closet_CreateClosetMutation = {
         accountType: AccountTypes;
         email?: string | null;
         phone?: string | null;
+        avatarUrl?: string | null;
         bio?: string | null;
         externalId?: string | null;
         id: number;
         isDeleted: boolean;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        socials?: Array<{
-          __typename?: 'UserSocials';
-          socialNetworks: SocialNetworks;
-          address?: string | null;
-          userId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        closets?: Array<{
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null;
       closetItems?: Array<{
         __typename?: 'ClosetItems';
         closetId: number;
         name?: string | null;
         url?: string | null;
-        xCoordinate: any;
-        yCoordinate: any;
+        xCoordinate?: string | null;
+        yCoordinate?: string | null;
         id: number;
         isDeleted: boolean;
-        closet?: {
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
     } | null;
   } | null;
@@ -2394,165 +1301,20 @@ export type Post_CreatePostMutation = {
       brandId?: number | null;
       styleId?: number | null;
       postType: PostTypes;
-      sizeTag: number;
+      sizeOffered?: string | null;
       posterId: number;
       postedAt: any;
       id: number;
       isDeleted: boolean;
       brand?: {
         __typename?: 'Brands';
-        sizes?: Array<any | null> | null;
         name?: string | null;
         thumbnail?: string | null;
+        sizeOffered?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null;
       style?: {
         __typename?: 'Styles';
@@ -2563,84 +1325,6 @@ export type Post_CreatePostMutation = {
         likesCount: number;
         id: number;
         isDeleted: boolean;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null;
       postLikes?: Array<{
         __typename?: 'PostLikes';
@@ -2649,133 +1333,6 @@ export type Post_CreatePostMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        post?: {
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       poster?: {
         __typename?: 'Users';
@@ -2783,97 +1340,11 @@ export type Post_CreatePostMutation = {
         accountType: AccountTypes;
         email?: string | null;
         phone?: string | null;
+        avatarUrl?: string | null;
         bio?: string | null;
         externalId?: string | null;
         id: number;
         isDeleted: boolean;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        socials?: Array<{
-          __typename?: 'UserSocials';
-          socialNetworks: SocialNetworks;
-          address?: string | null;
-          userId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        closets?: Array<{
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
       } | null;
       likes?: Array<{
         __typename?: 'PostLikes';
@@ -2882,31 +1353,6 @@ export type Post_CreatePostMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        post?: {
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
     } | null;
   } | null;
@@ -2944,104 +1390,11 @@ export type Post_GetBrandPostsQuery = {
         content?: string | null;
         photo?: string | null;
         postType: PostTypes;
-        sizeTag: number;
         posterId: number;
         likesCount: number;
         id: number;
         postedAt: any;
         liked: boolean;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
         poster?: {
           __typename?: 'Users';
           fullName?: string | null;
@@ -3052,61 +1405,6 @@ export type Post_GetBrandPostsQuery = {
           externalId?: string | null;
           id: number;
           isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
         } | null;
       } | null> | null;
       pageInfo: {
@@ -3146,98 +1444,6 @@ export type Post_GetStylePostsQuery = {
         id: number;
         postedAt: any;
         liked: boolean;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
         poster?: {
           __typename?: 'Users';
           fullName?: string | null;
@@ -3248,61 +1454,6 @@ export type Post_GetStylePostsQuery = {
           externalId?: string | null;
           id: number;
           isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
         } | null;
       } | null> | null;
       pageInfo: {
@@ -3335,7 +1486,6 @@ export type Post_GetUserPostsQuery = {
         content?: string | null;
         photo?: string | null;
         postType: PostTypes;
-        sizeTag: number;
         posterId: number;
         likesCount: number;
         id: number;
@@ -3343,95 +1493,13 @@ export type Post_GetUserPostsQuery = {
         liked: boolean;
         brand?: {
           __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
+          sizeOffered?: string | null;
           name?: string | null;
           thumbnail?: string | null;
           likesCount: number;
           photos?: Array<string | null> | null;
           id: number;
           isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
         } | null;
         poster?: {
           __typename?: 'Users';
@@ -3443,61 +1511,6 @@ export type Post_GetUserPostsQuery = {
           externalId?: string | null;
           id: number;
           isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
         } | null;
       } | null> | null;
       pageInfo: {
@@ -3541,324 +1554,25 @@ export type Styles_GetStyleQuery = {
       liked: boolean;
       inspos?: Array<{
         __typename?: 'Users';
-        avatarUrl?: string | null;
         fullName?: string | null;
         accountType: AccountTypes;
         email?: string | null;
         phone?: string | null;
+        avatarUrl?: string | null;
         bio?: string | null;
         externalId?: string | null;
         id: number;
         isDeleted: boolean;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        socials?: Array<{
-          __typename?: 'UserSocials';
-          socialNetworks: SocialNetworks;
-          address?: string | null;
-          userId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        closets?: Array<{
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       brands?: Array<{
         __typename?: 'Brands';
-        sizes?: Array<any | null> | null;
         name?: string | null;
         thumbnail?: string | null;
+        sizeOffered?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
     } | null;
   } | null;
@@ -3888,151 +1602,6 @@ export type Styles_GetStylesQuery = {
         likesCount: number;
         id: number;
         isDeleted: boolean;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -4081,6 +1650,7 @@ export type User_SignUpMutation = {
       accountType: AccountTypes;
       email?: string | null;
       phone?: string | null;
+      avatarUrl?: string | null;
       bio?: string | null;
       externalId?: string | null;
       id: number;
@@ -4092,133 +1662,6 @@ export type User_SignUpMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        post?: {
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       socials?: Array<{
         __typename?: 'UserSocials';
@@ -4227,17 +1670,6 @@ export type User_SignUpMutation = {
         userId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       closets?: Array<{
         __typename?: 'Closets';
@@ -4247,36 +1679,6 @@ export type User_SignUpMutation = {
         createdAt: any;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        closetItems?: Array<{
-          __typename?: 'ClosetItems';
-          closetId: number;
-          name?: string | null;
-          url?: string | null;
-          xCoordinate: any;
-          yCoordinate: any;
-          id: number;
-          isDeleted: boolean;
-          closet?: {
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       userBrands?: Array<{
         __typename?: 'UserBrands';
@@ -4284,63 +1686,6 @@ export type User_SignUpMutation = {
         brandId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       brandLikes?: Array<{
         __typename?: 'BrandLikes';
@@ -4349,27 +1694,6 @@ export type User_SignUpMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       userStyles?: Array<{
         __typename?: 'UserStyles';
@@ -4377,63 +1701,6 @@ export type User_SignUpMutation = {
         styleId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       styleLikes?: Array<{
         __typename?: 'StyleLikes';
@@ -4442,27 +1709,6 @@ export type User_SignUpMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
     } | null;
   } | null;
@@ -4492,6 +1738,7 @@ export type User_UpdateUserMutation = {
       accountType: AccountTypes;
       email?: string | null;
       phone?: string | null;
+      avatarUrl?: string | null;
       bio?: string | null;
       externalId?: string | null;
       id: number;
@@ -4503,133 +1750,6 @@ export type User_UpdateUserMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        post?: {
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       socials?: Array<{
         __typename?: 'UserSocials';
@@ -4638,17 +1758,6 @@ export type User_UpdateUserMutation = {
         userId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       closets?: Array<{
         __typename?: 'Closets';
@@ -4658,36 +1767,6 @@ export type User_UpdateUserMutation = {
         createdAt: any;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        closetItems?: Array<{
-          __typename?: 'ClosetItems';
-          closetId: number;
-          name?: string | null;
-          url?: string | null;
-          xCoordinate: any;
-          yCoordinate: any;
-          id: number;
-          isDeleted: boolean;
-          closet?: {
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       userBrands?: Array<{
         __typename?: 'UserBrands';
@@ -4695,63 +1774,6 @@ export type User_UpdateUserMutation = {
         brandId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       brandLikes?: Array<{
         __typename?: 'BrandLikes';
@@ -4760,27 +1782,6 @@ export type User_UpdateUserMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       userStyles?: Array<{
         __typename?: 'UserStyles';
@@ -4788,63 +1789,6 @@ export type User_UpdateUserMutation = {
         styleId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       styleLikes?: Array<{
         __typename?: 'StyleLikes';
@@ -4853,27 +1797,6 @@ export type User_UpdateUserMutation = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
     } | null;
   } | null;
@@ -4896,158 +1819,13 @@ export type User_GetBrandsQuery = {
       totalCount: number;
       items?: Array<{
         __typename?: 'Brands';
-        sizes?: Array<any | null> | null;
         name?: string | null;
         thumbnail?: string | null;
+        sizeOffered?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -5069,6 +1847,7 @@ export type User_GetInspoQuery = {
     status: ResponseStatus;
     result?: {
       __typename?: 'UserDto';
+      avatarUrl?: string | null;
       fullName?: string | null;
       accountType: AccountTypes;
       email?: string | null;
@@ -5081,227 +1860,16 @@ export type User_GetInspoQuery = {
         userId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       brands?: Array<{
         __typename?: 'Brands';
-        sizes?: Array<any | null> | null;
+        sizeOffered?: string | null;
         name?: string | null;
         thumbnail?: string | null;
         likesCount: number;
         photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       closets?: Array<{
         __typename?: 'Closets';
@@ -5311,35 +1879,15 @@ export type User_GetInspoQuery = {
         createdAt: any;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
         closetItems?: Array<{
           __typename?: 'ClosetItems';
           closetId: number;
           name?: string | null;
           url?: string | null;
-          xCoordinate: any;
-          yCoordinate: any;
+          xCoordinate?: string | null;
+          yCoordinate?: string | null;
           id: number;
           isDeleted: boolean;
-          closet?: {
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
         } | null> | null;
       } | null> | null;
     } | null;
@@ -5369,206 +1917,11 @@ export type User_GetInsposQuery = {
         accountType: AccountTypes;
         email?: string | null;
         phone?: string | null;
+        avatarUrl?: string | null;
         bio?: string | null;
         externalId?: string | null;
         id: number;
         isDeleted: boolean;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        socials?: Array<{
-          __typename?: 'UserSocials';
-          socialNetworks: SocialNetworks;
-          address?: string | null;
-          userId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        closets?: Array<{
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -5600,206 +1953,11 @@ export type User_GetSelectedInsposQuery = {
         accountType: AccountTypes;
         email?: string | null;
         phone?: string | null;
+        avatarUrl?: string | null;
         bio?: string | null;
         externalId?: string | null;
         id: number;
         isDeleted: boolean;
-        postLikes?: Array<{
-          __typename?: 'PostLikes';
-          userId: number;
-          postId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          post?: {
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        socials?: Array<{
-          __typename?: 'UserSocials';
-          socialNetworks: SocialNetworks;
-          address?: string | null;
-          userId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        closets?: Array<{
-          __typename?: 'Closets';
-          userId: number;
-          outfitName?: string | null;
-          photo?: string | null;
-          createdAt: any;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          closetItems?: Array<{
-            __typename?: 'ClosetItems';
-            closetId: number;
-            name?: string | null;
-            url?: string | null;
-            xCoordinate: any;
-            yCoordinate: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userBrands?: Array<{
-          __typename?: 'UserBrands';
-          userId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        brandLikes?: Array<{
-          __typename?: 'BrandLikes';
-          userId: number;
-          brandId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -5827,158 +1985,13 @@ export type User_GetStylesQuery = {
       totalCount: number;
       items?: Array<{
         __typename?: 'Styles';
-        id: number;
         name?: string | null;
         thumbnail?: string | null;
         colors?: Array<string | null> | null;
         photos?: Array<string | null> | null;
         likesCount: number;
+        id: number;
         isDeleted: boolean;
-        styleBrands?: Array<{
-          __typename?: 'StyleBrands';
-          styleId: number;
-          brandId: number;
-          id: number;
-          isDeleted: boolean;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        posts?: Array<{
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null> | null;
-        userStyles?: Array<{
-          __typename?: 'UserStyles';
-          userId: number;
-          styleId: number;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
-        styleLikes?: Array<{
-          __typename?: 'StyleLikes';
-          userId: number;
-          styleId: number;
-          liked: boolean;
-          id: number;
-          isDeleted: boolean;
-          user?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -6002,6 +2015,7 @@ export type User_LoginQuery = {
       accountType: AccountTypes;
       email?: string | null;
       phone?: string | null;
+      avatarUrl?: string | null;
       bio?: string | null;
       externalId?: string | null;
       id: number;
@@ -6013,133 +2027,6 @@ export type User_LoginQuery = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          socials?: Array<{
-            __typename?: 'UserSocials';
-            socialNetworks: SocialNetworks;
-            address?: string | null;
-            userId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          closets?: Array<{
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
-        post?: {
-          __typename?: 'Posts';
-          title?: string | null;
-          content?: string | null;
-          photo?: string | null;
-          brandId?: number | null;
-          styleId?: number | null;
-          postType: PostTypes;
-          sizeTag: number;
-          posterId: number;
-          postedAt: any;
-          id: number;
-          isDeleted: boolean;
-          brand?: {
-            __typename?: 'Brands';
-            sizes?: Array<any | null> | null;
-            name?: string | null;
-            thumbnail?: string | null;
-            likesCount: number;
-            photos?: Array<string | null> | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          style?: {
-            __typename?: 'Styles';
-            name?: string | null;
-            thumbnail?: string | null;
-            colors?: Array<string | null> | null;
-            photos?: Array<string | null> | null;
-            likesCount: number;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          postLikes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          poster?: {
-            __typename?: 'Users';
-            fullName?: string | null;
-            accountType: AccountTypes;
-            email?: string | null;
-            phone?: string | null;
-            bio?: string | null;
-            externalId?: string | null;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-          likes?: Array<{
-            __typename?: 'PostLikes';
-            userId: number;
-            postId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       socials?: Array<{
         __typename?: 'UserSocials';
@@ -6148,17 +2035,6 @@ export type User_LoginQuery = {
         userId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       closets?: Array<{
         __typename?: 'Closets';
@@ -6168,36 +2044,6 @@ export type User_LoginQuery = {
         createdAt: any;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        closetItems?: Array<{
-          __typename?: 'ClosetItems';
-          closetId: number;
-          name?: string | null;
-          url?: string | null;
-          xCoordinate: any;
-          yCoordinate: any;
-          id: number;
-          isDeleted: boolean;
-          closet?: {
-            __typename?: 'Closets';
-            userId: number;
-            outfitName?: string | null;
-            photo?: string | null;
-            createdAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null;
-        } | null> | null;
       } | null> | null;
       userBrands?: Array<{
         __typename?: 'UserBrands';
@@ -6205,63 +2051,6 @@ export type User_LoginQuery = {
         brandId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-          userBrands?: Array<{
-            __typename?: 'UserBrands';
-            userId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          brandLikes?: Array<{
-            __typename?: 'BrandLikes';
-            userId: number;
-            brandId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       brandLikes?: Array<{
         __typename?: 'BrandLikes';
@@ -6270,27 +2059,6 @@ export type User_LoginQuery = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        brand?: {
-          __typename?: 'Brands';
-          sizes?: Array<any | null> | null;
-          name?: string | null;
-          thumbnail?: string | null;
-          likesCount: number;
-          photos?: Array<string | null> | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
       userStyles?: Array<{
         __typename?: 'UserStyles';
@@ -6298,63 +2066,6 @@ export type User_LoginQuery = {
         styleId: number;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-          styleBrands?: Array<{
-            __typename?: 'StyleBrands';
-            styleId: number;
-            brandId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          posts?: Array<{
-            __typename?: 'Posts';
-            title?: string | null;
-            content?: string | null;
-            photo?: string | null;
-            brandId?: number | null;
-            styleId?: number | null;
-            postType: PostTypes;
-            sizeTag: number;
-            posterId: number;
-            postedAt: any;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          userStyles?: Array<{
-            __typename?: 'UserStyles';
-            userId: number;
-            styleId: number;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-          styleLikes?: Array<{
-            __typename?: 'StyleLikes';
-            userId: number;
-            styleId: number;
-            liked: boolean;
-            id: number;
-            isDeleted: boolean;
-          } | null> | null;
-        } | null;
       } | null> | null;
       styleLikes?: Array<{
         __typename?: 'StyleLikes';
@@ -6363,27 +2074,6 @@ export type User_LoginQuery = {
         liked: boolean;
         id: number;
         isDeleted: boolean;
-        user?: {
-          __typename?: 'Users';
-          fullName?: string | null;
-          accountType: AccountTypes;
-          email?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          externalId?: string | null;
-          id: number;
-          isDeleted: boolean;
-        } | null;
-        style?: {
-          __typename?: 'Styles';
-          name?: string | null;
-          thumbnail?: string | null;
-          colors?: Array<string | null> | null;
-          photos?: Array<string | null> | null;
-          likesCount: number;
-          id: number;
-          isDeleted: boolean;
-        } | null;
       } | null> | null;
     } | null;
   } | null;

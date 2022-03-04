@@ -68,17 +68,20 @@ export default function OutfitScreen({route}: any) {
         {outfit.closetItems?.map((closetItem: ClosetItems) => {
           const {name, url, yCoordinate, xCoordinate} = closetItem;
           return (
-            <CustomTag
-              key={url}
-              name={name}
-              top={+((deviceHeight * yCoordinate) / 100).toFixed(0)}
-              left={+((deviceWidth * xCoordinate) / 100).toFixed(0) + 50}
-              onPress={() => {
-                if (url) {
-                  setSelectedCloset(closetItem);
-                }
-              }}
-            />
+            yCoordinate &&
+            xCoordinate && (
+              <CustomTag
+                key={url}
+                name={name}
+                top={+((deviceHeight * +yCoordinate) / 100).toFixed(0)}
+                left={+((deviceWidth * +xCoordinate) / 100).toFixed(0) + 50}
+                onPress={() => {
+                  if (url) {
+                    setSelectedCloset(closetItem);
+                  }
+                }}
+              />
+            )
           );
         })}
       </View>

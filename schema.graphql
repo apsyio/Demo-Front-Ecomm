@@ -33,23 +33,6 @@ directive @stream(
   if: Boolean
 ) on FIELD
 
-directive @authorize(
-  """
-  The name of the authorization policy that determines access to the annotated resource.
-  """
-  policy: String
-
-  """
-  Roles that are allowed to access the annotated resource.
-  """
-  roles: [String!]
-
-  """
-  Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field.
-  """
-  apply: ApplyPolicy! = BEFORE_RESOLVER
-) repeatable on SCHEMA | OBJECT | FIELD_DEFINITION
-
 type Query {
   styles_getStyles: ListResponseBaseOfStyles
   styles_getStyle(styleId: Int!): ResponseBaseOfStyleDto
@@ -96,9 +79,9 @@ type BrandLikes {
 }
 
 type Brands {
-  sizes: [Any]
   name: String
   thumbnail: String
+  sizeOffered: String
   likesCount: Int!
   photos: [String]
   userBrands: [UserBrands]
@@ -114,8 +97,8 @@ type ClosetItems {
   closet: Closets
   name: String
   url: String
-  xCoordinate: Long!
-  yCoordinate: Long!
+  xCoordinate: String
+  yCoordinate: String
   id: Int!
   isDeleted: Boolean!
 }
@@ -150,18 +133,12 @@ type Posts {
   styleId: Int
   style: Styles
   postType: PostTypes!
-  sizeTag: Float!
+  sizeOffered: String
   postLikes: [PostLikes]
   posterId: Int!
   poster: Users
   postedAt: DateTime!
   likes: [PostLikes]
-  id: Int!
-  isDeleted: Boolean!
-}
-
-type Sizes {
-  size: String
   id: Int!
   isDeleted: Boolean!
 }
@@ -246,10 +223,10 @@ type UserStyles {
 }
 
 type BrandDto {
-  sizes: [Any]
   id: Int!
   name: String
   thumbnail: String
+  sizeOffered: String
   likesCount: Int!
   photos: [String]
   styles: [Styles]
@@ -291,6 +268,7 @@ type UserDto {
   email: String
   phone: String
   bio: String
+  avatarUrl: String
   socials: [UserSocials]
   brands: [Brands]
   closets: [Closets]
@@ -300,13 +278,6 @@ enum ApplyPolicy {
   BEFORE_RESOLVER
   AFTER_RESOLVER
 }
-
-scalar Any
-
-"""
-The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1.
-"""
-scalar Long
 
 """
 The `DateTime` scalar represents an ISO-8601 compliant date time type.
@@ -329,17 +300,6 @@ enum SocialNetworks {
   GOOGLE
   TIK_TOK
   PINTEREST
-}
-
-input PostInput {
-  title: String
-  content: String
-  photo: String
-  brandId: Int
-  styleId: Int
-  postType: PostTypes!
-  sizeTag: Float
-  posterId: Int
 }
 
 type ResponseBaseOfPosts {
@@ -442,6 +402,17 @@ type ResponseBaseOfUsers {
   status: ResponseStatus!
 }
 
+input PostInput {
+  title: String
+  content: String
+  photo: String
+  brandId: Int
+  styleId: Int
+  postType: PostTypes!
+  sizeTag: Float
+  posterId: Int
+}
+
 type ResponseBaseOfClosets {
   result: Closets
   status: ResponseStatus!
@@ -504,6 +475,7 @@ input BrandDtoFilterInput {
   id: ComparableInt32OperationFilterInput
   name: StringOperationFilterInput
   thumbnail: StringOperationFilterInput
+  sizeOffered: StringOperationFilterInput
   likesCount: ComparableInt32OperationFilterInput
   photos: ListStringOperationFilterInput
   styles: ListFilterInputTypeOfStylesFilterInput
@@ -515,6 +487,7 @@ input BrandDtoSortInput {
   id: SortEnumType
   name: SortEnumType
   thumbnail: SortEnumType
+  sizeOffered: SortEnumType
   likesCount: SortEnumType
   liked: SortEnumType
 }
@@ -534,6 +507,7 @@ input BrandsFilterInput {
   or: [BrandsFilterInput!]
   name: StringOperationFilterInput
   thumbnail: StringOperationFilterInput
+  sizeOffered: StringOperationFilterInput
   likesCount: ComparableInt32OperationFilterInput
   photos: ListStringOperationFilterInput
   userBrands: ListFilterInputTypeOfUserBrandsFilterInput
@@ -547,6 +521,7 @@ input BrandsFilterInput {
 input BrandsSortInput {
   name: SortEnumType
   thumbnail: SortEnumType
+  sizeOffered: SortEnumType
   likesCount: SortEnumType
   id: SortEnumType
   isDeleted: SortEnumType
@@ -868,7 +843,7 @@ input PostsFilterInput {
   styleId: ComparableNullableOfInt32OperationFilterInput
   style: StylesFilterInput
   postType: PostTypesOperationFilterInput
-  sizeTag: ComparableDoubleOperationFilterInput
+  sizeOffered: StringOperationFilterInput
   postLikes: ListFilterInputTypeOfPostLikesFilterInput
   posterId: ComparableInt32OperationFilterInput
   poster: UsersFilterInput
@@ -972,25 +947,10 @@ input ClosetItemsFilterInput {
   closet: ClosetsFilterInput
   name: StringOperationFilterInput
   url: StringOperationFilterInput
-  xCoordinate: ComparableInt64OperationFilterInput
-  yCoordinate: ComparableInt64OperationFilterInput
+  xCoordinate: StringOperationFilterInput
+  yCoordinate: StringOperationFilterInput
   id: ComparableInt32OperationFilterInput
   isDeleted: BooleanOperationFilterInput
-}
-
-input ComparableInt64OperationFilterInput {
-  eq: Long
-  neq: Long
-  in: [Long!]
-  nin: [Long!]
-  gt: Long
-  ngt: Long
-  gte: Long
-  ngte: Long
-  lt: Long
-  nlt: Long
-  lte: Long
-  nlte: Long
 }
 
 input ClosetItemInput {
@@ -1026,3 +986,8 @@ enum ResponseStatus {
   DIFFRENET_IDS
   HOST_NOT_FOUND
 }
+
+"""
+The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long

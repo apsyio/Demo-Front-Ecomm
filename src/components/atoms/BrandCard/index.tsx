@@ -10,11 +10,11 @@ import {ImageCard} from '..';
 export default memo(function BrandCard({
   thumbnail,
   onPress,
-  sizes,
+  sizeOffered,
 }: {
-  thumbnail: Maybe<string> | undefined;
+  thumbnail?: Maybe<string>;
   onPress: () => void;
-  sizes?: Maybe<any[]> | undefined;
+  sizeOffered?: Maybe<string>;
 }) {
   return (
     <TouchableOpacity
@@ -39,7 +39,7 @@ export default memo(function BrandCard({
         uri={thumbnail}
       />
 
-      {sizes && (
+      {sizeOffered && (
         <Text
           fontWeight={'bold'}
           numberOfLines={1}
@@ -47,7 +47,7 @@ export default memo(function BrandCard({
           color={Colors.SEA_PINK}
           mt={3}
           mb={1}>
-          {sizes.join('   ')}
+          {sizeOffered.replace(/-/g, '  ')}
         </Text>
       )}
     </TouchableOpacity>

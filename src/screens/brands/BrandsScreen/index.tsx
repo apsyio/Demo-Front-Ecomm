@@ -24,7 +24,7 @@ export default function BrandsScreen() {
           <BrandCard
             key={item.id}
             uri={item.thumbnail}
-            sizes={item.sizes}
+            sizeOffered={item.sizeOffered}
             onPress={() => navigate('BrandDetails', {id: item.id})}
           />
         )}

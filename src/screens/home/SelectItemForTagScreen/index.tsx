@@ -44,24 +44,28 @@ export default function SelectItemForTagScreen({route}: any) {
             resizeMode={'contain'}
           />
 
-          {closetItems?.map(({name, url, yCoordinate, xCoordinate}) => (
-            <CustomTag
-              key={url}
-              name={name}
-              top={+((deviceHeight * yCoordinate) / 100).toFixed(0)}
-              left={+((deviceWidth * xCoordinate) / 100).toFixed(0)}
-              onPress={() => {
-                if (url) {
-                  Linking.openURL(url);
-                }
-              }}
-              onPressRemove={() => {
-                setClosetItems(prev =>
-                  prev.filter(item => item.yCoordinate !== yCoordinate),
-                );
-              }}
-            />
-          ))}
+          {closetItems?.map(
+            ({name, url, yCoordinate, xCoordinate}) =>
+              xCoordinate &&
+              yCoordinate && (
+                <CustomTag
+                  key={url}
+                  name={name}
+                  top={+((deviceHeight * +yCoordinate) / 100).toFixed(0)}
+                  left={+((deviceWidth * +xCoordinate) / 100).toFixed(0)}
+                  onPress={() => {
+                    if (url) {
+                      Linking.openURL(url);
+                    }
+                  }}
+                  onPressRemove={() => {
+                    setClosetItems(prev =>
+                      prev.filter(item => item.yCoordinate !== yCoordinate),
+                    );
+                  }}
+                />
+              ),
+          )}
         </View>
       </TouchableWithoutFeedback>
     </CustomContainer>
