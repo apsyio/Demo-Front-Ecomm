@@ -6,12 +6,14 @@ import {CustomContainer, CustomInput} from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 
 export default function TagClothesScreen({route}: any) {
-  const {photo, closetItems, xCoordinate, yCoordinate} = route.params;
+  const {outfitName, photo, closetItems, xCoordinate, yCoordinate} =
+    route.params;
 
   const form = useForm();
 
   const handleSubmit = (values: any) => {
     navigate('CreateCloset', {
+      outfitName,
       photo,
       closetItems: [
         ...closetItems,

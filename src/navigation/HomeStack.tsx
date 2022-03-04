@@ -40,16 +40,19 @@ export type HomeStackParamList = {
   Profile: {id: number};
   MyProfile: undefined;
   CreateCloset: {
+    outfitName: string;
     photo: string;
     closetItems?: Partial<ClosetItems>[];
   };
   TagClothes: {
+    outfitName: string;
     photo: string;
     closetItems: ClosetItems[];
     xCoordinate: number;
     yCoordinate: number;
   };
   SelectItemForTag: {
+    outfitName: string;
     photo: string;
     closetItems?: Partial<ClosetItems>[];
   };
@@ -104,7 +107,7 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
-      title: 'Upload',
+      title: 'Create Closet',
       headerLeft: () => <ChevronBackButton />,
     },
     name: 'CreateCloset',
@@ -210,12 +213,16 @@ const screens = [
     component: TermsOfServiceScreen,
   },
   {
-    options: {
-      headerStyle: {
-        backgroundColor: Colors.CHABLIS,
-      },
-      headerLeft: () => <ChevronBackButton />,
-      title: 'Outfit Name',
+    options: ({route}: {route: any}) => {
+      const {outfitName} = route.params.outfit;
+
+      return {
+        headerStyle: {
+          backgroundColor: Colors.CHABLIS,
+        },
+        headerLeft: () => <ChevronBackButton />,
+        title: outfitName,
+      };
     },
     name: 'Outfit',
     component: OutfitScreen,

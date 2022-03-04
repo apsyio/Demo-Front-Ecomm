@@ -82,11 +82,9 @@ export default function ProfileScreen({route}: any) {
               isSmall
               uri={item?.photo}
               onPress={() => {
-                if (item?.photo) {
-                  navigate('Outfit', {
-                    outfit: item,
-                  });
-                }
+                navigate('Outfit', {
+                  outfit: item,
+                });
               }}
             />
           )}

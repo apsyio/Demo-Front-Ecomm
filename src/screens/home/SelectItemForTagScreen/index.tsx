@@ -8,7 +8,11 @@ import {navigate} from '~/navigation/methods';
 import {deviceHeight, deviceWidth} from '~/utils/style';
 
 export default function SelectItemForTagScreen({route}: any) {
-  const {photo, closetItems: closetItemsInParams} = route?.params || {};
+  const {
+    outfitName,
+    photo,
+    closetItems: closetItemsInParams,
+  } = route?.params || {};
 
   const [closetItems, setClosetItems] = useState<ClosetItems[]>([]);
 
@@ -28,7 +32,13 @@ export default function SelectItemForTagScreen({route}: any) {
     const xCoordinate = +((locationX * 100) / deviceWidth).toFixed(0);
     const yCoordinate = +((locationY * 100) / deviceHeight).toFixed(0);
 
-    navigate('TagClothes', {photo, closetItems, xCoordinate, yCoordinate});
+    navigate('TagClothes', {
+      outfitName,
+      photo,
+      closetItems,
+      xCoordinate,
+      yCoordinate,
+    });
   };
 
   return (
