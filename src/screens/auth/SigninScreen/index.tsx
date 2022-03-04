@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 import {Button, HStack, Image, Text, Toast, View} from 'native-base';
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
+import {useRecoilState} from 'recoil';
 
 import images from '~/assets/images';
 import {
@@ -19,12 +20,12 @@ import {ResponseStatus} from '~/generated/graphql';
 import useSignin from '~/hooks/auth/useSignin';
 import {navigate} from '~/navigation/methods';
 import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';
-import {useStore} from '~/store';
+import {isUserLoggedInState} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SigninScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
+  const [, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
 
   const {mutate} = useSignin();
 

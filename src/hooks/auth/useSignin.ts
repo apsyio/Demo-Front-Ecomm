@@ -1,14 +1,15 @@
 import auth from '@react-native-firebase/auth';
 import {useMutation} from 'react-query';
+import {useRecoilState} from 'recoil';
 
 import type {User_LoginQuery} from '~/generated/graphql';
 import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {SIGNIN} from '~/graphql/user/queries/user_login';
-import {useStore} from '~/store';
+import {userIdState} from '~/store';
 
 const useSignin = () => {
-  const setUserId = useStore(state => state.setUserId);
+  const [_, setUserId] = useRecoilState(userIdState);
 
   return useMutation<User_LoginQuery>(
     async _data => {

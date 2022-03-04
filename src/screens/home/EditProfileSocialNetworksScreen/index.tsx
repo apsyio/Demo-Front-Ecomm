@@ -1,6 +1,7 @@
 import {Formiz, useForm} from '@formiz/core';
 import {Button, Text} from 'native-base';
 import React from 'react';
+import {useRecoilState} from 'recoil';
 
 import {
   AvatarWithTitle,
@@ -12,10 +13,10 @@ import {SocialNetworks} from '~/generated/graphql';
 import useGetInspoByInspoId from '~/hooks/inspo/useGetInspo';
 import useUpdateUser from '~/hooks/inspo/useUpdateUser';
 import {navigate} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {userIdState} from '~/store';
 
 export default function EditProfileSocialNetworksScreen() {
-  const userId = useStore(state => state.userId);
+  const [userId] = useRecoilState(userIdState);
   const {inspo} = useGetInspoByInspoId(userId);
 
   const {mutate} = useUpdateUser();

@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useRecoilState} from 'recoil';
 
 import {
   AvatarWithTitle,
@@ -19,11 +20,11 @@ import {
 import {AccountTypes} from '~/generated/graphql';
 import useGetInspoByInspoId from '~/hooks/inspo/useGetInspo';
 import {navigate} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {userIdState} from '~/store';
 import {Colors} from '~/styles';
 
 export default function MyProfileScreen() {
-  const userId = useStore(state => state.userId);
+  const [userId] = useRecoilState(userIdState);
 
   const {inspo} = useGetInspoByInspoId(userId);
 

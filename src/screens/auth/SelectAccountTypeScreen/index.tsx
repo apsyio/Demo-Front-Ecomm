@@ -11,17 +11,18 @@ import {
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useRecoilState} from 'recoil';
 
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
 import {AccountTypes, ResponseStatus} from '~/generated/graphql';
 import useUpdateUser from '~/hooks/inspo/useUpdateUser';
 import {goBack} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {isUserLoggedInState} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SelectAccountTypeScreen() {
-  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
+  const [, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
 
   const [accountType, setAccountType] = useState<AccountTypes>();
 

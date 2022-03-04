@@ -14,17 +14,18 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query';
+import {useRecoilState} from 'recoil';
 
 import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import AppNavigator from '~/navigation/AppNavigator';
-import {useStore} from '~/store';
+import {isUserLoggedInState} from '~/store';
 import {Colors} from '~/styles';
 
 let queryClient: QueryClient;
 
 export default function App() {
-  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
+  const [, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
 
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);

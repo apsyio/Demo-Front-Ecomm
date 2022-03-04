@@ -3,17 +3,17 @@ import {HStack, Icon, ScrollView, Text, Toast, useDisclose} from 'native-base';
 import React from 'react';
 import {Linking, Share, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useRecoilState} from 'recoil';
 
 import {ConfirmActionSheet, CustomContainer} from '~/components/atoms';
 import {ResponseStatus} from '~/generated/graphql';
 import useDeactiveUser from '~/hooks/inspo/useDeactiveUser';
 import {navigate} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {isUserLoggedInState} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SettingsScreen() {
-  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
-
+  const [, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
   const {
     onClose: onCloseSignOutActionSheet,
     onOpen: onOpenSignOutActionSheet,

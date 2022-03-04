@@ -1,10 +1,13 @@
 /**
  * @format
  */
-
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import React from 'react';
 import {AppRegistry} from 'react-native';
 import PushNotification from 'react-native-push-notification';
+import {RecoilRoot} from 'recoil';
+
+import {CustomSpinner} from '~/components/atoms';
 
 import App from './App';
 import {name as appName} from './app.json';
@@ -59,4 +62,14 @@ PushNotification.configure({
    */
 });
 
-AppRegistry.registerComponent(appName, () => App);
+const Wrapper = () => {
+  return (
+    <React.Suspense fallback={<CustomSpinner />}>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </React.Suspense>
+  );
+};
+
+AppRegistry.registerComponent(appName, () => Wrapper);
