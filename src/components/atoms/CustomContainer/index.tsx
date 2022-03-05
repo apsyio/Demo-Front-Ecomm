@@ -1,10 +1,10 @@
 import {View} from 'native-base';
-import {IViewProps} from 'native-base/lib/typescript/components/basic/View/types';
-import React from 'react';
+import type {IViewProps} from 'native-base/lib/typescript/components/basic/View/types';
+import React, {memo} from 'react';
 
 import {Colors} from '~/styles';
 
-export default function Container(
+export default memo(function Container(
   props: IViewProps & React.RefAttributes<unknown>,
 ) {
   return (
@@ -12,4 +12,4 @@ export default function Container(
       {props.children}
     </View>
   );
-}
+});

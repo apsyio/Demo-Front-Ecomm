@@ -1,8 +1,8 @@
 import {HStack, Text, View} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import {Colors} from 'src/styles';
 
-export default function LineWithText({text}: {text: string}) {
+export default memo(function LineWithText({text}: {text: string}) {
   return (
     <HStack>
       <View
@@ -22,4 +22,4 @@ export default function LineWithText({text}: {text: string}) {
       />
     </HStack>
   );
-}
+});

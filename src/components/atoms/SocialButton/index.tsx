@@ -1,10 +1,10 @@
 import {Button, Icon} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Colors} from '~/styles';
 
-export default function SocialButton({
+export default memo(function SocialButton({
   iconName,
   iconType,
   onPress,
@@ -29,4 +29,4 @@ export default function SocialButton({
       />
     </Button>
   );
-}
+});

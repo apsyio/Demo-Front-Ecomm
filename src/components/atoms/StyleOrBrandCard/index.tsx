@@ -1,12 +1,12 @@
 import {Avatar, HStack, Icon, Text, View} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {BrandDto, StyleDto} from '~/generated/graphql';
+import type {BrandDto, StyleDto} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
-export default function StyleOrBrandCard({
+export default memo(function StyleOrBrandCard({
   liked,
   thumbnail,
   name,
@@ -34,4 +34,4 @@ export default function StyleOrBrandCard({
       </View>
     </HStack>
   );
-}
+});

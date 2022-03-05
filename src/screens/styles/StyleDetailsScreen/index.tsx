@@ -117,7 +117,7 @@ export default function StyleDetailsScreen({navigation, route}: any) {
               <ImageCard
                 containerStyle={{marginRight: 10}}
                 key={inspo?.id}
-                uri={inspo?.thumbnail}
+                uri={inspo?.avatarUrl}
                 onPress={() =>
                   navigate('BrandDetails', {
                     id: inspo?.id,

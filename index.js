@@ -1,7 +1,6 @@
 /**
  * @format
  */
-
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {AppRegistry} from 'react-native';
 import PushNotification from 'react-native-push-notification';

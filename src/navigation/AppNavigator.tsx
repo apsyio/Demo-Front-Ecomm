@@ -1,12 +1,13 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
+import {useAtom} from 'jotai';
+import React from 'react';
 import {useIsFetching, useIsMutating} from 'react-query';
 
 import {CustomSpinner} from '~/components/atoms';
-import useSignin from '~/hooks/auth/useSignin';
 import OnboardingScreen from '~/screens/OnboardingScreen';
-import {useStore} from '~/store';
+import {isUserLoggedInAtom} from '~/store';
+import isOnboardingViewedAtom from '~/store/isOnboardingViewedAtom';
 
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
@@ -39,14 +40,8 @@ export default function AppNavigator() {
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
 
-  const isOnboardingViewed = useStore(state => state.isOnboardingViewed);
-  const isUserLoggedIn = useStore(state => state.isUserLoggedIn);
-
-  const {mutate} = useSignin();
-
-  useEffect(() => {
-    mutate();
-  }, [mutate]);
+  const [isOnboardingViewed] = useAtom(isOnboardingViewedAtom);
+  const [isUserLoggedIn] = useAtom(isUserLoggedInAtom);
 
   return (
     <>
@@ -54,15 +49,13 @@ export default function AppNavigator() {
 
       <NavigationContainer ref={navigationRef} linking={linking}>
         <Stack.Navigator>
-          {!isOnboardingViewed && (
+          {!isOnboardingViewed ? (
             <Stack.Screen
               options={{headerShown: false}}
               name="Onboarding"
               component={OnboardingScreen}
             />
-          )}
-
-          {isUserLoggedIn ? (
+          ) : isUserLoggedIn ? (
             <Stack.Screen
               options={{headerShown: false}}
               name="MainStack"

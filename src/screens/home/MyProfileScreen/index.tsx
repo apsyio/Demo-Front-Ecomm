@@ -1,3 +1,4 @@
+import {useAtom} from 'jotai';
 import {
   Button,
   Center,
@@ -19,11 +20,11 @@ import {
 import {AccountTypes} from '~/generated/graphql';
 import useGetInspoByInspoId from '~/hooks/inspo/useGetInspo';
 import {navigate} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {userIdState} from '~/store';
 import {Colors} from '~/styles';
 
 export default function MyProfileScreen() {
-  const userId = useStore(state => state.userId);
+  const [userId] = useAtom(userIdState);
 
   const {inspo} = useGetInspoByInspoId(userId);
 

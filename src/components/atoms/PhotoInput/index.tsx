@@ -8,16 +8,17 @@ import {
   Text,
   View,
 } from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
+import type {ImageProps} from 'react-native';
 import {
   ImageBackground,
-  ImageProps,
   Modal,
   SafeAreaView,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
+import type {ImageOrVideo} from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {cameraOptions} from '~/constants/camera';
@@ -234,4 +235,4 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
 
 PhotoInput.displayName = 'PhotoInput';
 
-export default PhotoInput;
+export default memo(PhotoInput);

@@ -1,10 +1,10 @@
 import {useMutation, useQueryClient} from 'react-query';
 
-import {
-  ResponseStatus,
+import type {
   User_SetStylesMutation,
   User_SetStylesMutationVariables,
 } from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {SET_STYLES} from '~/graphql/user/mutations/user_setStyles';
 

@@ -1,10 +1,10 @@
 import {useMutation, useQueryClient} from 'react-query';
 
-import {
-  ResponseStatus,
+import type {
   User_UpdateUserMutation,
   User_UpdateUserMutationVariables,
 } from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {UPDATE_USER} from '~/graphql/user/mutations/user_updateUser';
 

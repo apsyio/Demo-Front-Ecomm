@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Linking, Modal, TouchableWithoutFeedback} from 'react-native';
 
 import {CustomContainer, CustomTag} from '~/components/atoms';
-import {ClosetItems} from '~/generated/graphql';
+import type {ClosetItems} from '~/generated/graphql';
 import {Colors} from '~/styles';
 import {deviceHeight, deviceWidth} from '~/utils/style';
 
@@ -68,17 +68,20 @@ export default function OutfitScreen({route}: any) {
         {outfit.closetItems?.map((closetItem: ClosetItems) => {
           const {name, url, yCoordinate, xCoordinate} = closetItem;
           return (
-            <CustomTag
-              key={url}
-              name={name}
-              top={+((deviceHeight * yCoordinate) / 100).toFixed(0)}
-              left={+((deviceWidth * xCoordinate) / 100).toFixed(0) + 50}
-              onPress={() => {
-                if (url) {
-                  setSelectedCloset(closetItem);
-                }
-              }}
-            />
+            yCoordinate &&
+            xCoordinate && (
+              <CustomTag
+                key={url}
+                name={name}
+                top={+((deviceHeight * +yCoordinate) / 100).toFixed(0)}
+                left={+((deviceWidth * +xCoordinate) / 100).toFixed(0) + 50}
+                onPress={() => {
+                  if (url) {
+                    setSelectedCloset(closetItem);
+                  }
+                }}
+              />
+            )
           );
         })}
       </View>

@@ -1,8 +1,8 @@
 console.warn = () => null;
 console.error = () => null;
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useAtom} from 'jotai';
 import {extendTheme, NativeBaseProvider, Toast} from 'native-base';
 import React, {useCallback, useEffect, useState} from 'react';
 import Config from 'react-native-config';
@@ -18,13 +18,13 @@ import {
 import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import AppNavigator from '~/navigation/AppNavigator';
-import {useStore} from '~/store';
+import {isUserLoggedInAtom} from '~/store';
 import {Colors} from '~/styles';
 
 let queryClient: QueryClient;
 
 export default function App() {
-  const setIsUserLoggedIn = useStore(state => state.setIsUserLoggedIn);
+  const [, setIsUserLoggedIn] = useAtom(isUserLoggedInAtom);
 
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -41,7 +41,7 @@ export default function App() {
       } else {
         graphQLClient.setHeader('authorization', '');
         setIsUserLoggedIn(false);
-        AsyncStorage.clear();
+        // AsyncStorage.clear();
         queryClient.clear();
       }
       if (initializing) {
@@ -73,7 +73,7 @@ export default function App() {
         });
       },
       onSuccess: async (data: any) => {
-        const apiName = Object.keys(data)[0];
+        const [apiName] = Object.keys(data);
         const first = data[apiName];
         const status = first?.status;
 
@@ -108,7 +108,7 @@ export default function App() {
         });
       },
       onSuccess: async (data: any) => {
-        const apiName = Object.keys(data)[0];
+        const [apiName] = Object.keys(data);
         const first = data[apiName];
         const status = first?.status;
 

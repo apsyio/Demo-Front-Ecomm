@@ -1,6 +1,6 @@
 import {useMutation} from 'react-query';
 
-import {
+import type {
   User_SupportMutation,
   User_SupportMutationVariables,
 } from '~/generated/graphql';

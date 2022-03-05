@@ -1,11 +1,18 @@
 import {Formiz, useForm} from '@formiz/core';
 import {useIsFocused} from '@react-navigation/native';
-import {Button, ScrollView, View} from 'native-base';
+import {Button} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {Linking} from 'react-native';
 
-import {CustomContainer, CustomTag, PhotoInput} from '~/components/atoms';
-import {ClosetItems, ResponseStatus} from '~/generated/graphql';
+import {
+  CustomContainer,
+  CustomInput,
+  CustomKeyboardAwareScrollView,
+  CustomTag,
+  PhotoInput,
+} from '~/components/atoms';
+import type {ClosetItems} from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import useCreateCloset from '~/hooks/closet/useCreateCloset';
 import {goBack, navigate} from '~/navigation/methods';
 import {deviceHeight, deviceWidth} from '~/utils/style';
@@ -38,10 +45,18 @@ export default function CreateClosetScreen({route}: any) {
   }, [closetItemsInParams, isFocused, photo]);
 
   const handleSubmit = (values: any) => {
-    console.log({photo: values.photo, closetItems});
+    console.log({
+      outfitName: values.outfitName,
+      photo: values.photo,
+      closetItems,
+    });
 
     mutate(
-      {photo: values?.photo, closetItems},
+      {
+        outfitName: values?.outfitName,
+        photo: values?.photo,
+        closetItems,
+      },
       {
         onSuccess: data => {
           if (data.closet_createCloset?.status === ResponseStatus.Success) {
@@ -54,57 +69,63 @@ export default function CreateClosetScreen({route}: any) {
 
   return (
     <CustomContainer>
-      <ScrollView contentContainerStyle={{flex: 1}}>
+      <CustomKeyboardAwareScrollView>
         <Formiz onValidSubmit={handleSubmit} connect={form}>
-          <View flex={1}>
-            <PhotoInput name="photo" required="Image is required" />
+          <PhotoInput name="photo" required="Image is required" />
 
-            {closetItems?.map(
-              ({name, url, yCoordinate, xCoordinate}: ClosetItems) => (
-                <CustomTag
-                  key={url}
-                  name={name}
-                  top={+((deviceHeight * yCoordinate) / 100).toFixed(0)}
-                  left={+((deviceWidth * xCoordinate) / 100).toFixed(0)}
-                  onPress={() => {
-                    if (url) {
-                      Linking.openURL(url);
-                    }
-                  }}
-                  onPressRemove={() => {
-                    setClosetItems(prev =>
-                      prev.filter(item => item.yCoordinate !== yCoordinate),
-                    );
-                  }}
-                />
-              ),
-            )}
-          </View>
-
-          {form.values?.photo && (
-            <Button
-              mt={3}
-              mb={5}
-              onPress={() =>
-                navigate('SelectItemForTag', {
-                  photo: form.values.photo,
-                  closetItems,
-                })
-              }
-              variant={'outline'}
-              borderRadius="md">
-              Tag Clothes
-            </Button>
+          {closetItems?.map(
+            ({name, url, yCoordinate, xCoordinate}: ClosetItems) => (
+              <CustomTag
+                key={url}
+                name={name}
+                top={+((deviceHeight * +yCoordinate) / 100).toFixed(0)}
+                left={+((deviceWidth * +xCoordinate) / 100).toFixed(0)}
+                onPress={() => {
+                  if (url) {
+                    Linking.openURL(url);
+                  }
+                }}
+                onPressRemove={() => {
+                  setClosetItems(prev =>
+                    prev.filter(item => item.yCoordinate !== yCoordinate),
+                  );
+                }}
+              />
+            ),
           )}
 
-          <Button
-            isDisabled={!form.isValid}
-            onPress={form.submit}
-            variant={'primary'}>
-            Confirm
-          </Button>
+          <CustomInput
+            label="Outfit Name"
+            name="outfitName"
+            placeholder="Enter Outfit name "
+            required="Outfit name is required"
+          />
         </Formiz>
-      </ScrollView>
+
+        {form.values?.photo && (
+          <Button
+            mt={3}
+            mb={5}
+            onPress={() =>
+              navigate('SelectItemForTag', {
+                outfitName: form.values.outfitName,
+                photo: form.values.photo,
+                closetItems,
+              })
+            }
+            variant={'outline'}
+            borderRadius="md">
+            Tag Clothes
+          </Button>
+        )}
+
+        <Button
+          isDisabled={!form.isValid}
+          onPress={form.submit}
+          variant={'primary'}>
+          Confirm
+        </Button>
+      </CustomKeyboardAwareScrollView>
     </CustomContainer>
   );
 }

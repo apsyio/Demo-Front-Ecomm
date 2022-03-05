@@ -1,8 +1,6 @@
-import React from 'react';
-import {
-  KeyboardAwareScrollView,
-  KeyboardAwareScrollViewProps,
-} from 'react-native-keyboard-aware-scroll-view';
+import React, {memo} from 'react';
+import type {KeyboardAwareScrollViewProps} from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const CustomKeyboardAwareScrollView = ({
   children,
@@ -15,4 +13,4 @@ const CustomKeyboardAwareScrollView = ({
   );
 };
 
-export default CustomKeyboardAwareScrollView;
+export default memo(CustomKeyboardAwareScrollView);

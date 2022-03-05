@@ -1,12 +1,12 @@
 import {Icon, Text, View} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Maybe} from '~/generated/graphql';
+import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
-export default function Tag({
+export default memo(function Tag({
   top,
   left,
   name,
@@ -53,4 +53,4 @@ export default function Tag({
       </TouchableOpacity>
     </View>
   );
-}
+});

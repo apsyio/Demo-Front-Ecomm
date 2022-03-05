@@ -1,13 +1,13 @@
 import {Avatar, Button, HStack, Icon, Image, Text, VStack} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {noImageUrl} from '~/constants/image';
-import {PostDto} from '~/generated/graphql';
+import type {PostDto} from '~/generated/graphql';
 import useLikePost from '~/hooks/post/useLikePost';
 import {Colors} from '~/styles';
 
-export default function PostOrFeedCard({
+export default memo(function PostOrFeedCard({
   id,
   poster,
   title,
@@ -58,4 +58,4 @@ export default function PostOrFeedCard({
       <Image width={'100%'} height={200} source={{uri: photo}} />
     </>
   );
-}
+});

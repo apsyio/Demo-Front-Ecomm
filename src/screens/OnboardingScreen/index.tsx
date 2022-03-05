@@ -1,10 +1,11 @@
+import {useAtom} from 'jotai';
 import {Button, HStack, Image, Text, View} from 'native-base';
 import React, {useRef, useState} from 'react';
 import PagerView from 'react-native-pager-view';
 
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
-import {useStore} from '~/store';
+import isOnboardingViewedAtom from '~/store/isOnboardingViewedAtom';
 import {Colors, Spacing} from '~/styles';
 
 const data = [
@@ -29,8 +30,7 @@ const data = [
 ];
 
 export default function OnboardingScreen() {
-  const setIsOnboardingViewed = useStore(state => state.setIsOnboardingViewed);
-
+  const [, setIsOnboardingViewed] = useAtom(isOnboardingViewedAtom);
   const [page, setPage] = useState(0);
 
   const viewPager = useRef(null);

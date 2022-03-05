@@ -1,7 +1,7 @@
 import {Actionsheet, Button, Center, HStack, Text} from 'native-base';
-import React from 'react';
+import React, {memo} from 'react';
 
-export default function CustomActionSheet({
+export default memo(function CustomActionSheet({
   title,
   onPressYes,
   isOpen,
@@ -39,4 +39,4 @@ export default function CustomActionSheet({
       </Actionsheet>
     </Center>
   );
-}
+});

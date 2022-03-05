@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
-import {Brand_GetBrandQuery} from '~/generated/graphql';
+import type {Brand_GetBrandQuery} from '~/generated/graphql';
 import {GET_RECOMMENDED_BRAND} from '~/graphql/brand/queries/brand_recommendBrand';
 import graphQLClient from '~/graphql/graphQLClient';
 

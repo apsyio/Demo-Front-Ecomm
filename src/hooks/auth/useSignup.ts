@@ -1,12 +1,14 @@
+import {useAtom} from 'jotai';
 import {useMutation} from 'react-query';
 
-import {ResponseStatus, User_SignUpMutation} from '~/generated/graphql';
+import type {User_SignUpMutation} from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {SIGNUP} from '~/graphql/user/mutations/user_signUp';
-import {useStore} from '~/store';
+import {userIdState} from '~/store';
 
 const useSignup = () => {
-  const setUserId = useStore(state => state.setUserId);
+  const [_, setUserId] = useAtom(userIdState);
   return useMutation<User_SignUpMutation>(
     async _data => {
       return graphQLClient.request(SIGNUP);
@@ -21,5 +23,4 @@ const useSignup = () => {
     },
   );
 };
-
 export default useSignup;

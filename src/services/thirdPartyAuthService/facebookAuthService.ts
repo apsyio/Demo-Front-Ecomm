@@ -29,7 +29,7 @@ class FacebookAuthService {
       if (!data || !data.accessToken) {
         throw new Error("Couldn't obtain access token");
       }
-      const accessToken = data.accessToken;
+      const {accessToken} = data;
       const currentProfile = await this.getProfile(accessToken);
 
       return {

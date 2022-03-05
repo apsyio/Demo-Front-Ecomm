@@ -2,7 +2,7 @@ import {useInfiniteQuery} from 'react-query';
 
 import {PAGE_SIZE} from '~/constants/pagination';
 import queryKeys from '~/constants/queryKeys';
-import {Post_GetUserPostsQuery, PostDto} from '~/generated/graphql';
+import type {Post_GetUserPostsQuery, PostDto} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {GET_POSTS} from '~/graphql/post/queries/post_getUserPosts';
 

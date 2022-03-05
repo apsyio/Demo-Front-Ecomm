@@ -1,11 +1,11 @@
-import PushNotification, {
-  Importance,
+import type {
   PushNotificationDeliveredObject,
   PushNotificationObject,
   PushNotificationPermissions,
   PushNotificationScheduledLocalObject,
   PushNotificationScheduleObject,
 } from 'react-native-push-notification';
+import PushNotification, {Importance} from 'react-native-push-notification';
 
 import NotificationHandler from './NotificationHandler';
 

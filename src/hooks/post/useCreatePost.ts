@@ -1,10 +1,10 @@
 import {useMutation, useQueryClient} from 'react-query';
 
-import {
+import type {
   Post_CreatePostMutation,
   Post_CreatePostMutationVariables,
-  ResponseStatus,
 } from '~/generated/graphql';
+import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {CREATE_POST} from '~/graphql/post/mutations/post_createPost';
 

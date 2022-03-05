@@ -1,10 +1,11 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useAtom} from 'jotai';
 import React from 'react';
 import {Text} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useStore} from '~/store';
+import {activeTabAtom} from '~/store';
 import {Colors} from '~/styles';
 
 import BrandsStack from './BrandsStack';
@@ -17,8 +18,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const MainTabs = () => {
-  const setActiveTab = useStore(state => state.setActiveTab);
-
+  const [, setActiveTab] = useAtom(activeTabAtom);
   return (
     <Tab.Navigator
       screenListeners={e => setActiveTab(e.route.name)}

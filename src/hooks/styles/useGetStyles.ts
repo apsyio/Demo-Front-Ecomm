@@ -2,7 +2,7 @@ import {useInfiniteQuery} from 'react-query';
 
 import {PAGE_SIZE} from '~/constants/pagination';
 import queryKeys from '~/constants/queryKeys';
-import {Styles, Styles_GetStylesQuery} from '~/generated/graphql';
+import type {Styles, Styles_GetStylesQuery} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
 import {GET_STYLES} from '~/graphql/styles/queries/styles_getStyles';
 

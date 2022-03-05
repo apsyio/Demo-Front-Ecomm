@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
-import {Closets} from '~/generated/graphql';
+import type {Closets} from '~/generated/graphql';
 import {BrandDetailsScreen, PostsScreen} from '~/screens/brands';
 import {ProfileScreen} from '~/screens/home';
 import {InspoScreen, OutfitScreen} from '~/screens/inspo';
