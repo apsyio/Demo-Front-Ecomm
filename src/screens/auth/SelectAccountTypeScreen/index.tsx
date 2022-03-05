@@ -1,3 +1,4 @@
+import {useAtom} from 'jotai';
 import {
   Button,
   Center,
@@ -11,24 +12,28 @@ import {
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useRecoilState} from 'recoil';
 
 import images from '~/assets/images';
 import {CustomContainer} from '~/components/atoms';
 import {AccountTypes, ResponseStatus} from '~/generated/graphql';
 import useUpdateUser from '~/hooks/inspo/useUpdateUser';
 import {goBack} from '~/navigation/methods';
-import {isUserLoggedInState} from '~/store';
+import {isUserLoggedInAtom} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SelectAccountTypeScreen() {
-  const [, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
+  const [, setIsUserLoggedIn] = useAtom(isUserLoggedInAtom);
 
   const [accountType, setAccountType] = useState<AccountTypes>();
 
   const {mutate} = useUpdateUser();
 
-  console.log(accountType);
+  const setUserLoggedIn = () => {
+    setTimeout(() => {
+      setIsUserLoggedIn(true);
+    }, 100);
+  };
+
   return (
     <CustomContainer px={5} pt={16} pb={5}>
       <ScrollView>
@@ -137,13 +142,13 @@ export default function SelectAccountTypeScreen() {
                     onSuccess: res => {
                       const status = res.user_updateUser?.status;
                       if (status === ResponseStatus.Success) {
-                        setIsUserLoggedIn(true);
+                        setUserLoggedIn();
                       }
                     },
                   },
                 );
               } else {
-                setIsUserLoggedIn(true);
+                setUserLoggedIn();
               }
             }}>
             Next
