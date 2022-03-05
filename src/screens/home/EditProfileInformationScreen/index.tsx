@@ -1,8 +1,8 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail} from '@formiz/validations';
+import {useAtom} from 'jotai';
 import {Button, Text} from 'native-base';
 import React from 'react';
-import {useRecoilState} from 'recoil';
 
 import {
   AvatarWithTitle,
@@ -16,7 +16,7 @@ import {navigate} from '~/navigation/methods';
 import {userIdState} from '~/store';
 
 export default function EditProfileInformationScreen() {
-  const [userId] = useRecoilState(userIdState);
+  const [userId] = useAtom(userIdState);
   const {inspo} = useGetInspoByInspoId(userId);
 
   const {mutate} = useUpdateUser();

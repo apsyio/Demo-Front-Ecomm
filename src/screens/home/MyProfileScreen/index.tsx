@@ -1,3 +1,4 @@
+import {useAtom} from 'jotai';
 import {
   Button,
   Center,
@@ -10,7 +11,6 @@ import {
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useRecoilState} from 'recoil';
 
 import {
   AvatarWithTitle,
@@ -24,7 +24,7 @@ import {userIdState} from '~/store';
 import {Colors} from '~/styles';
 
 export default function MyProfileScreen() {
-  const [userId] = useRecoilState(userIdState);
+  const [userId] = useAtom(userIdState);
 
   const {inspo} = useGetInspoByInspoId(userId);
 
