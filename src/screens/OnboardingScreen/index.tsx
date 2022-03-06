@@ -81,25 +81,18 @@ export default function OnboardingScreen() {
 
             <View alignItems={'center'} mt={10}>
               <HStack flexDirection={'row'}>
-                <View
-                  rounded={'full'}
-                  width={8}
-                  height={2}
-                  backgroundColor={Colors.ROUGE}
-                />
-                <View
-                  rounded={'full'}
-                  width={2}
-                  height={2}
-                  backgroundColor={Colors.SEA_PINK}
-                  mx={1}
-                />
-                <View
-                  rounded={'full'}
-                  width={2}
-                  height={2}
-                  backgroundColor={Colors.SEA_PINK}
-                />
+                {data.map((_, i) => (
+                  <View
+                    key={i}
+                    rounded={'full'}
+                    width={i === page ? 8 : 2}
+                    height={2}
+                    backgroundColor={
+                      i === page ? Colors.ROUGE : Colors.SEA_PINK
+                    }
+                    mr={1}
+                  />
+                ))}
               </HStack>
             </View>
           </View>
