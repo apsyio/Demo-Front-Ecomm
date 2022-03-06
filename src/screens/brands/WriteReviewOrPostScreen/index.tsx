@@ -1,4 +1,5 @@
 import {Formiz, useForm} from '@formiz/core';
+import {useAtom} from 'jotai';
 import {Button, HStack, ScrollView, Text, View} from 'native-base';
 import React, {useLayoutEffect, useState} from 'react';
 
@@ -14,11 +15,11 @@ import type {Post_CreatePostMutation} from '~/generated/graphql';
 import {PostTypes, ResponseStatus} from '~/generated/graphql';
 import useCreatePost from '~/hooks/post/useCreatePost';
 import {navigate} from '~/navigation/methods';
-import {useStore} from '~/store';
+import {activeTabAtom} from '~/store';
 import {Colors} from '~/styles';
 
 export default function WriteReviewOrPostScreen({route, navigation}: any) {
-  const activeTab = useStore(state => state.activeTab);
+  const [activeTab] = useAtom(activeTabAtom);
 
   const modeInParams = route.params?.mode || 'post';
   const {styleId, brandId} = route.params;

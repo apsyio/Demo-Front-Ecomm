@@ -1,10 +1,10 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail, isMinLength} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
+import {useAtom} from 'jotai';
 import {Button, HStack, Image, Text, Toast, View} from 'native-base';
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
-import {useRecoilState} from 'recoil';
 
 import images from '~/assets/images';
 import {
@@ -20,12 +20,12 @@ import {ResponseStatus} from '~/generated/graphql';
 import useSignin from '~/hooks/auth/useSignin';
 import {navigate} from '~/navigation/methods';
 import thirdPartyAuthService from '~/services/thirdPartyAuthService/thirdPartyAuthService';
-import {isUserLoggedInState} from '~/store';
+import {isUserLoggedInAtom} from '~/store';
 import {Colors} from '~/styles';
 
 export default function SigninScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const [, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
+  const [, setIsUserLoggedIn] = useAtom(isUserLoggedInAtom);
 
   const {mutate} = useSignin();
 
@@ -92,7 +92,9 @@ export default function SigninScreen() {
   const onSuccessSignin = (data: User_LoginQuery) => {
     const status = data?.user_login?.status;
     if (status === ResponseStatus.Success) {
-      setIsUserLoggedIn(true);
+      setTimeout(() => {
+        setIsUserLoggedIn(true);
+      }, 100);
     }
   };
 

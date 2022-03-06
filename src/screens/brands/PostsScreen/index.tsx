@@ -1,3 +1,4 @@
+import {useAtom} from 'jotai';
 import {
   Actionsheet,
   Button,
@@ -10,7 +11,6 @@ import {
 import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useRecoilState} from 'recoil';
 
 import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
 import {TAG_SIZES} from '~/constants/data';
@@ -18,13 +18,13 @@ import useGetBrandPosts from '~/hooks/post/useGetBrandPosts';
 import useGetStylePosts from '~/hooks/post/useGetStylePosts';
 import useGetPosts from '~/hooks/post/useGetUserPosts';
 import {navigate} from '~/navigation/methods';
-import {activeTabState} from '~/store';
+import {activeTabAtom} from '~/store';
 import {Colors} from '~/styles';
 
 export default function PostsScreen({route}: any) {
   const {styleId, brandId} = route.params;
 
-  const [activeTab] = useRecoilState(activeTabState);
+  const [activeTab] = useAtom(activeTabAtom);
 
   const {onClose, onOpen, isOpen} = useDisclose();
 
