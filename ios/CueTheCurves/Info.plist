@@ -43,7 +43,7 @@
 		<key>FacebookDisplayName</key>
 		<string>Cue The Curves</string>
 		<key>CFBundleVersion</key>
-		<string>7</string>
+		<string>9</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSAppTransportSecurity</key>
