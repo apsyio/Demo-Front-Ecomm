@@ -15,7 +15,7 @@ export const GET_STYLE_POSTS = gql`
           content
           photo
           postType
-          sizeTag
+          sizeOffered
           posterId
           poster {
             fullName

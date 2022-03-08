@@ -1,7 +1,8 @@
-import {atomWithToggleAndStorage} from './atomWithToggleAndStorage';
+import {atomWithStorage} from 'jotai/utils';
+
 import storage from './storage';
 
-const activeTabAtom = atomWithToggleAndStorage('activeTab', false, {
+const activeTabAtom = atomWithStorage('activeTab', 'Home', {
   ...storage,
   delayInit: true,
 });

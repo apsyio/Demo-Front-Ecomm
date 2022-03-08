@@ -244,21 +244,6 @@ export type ComparableDateTimeOperationFilterInput = {
   nlte?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type ComparableDoubleOperationFilterInput = {
-  eq?: InputMaybe<Scalars['Float']>;
-  gt?: InputMaybe<Scalars['Float']>;
-  gte?: InputMaybe<Scalars['Float']>;
-  in?: InputMaybe<Array<Scalars['Float']>>;
-  lt?: InputMaybe<Scalars['Float']>;
-  lte?: InputMaybe<Scalars['Float']>;
-  neq?: InputMaybe<Scalars['Float']>;
-  ngt?: InputMaybe<Scalars['Float']>;
-  ngte?: InputMaybe<Scalars['Float']>;
-  nin?: InputMaybe<Array<Scalars['Float']>>;
-  nlt?: InputMaybe<Scalars['Float']>;
-  nlte?: InputMaybe<Scalars['Float']>;
-};
-
 export type ComparableInt32OperationFilterInput = {
   eq?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
@@ -518,7 +503,7 @@ export type PostDto = {
   postedAt: Scalars['DateTime'];
   poster?: Maybe<Users>;
   posterId: Scalars['Int'];
-  sizeTag: Scalars['Float'];
+  sizeOffered?: Maybe<Scalars['String']>;
   style?: Maybe<Styles>;
   title?: Maybe<Scalars['String']>;
 };
@@ -545,7 +530,7 @@ export type PostDtoFilterInput = {
   postedAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   poster?: InputMaybe<UsersFilterInput>;
   posterId?: InputMaybe<ComparableInt32OperationFilterInput>;
-  sizeTag?: InputMaybe<ComparableDoubleOperationFilterInput>;
+  sizeOffered?: InputMaybe<StringOperationFilterInput>;
   style?: InputMaybe<StylesFilterInput>;
   title?: InputMaybe<StringOperationFilterInput>;
 };
@@ -561,7 +546,7 @@ export type PostDtoSortInput = {
   postedAt?: InputMaybe<SortEnumType>;
   poster?: InputMaybe<UsersSortInput>;
   posterId?: InputMaybe<SortEnumType>;
-  sizeTag?: InputMaybe<SortEnumType>;
+  sizeOffered?: InputMaybe<SortEnumType>;
   style?: InputMaybe<StylesSortInput>;
   title?: InputMaybe<SortEnumType>;
 };
@@ -1438,7 +1423,7 @@ export type Post_GetStylePostsQuery = {
         content?: string | null;
         photo?: string | null;
         postType: PostTypes;
-        sizeTag: number;
+        sizeOffered?: string | null;
         posterId: number;
         likesCount: number;
         id: number;

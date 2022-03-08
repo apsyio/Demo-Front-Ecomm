@@ -241,7 +241,7 @@ type PostDto {
   brand: Brands
   style: Styles
   postType: PostTypes!
-  sizeTag: Float!
+  sizeOffered: String
   posterId: Int!
   poster: Users
   likesCount: Int!
@@ -300,11 +300,6 @@ enum SocialNetworks {
   GOOGLE
   TIK_TOK
   PINTEREST
-}
-
-type ResponseBaseOfPosts {
-  result: Posts
-  status: ResponseStatus!
 }
 
 input EmailInput {
@@ -402,6 +397,11 @@ type ResponseBaseOfUsers {
   status: ResponseStatus!
 }
 
+type ResponseBaseOfPosts {
+  result: Posts
+  status: ResponseStatus!
+}
+
 input PostInput {
   title: String
   content: String
@@ -433,7 +433,7 @@ input PostDtoFilterInput {
   brand: BrandsFilterInput
   style: StylesFilterInput
   postType: PostTypesOperationFilterInput
-  sizeTag: ComparableDoubleOperationFilterInput
+  sizeOffered: StringOperationFilterInput
   posterId: ComparableInt32OperationFilterInput
   poster: UsersFilterInput
   likesCount: ComparableInt32OperationFilterInput
@@ -450,7 +450,7 @@ input PostDtoSortInput {
   brand: BrandsSortInput
   style: StylesSortInput
   postType: SortEnumType
-  sizeTag: SortEnumType
+  sizeOffered: SortEnumType
   posterId: SortEnumType
   poster: UsersSortInput
   likesCount: SortEnumType
@@ -634,21 +634,6 @@ input PostTypesOperationFilterInput {
   neq: PostTypes
   in: [PostTypes!]
   nin: [PostTypes!]
-}
-
-input ComparableDoubleOperationFilterInput {
-  eq: Float
-  neq: Float
-  in: [Float!]
-  nin: [Float!]
-  gt: Float
-  ngt: Float
-  gte: Float
-  ngte: Float
-  lt: Float
-  nlt: Float
-  lte: Float
-  nlte: Float
 }
 
 input ComparableInt32OperationFilterInput {
@@ -960,11 +945,6 @@ input ClosetItemInput {
   yCoordinate: Long!
 }
 
-input UserSocialInput {
-  socialNetworks: SocialNetworks!
-  address: String
-}
-
 enum ResponseStatus {
   SUCCESS
   NOT_FOUND
@@ -985,6 +965,11 @@ enum ResponseStatus {
   INVALID_TIME_SYNTAX
   DIFFRENET_IDS
   HOST_NOT_FOUND
+}
+
+input UserSocialInput {
+  socialNetworks: SocialNetworks!
+  address: String
 }
 
 """

@@ -5,6 +5,7 @@ import {
   Center,
   FlatList,
   Icon,
+  Input,
   Select,
   useDisclose,
 } from 'native-base';
@@ -13,7 +14,6 @@ import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, PostOrFeedCard} from '~/components/atoms';
-import {TAG_SIZES} from '~/constants/data';
 import useGetBrandPosts from '~/hooks/post/useGetBrandPosts';
 import useGetStylePosts from '~/hooks/post/useGetStylePosts';
 import useGetPosts from '~/hooks/post/useGetUserPosts';
@@ -22,14 +22,15 @@ import {activeTabAtom} from '~/store';
 import {Colors} from '~/styles';
 
 export default function PostsScreen({route}: any) {
-  const {styleId, brandId} = route.params;
+  const styleId = route.params?.styleId;
+  const brandId = route.params?.brandId;
 
   const [activeTab] = useAtom(activeTabAtom);
 
   const {onClose, onOpen, isOpen} = useDisclose();
 
   const [postType, setPostType] = useState('');
-  const [sizeTag, setSizeTag] = useState('');
+  const [sizeOffered, setSizeOffered] = useState<string | undefined>('');
 
   const [where, setWhere] = useState<object | undefined>(undefined);
 
@@ -82,18 +83,12 @@ export default function PostsScreen({route}: any) {
               ))}
             </Select>
 
-            <Select
-              mb={3}
-              selectedValue={sizeTag}
-              minWidth="200"
-              accessibilityLabel="Size"
+            <Input
+              width={'110%'}
+              value={sizeOffered}
+              onChangeText={(itemValue: string) => setSizeOffered(itemValue)}
               placeholder="Size"
-              mt={1}
-              onValueChange={itemValue => setSizeTag(itemValue)}>
-              {TAG_SIZES.map(item => (
-                <Select.Item key={item.value} {...item} />
-              ))}
-            </Select>
+            />
 
             <Button
               mt={10}
@@ -105,8 +100,12 @@ export default function PostsScreen({route}: any) {
                 if (postType) {
                   setWhere(prev => ({...prev, postType: {eq: postType}}));
                 }
-                if (sizeTag) {
-                  setWhere(prev => ({...prev, sizeTag: {eq: +sizeTag}}));
+
+                if (sizeOffered) {
+                  setWhere(prev => ({
+                    ...prev,
+                    sizeOffered: {contains: sizeOffered},
+                  }));
                 }
               }}>
               FILTER
