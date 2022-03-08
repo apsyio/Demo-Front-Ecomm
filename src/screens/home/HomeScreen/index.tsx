@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {
   Button,
   Center,
@@ -147,13 +148,11 @@ export default function HomeScreen() {
                       height: 120,
                     }}
                   />
+
                   <View p={3}>
                     <Text>{lastPost?.title}</Text>
                     <Text fontSize={'sm'} color={Colors.SHADY_LADY} mt={1}>
-                      {new Date(lastPost?.postedAt)?.toLocaleString('en-us', {
-                        month: 'short',
-                      })}{' '}
-                      {new Date(lastPost?.postedAt)?.getDate()}
+                      {dayjs(lastPost?.postedAt).format('MMM DD')}{' '}
                     </Text>
 
                     <HStack

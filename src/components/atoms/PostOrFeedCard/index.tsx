@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {Avatar, Button, HStack, Icon, Image, Text, VStack} from 'native-base';
 import React, {memo} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,10 +28,7 @@ export default memo(function PostOrFeedCard({
             <VStack>
               <Text>{poster?.fullName}</Text>
               <Text fontSize={'sm'} color={Colors.EMPRESS}>
-                {new Date(postedAt)?.toLocaleString('en-us', {
-                  month: 'short',
-                })}{' '}
-                {new Date(postedAt)?.getDate()}
+                {dayjs(postedAt).format('MMM DD')}{' '}
               </Text>
             </VStack>
           </HStack>
