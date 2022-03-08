@@ -7,10 +7,8 @@ import {
   CustomContainer,
   CustomInput,
   CustomKeyboardAwareScrollView,
-  CustomSelect,
   PhotoInput,
 } from '~/components/atoms';
-import {TAG_SIZES} from '~/constants/data';
 import type {Post_CreatePostMutation} from '~/generated/graphql';
 import {PostTypes, ResponseStatus} from '~/generated/graphql';
 import useCreatePost from '~/hooks/post/useCreatePost';
@@ -60,7 +58,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
       brandId,
       styleId,
       postType: PostTypes.Review,
-      sizeTag: +values.sizeTag,
+      sizeOffered: values.sizeOffered,
     });
 
     mutate(
@@ -69,11 +67,10 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
         brandId,
         styleId,
         postType: PostTypes.Review,
-        sizeTag: +values.sizeTag,
+        sizeOffered: values.sizeOffered,
       },
       {
         onSuccess,
-        onError: error => console.log(error),
       },
     );
   };
@@ -149,14 +146,11 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
                   required="Name of item is required"
                 />
 
-                <CustomSelect
-                  name="sizeTag"
-                  label={'Size'}
-                  minWidth="200"
-                  accessibilityLabel="Size"
+                <CustomInput
+                  name="sizeOffered"
+                  label="Size"
                   placeholder="Size"
                   required="Size is required"
-                  options={TAG_SIZES}
                 />
 
                 <CustomInput
