@@ -1,7 +1,8 @@
-import {atomWithToggleAndStorage} from './atomWithToggleAndStorage';
+import {atomWithStorage} from 'jotai/utils';
+
 import storage from './storage';
 
-const userIdAtom = atomWithToggleAndStorage('userId', false, {
+const userIdAtom = atomWithStorage('userId', 0, {
   ...storage,
   delayInit: true,
 });
