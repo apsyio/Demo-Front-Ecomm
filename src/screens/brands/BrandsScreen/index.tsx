@@ -1,5 +1,6 @@
-import {FlatList} from 'native-base';
+import {Button, FlatList} from 'native-base';
 import React from 'react';
+import {Linking} from 'react-native';
 
 import {CustomContainer} from '~/components/atoms';
 import BrandCard from '~/components/atoms/BrandCard';
@@ -33,6 +34,13 @@ export default function BrandsScreen() {
           }
         }}
       />
+
+      <Button
+        mt={3}
+        onPress={() => Linking.openURL('https://www.cuethecurves.com/')}
+        variant={'primary'}>
+        Shop Now
+      </Button>
     </CustomContainer>
   );
 }
