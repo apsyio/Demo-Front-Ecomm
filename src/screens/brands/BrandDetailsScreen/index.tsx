@@ -73,9 +73,9 @@ export default function BrandDetailsScreen({route}: any) {
                   See More
                 </Text>
               </HStack>
-              <Text mt={2} fontSize={'sm'} color={Colors.SHADY_LADY}>
+              {/* <Text mt={2} fontSize={'sm'} color={Colors.SHADY_LADY}>
                 $$$$
-              </Text>
+              </Text> */}
             </View>
           </TouchableOpacity>
 
