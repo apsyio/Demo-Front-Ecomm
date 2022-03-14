@@ -90,7 +90,7 @@ export default function StyleDetailsScreen({navigation, route}: any) {
             {styleDetails?.brands?.map(brand => (
               <BrandCard
                 key={brand?.id}
-                thumbnail={brand?.thumbnail}
+                {...brand}
                 onPress={() =>
                   navigate('BrandDetails', {
                     id: brand?.id,
