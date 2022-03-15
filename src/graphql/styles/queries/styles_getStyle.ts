@@ -6,8 +6,10 @@ export const GET_STYLE_BY_STYLE_ID = gql`
       result {
         name
         thumbnail
-        colors
-        photos
+        photos {
+          key
+          value
+        }
         likesCount
         liked
         inspos {
@@ -26,9 +28,13 @@ export const GET_STYLE_BY_STYLE_ID = gql`
           thumbnail
           sizeOffered
           likesCount
-          photos
+          photos {
+            key
+            value
+          }
           id
           isDeleted
+          createdAt
         }
       }
       status

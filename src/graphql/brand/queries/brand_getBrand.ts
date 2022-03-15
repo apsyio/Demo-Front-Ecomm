@@ -9,15 +9,21 @@ export const GET_BRAND_BY_ID = gql`
         thumbnail
         sizeOffered
         likesCount
-        photos
+        photos {
+          key
+          value
+        }
         styles {
           name
           thumbnail
-          colors
-          photos
+          photos {
+            key
+            value
+          }
           likesCount
           id
           isDeleted
+          createdAt
         }
         inspos {
           fullName

@@ -15,9 +15,13 @@ export const GET_BRANDS = gql`
           thumbnail
           sizeOffered
           likesCount
-          photos
+          photos {
+            key
+            value
+          }
           id
           isDeleted
+          createdAt
         }
         pageInfo {
           hasNextPage

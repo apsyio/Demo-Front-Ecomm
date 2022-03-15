@@ -10,6 +10,7 @@ export const GET_SELECTED_INSPOS = gql`
     user_getSelectedInspos {
       result(skip: $skip, take: $take, where: $where, order: $order) {
         items {
+          isActive
           fullName
           accountType
           email

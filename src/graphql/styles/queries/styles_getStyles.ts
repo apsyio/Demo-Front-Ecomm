@@ -12,8 +12,6 @@ export const GET_STYLES = gql`
         items {
           name
           thumbnail
-          colors
-          photos
           likesCount
           id
           isDeleted

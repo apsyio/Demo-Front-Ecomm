@@ -22,9 +22,13 @@ export const GET_INSPO_BY_INSPO_ID = gql`
           name
           thumbnail
           likesCount
-          photos
+          photos {
+            key
+            value
+          }
           id
           isDeleted
+          createdAt
         }
         closets {
           userId
@@ -42,6 +46,7 @@ export const GET_INSPO_BY_INSPO_ID = gql`
           }
           id
           isDeleted
+          createdAt
         }
       }
       status

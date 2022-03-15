@@ -49,7 +49,7 @@ export type BrandDto = {
   liked: Scalars['Boolean'];
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
-  photos?: Maybe<Array<Maybe<Scalars['String']>>>;
+  photos?: Maybe<Array<KeyValuePairOfStringAndListOfString>>;
   sizeOffered?: Maybe<Scalars['String']>;
   styles?: Maybe<Array<Maybe<Styles>>>;
   thumbnail?: Maybe<Scalars['String']>;
@@ -71,7 +71,7 @@ export type BrandDtoFilterInput = {
   likesCount?: InputMaybe<ComparableInt32OperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<BrandDtoFilterInput>>;
-  photos?: InputMaybe<ListStringOperationFilterInput>;
+  photos?: InputMaybe<DictionaryOfStringAndListOfStringFilterInput>;
   sizeOffered?: InputMaybe<StringOperationFilterInput>;
   styles?: InputMaybe<ListFilterInputTypeOfStylesFilterInput>;
   thumbnail?: InputMaybe<StringOperationFilterInput>;
@@ -84,6 +84,15 @@ export type BrandDtoSortInput = {
   name?: InputMaybe<SortEnumType>;
   sizeOffered?: InputMaybe<SortEnumType>;
   thumbnail?: InputMaybe<SortEnumType>;
+};
+
+export type BrandInput = {
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  photos?: InputMaybe<Array<KeyValuePairOfStringAndListOfStringInput>>;
+  sizeOffered?: InputMaybe<Scalars['String']>;
+  styles?: InputMaybe<Array<Scalars['Int']>>;
+  thumbnail?: InputMaybe<Scalars['String']>;
 };
 
 export type BrandLikes = {
@@ -112,11 +121,12 @@ export type BrandLikesFilterInput = {
 export type Brands = {
   __typename?: 'Brands';
   brandLikes?: Maybe<Array<Maybe<BrandLikes>>>;
+  createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   isDeleted: Scalars['Boolean'];
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
-  photos?: Maybe<Array<Maybe<Scalars['String']>>>;
+  photos?: Maybe<Array<KeyValuePairOfStringAndListOfString>>;
   posts?: Maybe<Array<Maybe<Posts>>>;
   sizeOffered?: Maybe<Scalars['String']>;
   styleBrands?: Maybe<Array<Maybe<StyleBrands>>>;
@@ -135,12 +145,13 @@ export type BrandsCollectionSegment = {
 export type BrandsFilterInput = {
   and?: InputMaybe<Array<BrandsFilterInput>>;
   brandLikes?: InputMaybe<ListFilterInputTypeOfBrandLikesFilterInput>;
+  createdAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   id?: InputMaybe<ComparableInt32OperationFilterInput>;
   isDeleted?: InputMaybe<BooleanOperationFilterInput>;
   likesCount?: InputMaybe<ComparableInt32OperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<BrandsFilterInput>>;
-  photos?: InputMaybe<ListStringOperationFilterInput>;
+  photos?: InputMaybe<DictionaryOfStringAndListOfStringFilterInput>;
   posts?: InputMaybe<ListFilterInputTypeOfPostsFilterInput>;
   sizeOffered?: InputMaybe<StringOperationFilterInput>;
   styleBrands?: InputMaybe<ListFilterInputTypeOfStyleBrandsFilterInput>;
@@ -149,6 +160,7 @@ export type BrandsFilterInput = {
 };
 
 export type BrandsSortInput = {
+  createdAt?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
   isDeleted?: InputMaybe<SortEnumType>;
   likesCount?: InputMaybe<SortEnumType>;
@@ -274,10 +286,35 @@ export type ComparableNullableOfInt32OperationFilterInput = {
   nlte?: InputMaybe<Scalars['Int']>;
 };
 
+export type DictionaryOfStringAndListOfStringFilterInput = {
+  and?: InputMaybe<Array<DictionaryOfStringAndListOfStringFilterInput>>;
+  comparer?: InputMaybe<IEqualityComparerOfStringFilterInput>;
+  count?: InputMaybe<ComparableInt32OperationFilterInput>;
+  keys?: InputMaybe<ListStringOperationFilterInput>;
+  or?: InputMaybe<Array<DictionaryOfStringAndListOfStringFilterInput>>;
+  values?: InputMaybe<ListListStringOperationFilterInput>;
+};
+
 export type EmailInput = {
   htmlContent?: InputMaybe<Scalars['String']>;
   plainTextContent?: InputMaybe<Scalars['String']>;
   subject?: InputMaybe<Scalars['String']>;
+};
+
+export type IEqualityComparerOfStringFilterInput = {
+  and?: InputMaybe<Array<IEqualityComparerOfStringFilterInput>>;
+  or?: InputMaybe<Array<IEqualityComparerOfStringFilterInput>>;
+};
+
+export type KeyValuePairOfStringAndListOfString = {
+  __typename?: 'KeyValuePairOfStringAndListOfString';
+  key: Scalars['String'];
+  value: Array<Scalars['String']>;
+};
+
+export type KeyValuePairOfStringAndListOfStringInput = {
+  key: Scalars['String'];
+  value: Array<Scalars['String']>;
 };
 
 export type ListFilterInputTypeOfBrandLikesFilterInput = {
@@ -364,6 +401,13 @@ export type ListFilterInputTypeOfUsersFilterInput = {
   some?: InputMaybe<UsersFilterInput>;
 };
 
+export type ListListStringOperationFilterInput = {
+  all?: InputMaybe<ListStringOperationFilterInput>;
+  any?: InputMaybe<Scalars['Boolean']>;
+  none?: InputMaybe<ListStringOperationFilterInput>;
+  some?: InputMaybe<ListStringOperationFilterInput>;
+};
+
 export type ListResponseBaseOfBrandDto = {
   __typename?: 'ListResponseBaseOfBrandDto';
   result?: Maybe<BrandDtoCollectionSegment>;
@@ -438,22 +482,49 @@ export type ListStringOperationFilterInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  brand_activeBrand?: Maybe<ResponseBase>;
+  brand_createBrand?: Maybe<ResponseBaseOfBrands>;
+  brand_deActiveBrand?: Maybe<ResponseBase>;
   brand_likeBrand?: Maybe<ResponseBase>;
+  brand_updateBrand?: Maybe<ResponseBaseOfBrands>;
   closet_createCloset?: Maybe<ResponseBaseOfClosets>;
   post_createPost?: Maybe<ResponseBaseOfPosts>;
   post_likePost?: Maybe<ResponseBase>;
+  style_activeStyle?: Maybe<ResponseBase>;
+  style_createStyle?: Maybe<ResponseBaseOfStyles>;
+  style_deActiveStyle?: Maybe<ResponseBase>;
   style_likeStyle?: Maybe<ResponseBase>;
+  style_updateStyle?: Maybe<ResponseBaseOfStyles>;
+  user_activeUserAdmin?: Maybe<ResponseBase>;
   user_deactive?: Maybe<ResponseBase>;
+  user_deactiveUserAdmin?: Maybe<ResponseBase>;
   user_setBrands?: Maybe<ResponseBase>;
+  user_setSelectedInpos?: Maybe<ResponseBase>;
   user_setStyles?: Maybe<ResponseBase>;
   user_signUp?: Maybe<ResponseBaseOfUsers>;
   user_support?: Maybe<ResponseBase>;
   user_updateUser?: Maybe<ResponseBaseOfUsers>;
 };
 
+export type MutationBrand_ActiveBrandArgs = {
+  brandId: Scalars['Int'];
+};
+
+export type MutationBrand_CreateBrandArgs = {
+  input?: InputMaybe<BrandInput>;
+};
+
+export type MutationBrand_DeActiveBrandArgs = {
+  brandId: Scalars['Int'];
+};
+
 export type MutationBrand_LikeBrandArgs = {
   brandId: Scalars['Int'];
   liked?: Scalars['Boolean'];
+};
+
+export type MutationBrand_UpdateBrandArgs = {
+  input?: InputMaybe<BrandInput>;
 };
 
 export type MutationCloset_CreateClosetArgs = {
@@ -469,13 +540,41 @@ export type MutationPost_LikePostArgs = {
   postId: Scalars['Int'];
 };
 
+export type MutationStyle_ActiveStyleArgs = {
+  styleId: Scalars['Int'];
+};
+
+export type MutationStyle_CreateStyleArgs = {
+  input?: InputMaybe<StyleInput>;
+};
+
+export type MutationStyle_DeActiveStyleArgs = {
+  styleId: Scalars['Int'];
+};
+
 export type MutationStyle_LikeStyleArgs = {
   liked?: Scalars['Boolean'];
   styleId: Scalars['Int'];
 };
 
+export type MutationStyle_UpdateStyleArgs = {
+  input?: InputMaybe<StyleInput>;
+};
+
+export type MutationUser_ActiveUserAdminArgs = {
+  userId: Scalars['Int'];
+};
+
+export type MutationUser_DeactiveUserAdminArgs = {
+  userId: Scalars['Int'];
+};
+
 export type MutationUser_SetBrandsArgs = {
   brandIds?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type MutationUser_SetSelectedInposArgs = {
+  userIds?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 export type MutationUser_SetStylesArgs = {
@@ -557,7 +656,7 @@ export type PostInput = {
   photo?: InputMaybe<Scalars['String']>;
   postType: PostTypes;
   posterId?: InputMaybe<Scalars['Int']>;
-  sizeTag?: InputMaybe<Scalars['Float']>;
+  sizeOffered?: InputMaybe<Scalars['String']>;
   styleId?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -653,6 +752,7 @@ export type Query = {
   user_getInspo?: Maybe<ResponseBaseOfUserDto>;
   user_getInspos?: Maybe<ListResponseBaseOfUsers>;
   user_getSelectedInspos?: Maybe<ListResponseBaseOfUsers>;
+  user_getStats?: Maybe<ResponseBaseOfStatDto>;
   user_getStyles?: Maybe<ListResponseBaseOfStyles>;
   user_login?: Maybe<ResponseBaseOfUsers>;
 };
@@ -715,9 +815,21 @@ export type ResponseBaseOfPosts = {
   status: ResponseStatus;
 };
 
+export type ResponseBaseOfStatDto = {
+  __typename?: 'ResponseBaseOfStatDto';
+  result?: Maybe<StatDto>;
+  status: ResponseStatus;
+};
+
 export type ResponseBaseOfStyleDto = {
   __typename?: 'ResponseBaseOfStyleDto';
   result?: Maybe<StyleDto>;
+  status: ResponseStatus;
+};
+
+export type ResponseBaseOfStyles = {
+  __typename?: 'ResponseBaseOfStyles';
+  result?: Maybe<Styles>;
   status: ResponseStatus;
 };
 
@@ -775,6 +887,13 @@ export enum SortEnumType {
   Desc = 'DESC',
 }
 
+export type StatDto = {
+  __typename?: 'StatDto';
+  brandsCount: Scalars['Int'];
+  stylesCount: Scalars['Int'];
+  usersCount: Scalars['Int'];
+};
+
 export type StringOperationFilterInput = {
   and?: InputMaybe<Array<StringOperationFilterInput>>;
   contains?: InputMaybe<Scalars['String']>;
@@ -814,13 +933,19 @@ export type StyleBrandsFilterInput = {
 export type StyleDto = {
   __typename?: 'StyleDto';
   brands?: Maybe<Array<Maybe<Brands>>>;
-  colors?: Maybe<Array<Maybe<Scalars['String']>>>;
   inspos?: Maybe<Array<Maybe<Users>>>;
   liked: Scalars['Boolean'];
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
-  photos?: Maybe<Array<Maybe<Scalars['String']>>>;
+  photos?: Maybe<Array<KeyValuePairOfStringAndListOfString>>;
   thumbnail?: Maybe<Scalars['String']>;
+};
+
+export type StyleInput = {
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  photos?: InputMaybe<Array<KeyValuePairOfStringAndListOfStringInput>>;
+  thumbnail?: InputMaybe<Scalars['String']>;
 };
 
 export type StyleLikes = {
@@ -848,12 +973,12 @@ export type StyleLikesFilterInput = {
 
 export type Styles = {
   __typename?: 'Styles';
-  colors?: Maybe<Array<Maybe<Scalars['String']>>>;
+  createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   isDeleted: Scalars['Boolean'];
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
-  photos?: Maybe<Array<Maybe<Scalars['String']>>>;
+  photos?: Maybe<Array<KeyValuePairOfStringAndListOfString>>;
   posts?: Maybe<Array<Maybe<Posts>>>;
   styleBrands?: Maybe<Array<Maybe<StyleBrands>>>;
   styleLikes?: Maybe<Array<Maybe<StyleLikes>>>;
@@ -871,13 +996,13 @@ export type StylesCollectionSegment = {
 
 export type StylesFilterInput = {
   and?: InputMaybe<Array<StylesFilterInput>>;
-  colors?: InputMaybe<ListStringOperationFilterInput>;
+  createdAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   id?: InputMaybe<ComparableInt32OperationFilterInput>;
   isDeleted?: InputMaybe<BooleanOperationFilterInput>;
   likesCount?: InputMaybe<ComparableInt32OperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<StylesFilterInput>>;
-  photos?: InputMaybe<ListStringOperationFilterInput>;
+  photos?: InputMaybe<DictionaryOfStringAndListOfStringFilterInput>;
   posts?: InputMaybe<ListFilterInputTypeOfPostsFilterInput>;
   styleBrands?: InputMaybe<ListFilterInputTypeOfStyleBrandsFilterInput>;
   styleLikes?: InputMaybe<ListFilterInputTypeOfStyleLikesFilterInput>;
@@ -886,6 +1011,7 @@ export type StylesFilterInput = {
 };
 
 export type StylesSortInput = {
+  createdAt?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
   isDeleted?: InputMaybe<SortEnumType>;
   likesCount?: InputMaybe<SortEnumType>;
@@ -929,6 +1055,7 @@ export type UserDto = {
 
 export type UserInput = {
   accountType?: InputMaybe<AccountTypes>;
+  avatarUrl?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   fullName?: InputMaybe<Scalars['String']>;
@@ -995,6 +1122,7 @@ export type Users = {
   externalId?: Maybe<Scalars['String']>;
   fullName?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
+  isActive: Scalars['Boolean'];
   isDeleted: Scalars['Boolean'];
   phone?: Maybe<Scalars['String']>;
   postLikes?: Maybe<Array<Maybe<PostLikes>>>;
@@ -1023,6 +1151,7 @@ export type UsersFilterInput = {
   externalId?: InputMaybe<StringOperationFilterInput>;
   fullName?: InputMaybe<StringOperationFilterInput>;
   id?: InputMaybe<ComparableInt32OperationFilterInput>;
+  isActive?: InputMaybe<BooleanOperationFilterInput>;
   isDeleted?: InputMaybe<BooleanOperationFilterInput>;
   or?: InputMaybe<Array<UsersFilterInput>>;
   phone?: InputMaybe<StringOperationFilterInput>;
@@ -1041,6 +1170,7 @@ export type UsersSortInput = {
   externalId?: InputMaybe<SortEnumType>;
   fullName?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
+  isActive?: InputMaybe<SortEnumType>;
   isDeleted?: InputMaybe<SortEnumType>;
   phone?: InputMaybe<SortEnumType>;
 };
@@ -1080,7 +1210,11 @@ export type Brand_GetAllBrandsQuery = {
         thumbnail?: string | null;
         sizeOffered?: string | null;
         likesCount: number;
-        photos?: Array<string | null> | null;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1107,17 +1241,25 @@ export type Brand_GetBrandQuery = {
       thumbnail?: string | null;
       sizeOffered?: string | null;
       likesCount: number;
-      photos?: Array<string | null> | null;
       liked: boolean;
+      photos?: Array<{
+        __typename?: 'KeyValuePairOfStringAndListOfString';
+        key: string;
+        value: Array<string>;
+      }> | null;
       styles?: Array<{
         __typename?: 'Styles';
         name?: string | null;
         thumbnail?: string | null;
-        colors?: Array<string | null> | null;
-        photos?: Array<string | null> | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       inspos?: Array<{
         __typename?: 'Users';
@@ -1157,9 +1299,14 @@ export type Brand_GetBrandsQuery = {
         thumbnail?: string | null;
         sizeOffered?: string | null;
         likesCount: number;
-        photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1183,9 +1330,14 @@ export type Brand_RecommendBrandQuery = {
       thumbnail?: string | null;
       sizeOffered?: string | null;
       likesCount: number;
-      photos?: Array<string | null> | null;
       id: number;
       isDeleted: boolean;
+      createdAt: any;
+      photos?: Array<{
+        __typename?: 'KeyValuePairOfStringAndListOfString';
+        key: string;
+        value: Array<string>;
+      }> | null;
       userBrands?: Array<{
         __typename?: 'UserBrands';
         userId: number;
@@ -1297,19 +1449,28 @@ export type Post_CreatePostMutation = {
         thumbnail?: string | null;
         sizeOffered?: string | null;
         likesCount: number;
-        photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null;
       style?: {
         __typename?: 'Styles';
         name?: string | null;
         thumbnail?: string | null;
-        colors?: Array<string | null> | null;
-        photos?: Array<string | null> | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null;
       postLikes?: Array<{
         __typename?: 'PostLikes';
@@ -1482,9 +1643,14 @@ export type Post_GetUserPostsQuery = {
           name?: string | null;
           thumbnail?: string | null;
           likesCount: number;
-          photos?: Array<string | null> | null;
           id: number;
           isDeleted: boolean;
+          createdAt: any;
+          photos?: Array<{
+            __typename?: 'KeyValuePairOfStringAndListOfString';
+            key: string;
+            value: Array<string>;
+          }> | null;
         } | null;
         poster?: {
           __typename?: 'Users';
@@ -1533,10 +1699,13 @@ export type Styles_GetStyleQuery = {
       __typename?: 'StyleDto';
       name?: string | null;
       thumbnail?: string | null;
-      colors?: Array<string | null> | null;
-      photos?: Array<string | null> | null;
       likesCount: number;
       liked: boolean;
+      photos?: Array<{
+        __typename?: 'KeyValuePairOfStringAndListOfString';
+        key: string;
+        value: Array<string>;
+      }> | null;
       inspos?: Array<{
         __typename?: 'Users';
         fullName?: string | null;
@@ -1555,9 +1724,14 @@ export type Styles_GetStyleQuery = {
         thumbnail?: string | null;
         sizeOffered?: string | null;
         likesCount: number;
-        photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
     } | null;
   } | null;
@@ -1582,11 +1756,14 @@ export type Styles_GetStylesQuery = {
         __typename?: 'Styles';
         name?: string | null;
         thumbnail?: string | null;
-        colors?: Array<string | null> | null;
-        photos?: Array<string | null> | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1808,9 +1985,14 @@ export type User_GetBrandsQuery = {
         thumbnail?: string | null;
         sizeOffered?: string | null;
         likesCount: number;
-        photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1852,9 +2034,14 @@ export type User_GetInspoQuery = {
         name?: string | null;
         thumbnail?: string | null;
         likesCount: number;
-        photos?: Array<string | null> | null;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       closets?: Array<{
         __typename?: 'Closets';
@@ -1934,6 +2121,7 @@ export type User_GetSelectedInsposQuery = {
       totalCount: number;
       items?: Array<{
         __typename?: 'Users';
+        isActive: boolean;
         fullName?: string | null;
         accountType: AccountTypes;
         email?: string | null;
@@ -1972,11 +2160,15 @@ export type User_GetStylesQuery = {
         __typename?: 'Styles';
         name?: string | null;
         thumbnail?: string | null;
-        colors?: Array<string | null> | null;
-        photos?: Array<string | null> | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
+        createdAt: any;
+        photos?: Array<{
+          __typename?: 'KeyValuePairOfStringAndListOfString';
+          key: string;
+          value: Array<string>;
+        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';

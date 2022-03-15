@@ -12,11 +12,14 @@ export const GET_USER_STYLES = gql`
         items {
           name
           thumbnail
-          colors
-          photos
+          photos {
+            key
+            value
+          }
           likesCount
           id
           isDeleted
+          createdAt
         }
         pageInfo {
           hasNextPage
