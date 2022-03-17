@@ -18,12 +18,11 @@ export const GET_POSTS = gql`
             name
             thumbnail
             likesCount
-            photos
             id
             isDeleted
+            createdAt
           }
           postType
-
           posterId
           poster {
             fullName

@@ -8,17 +8,19 @@ import {
   Text,
   View,
 } from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   AvatarWithTitle,
   CustomContainer,
+  ImagePickerModal,
   ProfileCard,
 } from '~/components/atoms';
 import {AccountTypes} from '~/generated/graphql';
 import useGetInspoByInspoId from '~/hooks/inspo/useGetInspo';
+import useUpdateUser from '~/hooks/inspo/useUpdateUser';
 import {navigate} from '~/navigation/methods';
 import {userIdState} from '~/store';
 import {Colors} from '~/styles';
@@ -28,11 +30,32 @@ export default function MyProfileScreen() {
 
   const {inspo} = useGetInspoByInspoId(userId);
 
+  const {mutate} = useUpdateUser();
+
+  const [visible, setVisible] = useState(false);
+  const close = () => setVisible(false);
+  const open = () => {
+    setVisible(true);
+  };
+
   return (
     <CustomContainer>
+      <ImagePickerModal
+        visible={visible}
+        close={close}
+        onChange={(uploadedUrl: string) => {
+          if (uploadedUrl) {
+            mutate({avatarUrl: uploadedUrl});
+          }
+        }}
+      />
       <ScrollView>
         <Center>
-          <AvatarWithTitle title={inspo?.fullName} uri={inspo?.avatarUrl} />
+          <AvatarWithTitle
+            title={inspo?.fullName}
+            uri={inspo?.avatarUrl}
+            onPress={open}
+          />
 
           <Button
             onPress={() => navigate('Profile', {id: userId})}

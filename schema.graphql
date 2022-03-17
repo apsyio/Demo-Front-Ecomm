@@ -37,6 +37,7 @@ type Query {
   styles_getStyles: ListResponseBaseOfStyles
   styles_getStyle(styleId: Int!): ResponseBaseOfStyleDto
   user_login: ResponseBaseOfUsers
+  user_getStats: ResponseBaseOfStatDto
   user_getStyles: ListResponseBaseOfStyles
   user_getSelectedInspos: ListResponseBaseOfUsers
   user_getBrands: ListResponseBaseOfBrands
@@ -60,11 +61,22 @@ type Mutation {
   user_setBrands(brandIds: [Int!]): ResponseBase
   user_updateUser(input: UserInput): ResponseBaseOfUsers
   user_deactive: ResponseBase
+  user_activeUserAdmin(userId: Int!): ResponseBase
+  user_deactiveUserAdmin(userId: Int!): ResponseBase
+  user_setSelectedInpos(userIds: [Int!]): ResponseBase
   user_support(email: EmailInput): ResponseBase
   post_createPost(postInput: PostInput): ResponseBaseOfPosts
   post_likePost(postId: Int!, liked: Boolean! = true): ResponseBase
   style_likeStyle(styleId: Int!, liked: Boolean! = true): ResponseBase
+  style_activeStyle(styleId: Int!): ResponseBase
+  style_deActiveStyle(styleId: Int!): ResponseBase
+  style_createStyle(input: StyleInput): ResponseBaseOfStyles
+  style_updateStyle(input: StyleInput): ResponseBaseOfStyles
   brand_likeBrand(brandId: Int!, liked: Boolean! = true): ResponseBase
+  brand_activeBrand(brandId: Int!): ResponseBase
+  brand_deActiveBrand(brandId: Int!): ResponseBase
+  brand_createBrand(input: BrandInput): ResponseBaseOfBrands
+  brand_updateBrand(input: BrandInput): ResponseBaseOfBrands
   closet_createCloset(input: ClosetInput): ResponseBaseOfClosets
 }
 
@@ -83,7 +95,8 @@ type Brands {
   thumbnail: String
   sizeOffered: String
   likesCount: Int!
-  photos: [String]
+  photos: [KeyValuePairOfStringAndListOfString!]
+  createdAt: DateTime!
   userBrands: [UserBrands]
   brandLikes: [BrandLikes]
   posts: [Posts]
@@ -165,9 +178,9 @@ type StyleLikes {
 type Styles {
   name: String
   thumbnail: String
-  colors: [String]
-  photos: [String]
+  photos: [KeyValuePairOfStringAndListOfString!]
   likesCount: Int!
+  createdAt: DateTime!
   styleBrands: [StyleBrands]
   posts: [Posts]
   userStyles: [UserStyles]
@@ -192,6 +205,7 @@ type Users {
   phone: String
   avatarUrl: String
   bio: String
+  isActive: Boolean!
   postLikes: [PostLikes]
   socials: [UserSocials]
   closets: [Closets]
@@ -228,7 +242,7 @@ type BrandDto {
   thumbnail: String
   sizeOffered: String
   likesCount: Int!
-  photos: [String]
+  photos: [KeyValuePairOfStringAndListOfString!]
   styles: [Styles]
   inspos: [Users]
   liked: Boolean!
@@ -251,11 +265,16 @@ type PostDto {
   likes: [PostLikes]
 }
 
+type StatDto {
+  brandsCount: Int!
+  stylesCount: Int!
+  usersCount: Int!
+}
+
 type StyleDto {
   name: String
   thumbnail: String
-  colors: [String]
-  photos: [String]
+  photos: [KeyValuePairOfStringAndListOfString!]
   likesCount: Int!
   liked: Boolean!
   inspos: [Users]
@@ -277,6 +296,11 @@ type UserDto {
 enum ApplyPolicy {
   BEFORE_RESOLVER
   AFTER_RESOLVER
+}
+
+type KeyValuePairOfStringAndListOfString {
+  key: String!
+  value: [String!]!
 }
 
 """
@@ -315,6 +339,7 @@ input UserInput {
   email: String
   phone: String
   bio: String
+  avatarUrl: String
   socials: [UserSocialInput]
 }
 
@@ -392,6 +417,11 @@ type ListResponseBaseOfStyles {
   status: ResponseStatus!
 }
 
+type ResponseBaseOfStatDto {
+  result: StatDto
+  status: ResponseStatus!
+}
+
 type ResponseBaseOfUsers {
   result: Users
   status: ResponseStatus!
@@ -409,8 +439,29 @@ input PostInput {
   brandId: Int
   styleId: Int
   postType: PostTypes!
-  sizeTag: Float
+  sizeOffered: String
   posterId: Int
+}
+
+type ResponseBaseOfStyles {
+  result: Styles
+  status: ResponseStatus!
+}
+
+input StyleInput {
+  id: Int
+  name: String
+  thumbnail: String
+  photos: [KeyValuePairOfStringAndListOfStringInput!]
+}
+
+input BrandInput {
+  id: Int
+  name: String
+  thumbnail: String
+  sizeOffered: String
+  photos: [KeyValuePairOfStringAndListOfStringInput!]
+  styles: [Int!]
 }
 
 type ResponseBaseOfClosets {
@@ -477,7 +528,7 @@ input BrandDtoFilterInput {
   thumbnail: StringOperationFilterInput
   sizeOffered: StringOperationFilterInput
   likesCount: ComparableInt32OperationFilterInput
-  photos: ListStringOperationFilterInput
+  photos: DictionaryOfStringAndListOfStringFilterInput
   styles: ListFilterInputTypeOfStylesFilterInput
   inspos: ListFilterInputTypeOfUsersFilterInput
   liked: BooleanOperationFilterInput
@@ -509,7 +560,8 @@ input BrandsFilterInput {
   thumbnail: StringOperationFilterInput
   sizeOffered: StringOperationFilterInput
   likesCount: ComparableInt32OperationFilterInput
-  photos: ListStringOperationFilterInput
+  photos: DictionaryOfStringAndListOfStringFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
   userBrands: ListFilterInputTypeOfUserBrandsFilterInput
   brandLikes: ListFilterInputTypeOfBrandLikesFilterInput
   posts: ListFilterInputTypeOfPostsFilterInput
@@ -523,6 +575,7 @@ input BrandsSortInput {
   thumbnail: SortEnumType
   sizeOffered: SortEnumType
   likesCount: SortEnumType
+  createdAt: SortEnumType
   id: SortEnumType
   isDeleted: SortEnumType
 }
@@ -546,6 +599,7 @@ input UsersFilterInput {
   phone: StringOperationFilterInput
   avatarUrl: StringOperationFilterInput
   bio: StringOperationFilterInput
+  isActive: BooleanOperationFilterInput
   postLikes: ListFilterInputTypeOfPostLikesFilterInput
   socials: ListFilterInputTypeOfUserSocialsFilterInput
   closets: ListFilterInputTypeOfClosetsFilterInput
@@ -565,6 +619,7 @@ input UsersSortInput {
   phone: SortEnumType
   avatarUrl: SortEnumType
   bio: SortEnumType
+  isActive: SortEnumType
   externalId: SortEnumType
   id: SortEnumType
   isDeleted: SortEnumType
@@ -585,9 +640,9 @@ input StylesFilterInput {
   or: [StylesFilterInput!]
   name: StringOperationFilterInput
   thumbnail: StringOperationFilterInput
-  colors: ListStringOperationFilterInput
-  photos: ListStringOperationFilterInput
+  photos: DictionaryOfStringAndListOfStringFilterInput
   likesCount: ComparableInt32OperationFilterInput
+  createdAt: ComparableDateTimeOperationFilterInput
   styleBrands: ListFilterInputTypeOfStyleBrandsFilterInput
   posts: ListFilterInputTypeOfPostsFilterInput
   userStyles: ListFilterInputTypeOfUserStylesFilterInput
@@ -600,6 +655,7 @@ input StylesSortInput {
   name: SortEnumType
   thumbnail: SortEnumType
   likesCount: SortEnumType
+  createdAt: SortEnumType
   id: SortEnumType
   isDeleted: SortEnumType
 }
@@ -698,11 +754,13 @@ type CollectionSegmentInfo {
   hasPreviousPage: Boolean!
 }
 
-input ListStringOperationFilterInput {
-  all: StringOperationFilterInput
-  none: StringOperationFilterInput
-  some: StringOperationFilterInput
-  any: Boolean
+input DictionaryOfStringAndListOfStringFilterInput {
+  and: [DictionaryOfStringAndListOfStringFilterInput!]
+  or: [DictionaryOfStringAndListOfStringFilterInput!]
+  comparer: IEqualityComparerOfStringFilterInput
+  count: ComparableInt32OperationFilterInput
+  keys: ListStringOperationFilterInput
+  values: ListListStringOperationFilterInput
 }
 
 input ListFilterInputTypeOfStylesFilterInput {
@@ -792,6 +850,25 @@ input PostLikesFilterInput {
   liked: BooleanOperationFilterInput
   id: ComparableInt32OperationFilterInput
   isDeleted: BooleanOperationFilterInput
+}
+
+input IEqualityComparerOfStringFilterInput {
+  and: [IEqualityComparerOfStringFilterInput!]
+  or: [IEqualityComparerOfStringFilterInput!]
+}
+
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
+}
+
+input ListListStringOperationFilterInput {
+  all: ListStringOperationFilterInput
+  none: ListStringOperationFilterInput
+  some: ListStringOperationFilterInput
+  any: Boolean
 }
 
 input UserBrandsFilterInput {
@@ -943,6 +1020,11 @@ input ClosetItemInput {
   url: String
   xCoordinate: Long!
   yCoordinate: Long!
+}
+
+input KeyValuePairOfStringAndListOfStringInput {
+  key: String!
+  value: [String!]!
 }
 
 enum ResponseStatus {

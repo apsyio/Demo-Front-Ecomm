@@ -13,19 +13,26 @@ export const CREATE_POST = gql`
           thumbnail
           sizeOffered
           likesCount
-          photos
+          photos {
+            key
+            value
+          }
           id
           isDeleted
+          createdAt
         }
         styleId
         style {
           name
           thumbnail
-          colors
-          photos
+          photos {
+            key
+            value
+          }
           likesCount
           id
           isDeleted
+          createdAt
         }
         postType
         sizeOffered

@@ -8,7 +8,10 @@ export const GET_RECOMMENDED_BRAND = gql`
         thumbnail
         sizeOffered
         likesCount
-        photos
+        photos {
+          key
+          value
+        }
         userBrands {
           userId
           brandId
@@ -43,6 +46,7 @@ export const GET_RECOMMENDED_BRAND = gql`
         }
         id
         isDeleted
+        createdAt
       }
       status
     }

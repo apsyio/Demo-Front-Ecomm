@@ -2,19 +2,18 @@ import {Text} from 'native-base';
 import React, {memo} from 'react';
 import {TouchableOpacity} from 'react-native';
 
-import type {Maybe} from '~/generated/graphql';
+import type {Brands} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 import {ImageCard} from '..';
 
 export default memo(function BrandCard({
+  name,
   thumbnail,
-  onPress,
   sizeOffered,
-}: {
-  thumbnail?: Maybe<string>;
+  onPress,
+}: Brands & {
   onPress: () => void;
-  sizeOffered?: Maybe<string>;
 }) {
   return (
     <TouchableOpacity
@@ -38,15 +37,14 @@ export default memo(function BrandCard({
         onPress={onPress}
         uri={thumbnail}
       />
-
+      <Text mt={3}>{name}</Text>
       {sizeOffered && (
         <Text
           fontWeight={'bold'}
           numberOfLines={1}
           fontSize={'sm'}
           color={Colors.SEA_PINK}
-          mt={3}
-          mb={1}>
+          my={1}>
           {sizeOffered.replace(/-/g, '  ')}
         </Text>
       )}

@@ -50,9 +50,9 @@ export default function StyleDetailsScreen({navigation, route}: any) {
         <View mt={3}>
           <ScrollView horizontal>
             {styleDetails?.photos?.map(photo => (
-              <HStack key={photo} mr={2}>
+              <HStack key={photo.key} mr={2}>
                 <View>
-                  {styleDetails?.colors?.map(c => (
+                  {photo?.value?.map(c => (
                     <View
                       key={c}
                       rounded="full"
@@ -69,7 +69,7 @@ export default function StyleDetailsScreen({navigation, route}: any) {
                   mr={2}
                   width={130}
                   height={160}
-                  source={{uri: photo ?? noImageUrl}}
+                  source={{uri: photo?.key ?? noImageUrl}}
                 />
               </HStack>
             ))}
@@ -90,7 +90,7 @@ export default function StyleDetailsScreen({navigation, route}: any) {
             {styleDetails?.brands?.map(brand => (
               <BrandCard
                 key={brand?.id}
-                thumbnail={brand?.thumbnail}
+                {...brand}
                 onPress={() =>
                   navigate('BrandDetails', {
                     id: brand?.id,

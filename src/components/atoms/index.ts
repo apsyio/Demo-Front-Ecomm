@@ -8,6 +8,7 @@ export {default as CustomKeyboardAwareScrollView} from './CustomKeyboardAwareScr
 export {default as CustomSelect} from './CustomSelect';
 export {default as CustomTag} from './CustomTag';
 export {default as ImageCard} from './ImageCard';
+export {default as ImagePickerModal} from './ImagePickerModal';
 export {default as LineWithText} from './LineWithText';
 export {default as PhotoInput} from './PhotoInput';
 export {default as PostOrFeedCard} from './PostOrFeedCard';
