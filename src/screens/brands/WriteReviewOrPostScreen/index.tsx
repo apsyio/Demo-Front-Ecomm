@@ -58,7 +58,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
       brandId,
       styleId,
       postType: PostTypes.Review,
-      sizeOffered: values.sizeOffered,
+      sizeId: values.sizeId,
     });
 
     mutate(
@@ -67,7 +67,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
         brandId,
         styleId,
         postType: PostTypes.Review,
-        sizeOffered: values.sizeOffered,
+        sizeId: values.sizeId,
       },
       {
         onSuccess,
@@ -147,7 +147,7 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
                 />
 
                 <CustomInput
-                  name="sizeOffered"
+                  name="sizeId"
                   label="Size"
                   placeholder="Size"
                   required="Size is required"

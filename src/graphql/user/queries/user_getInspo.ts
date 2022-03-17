@@ -18,7 +18,16 @@ export const GET_INSPO_BY_INSPO_ID = gql`
           isDeleted
         }
         brands {
-          sizeOffered
+          brandSizes {
+            id
+            brandId
+            sizeId
+            size {
+              id
+              size
+            }
+            isDeleted
+          }
           name
           thumbnail
           likesCount

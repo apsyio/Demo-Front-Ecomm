@@ -11,7 +11,12 @@ export const CREATE_POST = gql`
         brand {
           name
           thumbnail
-          sizeOffered
+          styleBrands {
+            styleId
+            brandId
+            id
+            isDeleted
+          }
           likesCount
           photos {
             key
@@ -35,7 +40,11 @@ export const CREATE_POST = gql`
           createdAt
         }
         postType
-        sizeOffered
+        size {
+          id
+          size
+          isDeleted
+        }
         postLikes {
           userId
           postId

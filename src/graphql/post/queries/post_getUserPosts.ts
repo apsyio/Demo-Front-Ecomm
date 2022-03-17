@@ -14,7 +14,16 @@ export const GET_POSTS = gql`
           content
           photo
           brand {
-            sizeOffered
+            brandSizes {
+              id
+              brandId
+              sizeId
+              size {
+                id
+                size
+              }
+              isDeleted
+            }
             name
             thumbnail
             likesCount

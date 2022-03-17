@@ -44,13 +44,16 @@ export type BooleanOperationFilterInput = {
 
 export type BrandDto = {
   __typename?: 'BrandDto';
+  brandUrl?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   inspos?: Maybe<Array<Maybe<Users>>>;
+  isDeleted: Scalars['Boolean'];
   liked: Scalars['Boolean'];
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   photos?: Maybe<Array<KeyValuePairOfStringAndListOfString>>;
-  sizeOffered?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Array<Maybe<Scalars['String']>>>;
   styles?: Maybe<Array<Maybe<Styles>>>;
   thumbnail?: Maybe<Scalars['String']>;
 };
@@ -65,32 +68,39 @@ export type BrandDtoCollectionSegment = {
 
 export type BrandDtoFilterInput = {
   and?: InputMaybe<Array<BrandDtoFilterInput>>;
+  brandUrl?: InputMaybe<StringOperationFilterInput>;
+  createdAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   id?: InputMaybe<ComparableInt32OperationFilterInput>;
   inspos?: InputMaybe<ListFilterInputTypeOfUsersFilterInput>;
+  isDeleted?: InputMaybe<BooleanOperationFilterInput>;
   liked?: InputMaybe<BooleanOperationFilterInput>;
   likesCount?: InputMaybe<ComparableInt32OperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<BrandDtoFilterInput>>;
   photos?: InputMaybe<DictionaryOfStringAndListOfStringFilterInput>;
-  sizeOffered?: InputMaybe<StringOperationFilterInput>;
+  sizes?: InputMaybe<ListStringOperationFilterInput>;
   styles?: InputMaybe<ListFilterInputTypeOfStylesFilterInput>;
   thumbnail?: InputMaybe<StringOperationFilterInput>;
 };
 
 export type BrandDtoSortInput = {
+  brandUrl?: InputMaybe<SortEnumType>;
+  createdAt?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
+  isDeleted?: InputMaybe<SortEnumType>;
   liked?: InputMaybe<SortEnumType>;
   likesCount?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
-  sizeOffered?: InputMaybe<SortEnumType>;
   thumbnail?: InputMaybe<SortEnumType>;
 };
 
 export type BrandInput = {
+  brandUrl?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
   photos?: InputMaybe<Array<KeyValuePairOfStringAndListOfStringInput>>;
   sizeOffered?: InputMaybe<Scalars['String']>;
+  sizes?: InputMaybe<Array<Scalars['Int']>>;
   styles?: InputMaybe<Array<Scalars['Int']>>;
   thumbnail?: InputMaybe<Scalars['String']>;
 };
@@ -118,9 +128,32 @@ export type BrandLikesFilterInput = {
   userId?: InputMaybe<ComparableInt32OperationFilterInput>;
 };
 
+export type BrandSizes = {
+  __typename?: 'BrandSizes';
+  brand?: Maybe<Brands>;
+  brandId: Scalars['Int'];
+  id: Scalars['Int'];
+  isDeleted: Scalars['Boolean'];
+  size?: Maybe<Sizes>;
+  sizeId: Scalars['Int'];
+};
+
+export type BrandSizesFilterInput = {
+  and?: InputMaybe<Array<BrandSizesFilterInput>>;
+  brand?: InputMaybe<BrandsFilterInput>;
+  brandId?: InputMaybe<ComparableInt32OperationFilterInput>;
+  id?: InputMaybe<ComparableInt32OperationFilterInput>;
+  isDeleted?: InputMaybe<BooleanOperationFilterInput>;
+  or?: InputMaybe<Array<BrandSizesFilterInput>>;
+  size?: InputMaybe<SizesFilterInput>;
+  sizeId?: InputMaybe<ComparableInt32OperationFilterInput>;
+};
+
 export type Brands = {
   __typename?: 'Brands';
   brandLikes?: Maybe<Array<Maybe<BrandLikes>>>;
+  brandSizes?: Maybe<Array<Maybe<BrandSizes>>>;
+  brandUrl?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   isDeleted: Scalars['Boolean'];
@@ -128,7 +161,6 @@ export type Brands = {
   name?: Maybe<Scalars['String']>;
   photos?: Maybe<Array<KeyValuePairOfStringAndListOfString>>;
   posts?: Maybe<Array<Maybe<Posts>>>;
-  sizeOffered?: Maybe<Scalars['String']>;
   styleBrands?: Maybe<Array<Maybe<StyleBrands>>>;
   thumbnail?: Maybe<Scalars['String']>;
   userBrands?: Maybe<Array<Maybe<UserBrands>>>;
@@ -145,6 +177,8 @@ export type BrandsCollectionSegment = {
 export type BrandsFilterInput = {
   and?: InputMaybe<Array<BrandsFilterInput>>;
   brandLikes?: InputMaybe<ListFilterInputTypeOfBrandLikesFilterInput>;
+  brandSizes?: InputMaybe<ListFilterInputTypeOfBrandSizesFilterInput>;
+  brandUrl?: InputMaybe<StringOperationFilterInput>;
   createdAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   id?: InputMaybe<ComparableInt32OperationFilterInput>;
   isDeleted?: InputMaybe<BooleanOperationFilterInput>;
@@ -153,19 +187,18 @@ export type BrandsFilterInput = {
   or?: InputMaybe<Array<BrandsFilterInput>>;
   photos?: InputMaybe<DictionaryOfStringAndListOfStringFilterInput>;
   posts?: InputMaybe<ListFilterInputTypeOfPostsFilterInput>;
-  sizeOffered?: InputMaybe<StringOperationFilterInput>;
   styleBrands?: InputMaybe<ListFilterInputTypeOfStyleBrandsFilterInput>;
   thumbnail?: InputMaybe<StringOperationFilterInput>;
   userBrands?: InputMaybe<ListFilterInputTypeOfUserBrandsFilterInput>;
 };
 
 export type BrandsSortInput = {
+  brandUrl?: InputMaybe<SortEnumType>;
   createdAt?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
   isDeleted?: InputMaybe<SortEnumType>;
   likesCount?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
-  sizeOffered?: InputMaybe<SortEnumType>;
   thumbnail?: InputMaybe<SortEnumType>;
 };
 
@@ -322,6 +355,13 @@ export type ListFilterInputTypeOfBrandLikesFilterInput = {
   any?: InputMaybe<Scalars['Boolean']>;
   none?: InputMaybe<BrandLikesFilterInput>;
   some?: InputMaybe<BrandLikesFilterInput>;
+};
+
+export type ListFilterInputTypeOfBrandSizesFilterInput = {
+  all?: InputMaybe<BrandSizesFilterInput>;
+  any?: InputMaybe<Scalars['Boolean']>;
+  none?: InputMaybe<BrandSizesFilterInput>;
+  some?: InputMaybe<BrandSizesFilterInput>;
 };
 
 export type ListFilterInputTypeOfClosetItemsFilterInput = {
@@ -490,6 +530,9 @@ export type Mutation = {
   closet_createCloset?: Maybe<ResponseBaseOfClosets>;
   post_createPost?: Maybe<ResponseBaseOfPosts>;
   post_likePost?: Maybe<ResponseBase>;
+  size_activateSize?: Maybe<ResponseBase>;
+  size_createSize?: Maybe<ResponseBaseOfSizes>;
+  size_deactivateSize?: Maybe<ResponseBase>;
   style_activeStyle?: Maybe<ResponseBase>;
   style_createStyle?: Maybe<ResponseBaseOfStyles>;
   style_deActiveStyle?: Maybe<ResponseBase>;
@@ -538,6 +581,18 @@ export type MutationPost_CreatePostArgs = {
 export type MutationPost_LikePostArgs = {
   liked?: Scalars['Boolean'];
   postId: Scalars['Int'];
+};
+
+export type MutationSize_ActivateSizeArgs = {
+  sizeId: Scalars['Int'];
+};
+
+export type MutationSize_CreateSizeArgs = {
+  sizeInput?: InputMaybe<SizeInput>;
+};
+
+export type MutationSize_DeactivateSizeArgs = {
+  sizeId: Scalars['Int'];
 };
 
 export type MutationStyle_ActiveStyleArgs = {
@@ -602,7 +657,7 @@ export type PostDto = {
   postedAt: Scalars['DateTime'];
   poster?: Maybe<Users>;
   posterId: Scalars['Int'];
-  sizeOffered?: Maybe<Scalars['String']>;
+  size?: Maybe<Sizes>;
   style?: Maybe<Styles>;
   title?: Maybe<Scalars['String']>;
 };
@@ -629,7 +684,7 @@ export type PostDtoFilterInput = {
   postedAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   poster?: InputMaybe<UsersFilterInput>;
   posterId?: InputMaybe<ComparableInt32OperationFilterInput>;
-  sizeOffered?: InputMaybe<StringOperationFilterInput>;
+  size?: InputMaybe<SizesFilterInput>;
   style?: InputMaybe<StylesFilterInput>;
   title?: InputMaybe<StringOperationFilterInput>;
 };
@@ -645,7 +700,7 @@ export type PostDtoSortInput = {
   postedAt?: InputMaybe<SortEnumType>;
   poster?: InputMaybe<UsersSortInput>;
   posterId?: InputMaybe<SortEnumType>;
-  sizeOffered?: InputMaybe<SortEnumType>;
+  size?: InputMaybe<SizesSortInput>;
   style?: InputMaybe<StylesSortInput>;
   title?: InputMaybe<SortEnumType>;
 };
@@ -656,7 +711,7 @@ export type PostInput = {
   photo?: InputMaybe<Scalars['String']>;
   postType: PostTypes;
   posterId?: InputMaybe<Scalars['Int']>;
-  sizeOffered?: InputMaybe<Scalars['String']>;
+  sizeId?: InputMaybe<Scalars['Int']>;
   styleId?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -710,7 +765,8 @@ export type Posts = {
   postedAt: Scalars['DateTime'];
   poster?: Maybe<Users>;
   posterId: Scalars['Int'];
-  sizeOffered?: Maybe<Scalars['String']>;
+  size?: Maybe<Sizes>;
+  sizeId?: Maybe<Scalars['Int']>;
   style?: Maybe<Styles>;
   styleId?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
@@ -731,7 +787,8 @@ export type PostsFilterInput = {
   postedAt?: InputMaybe<ComparableDateTimeOperationFilterInput>;
   poster?: InputMaybe<UsersFilterInput>;
   posterId?: InputMaybe<ComparableInt32OperationFilterInput>;
-  sizeOffered?: InputMaybe<StringOperationFilterInput>;
+  size?: InputMaybe<SizesFilterInput>;
+  sizeId?: InputMaybe<ComparableNullableOfInt32OperationFilterInput>;
   style?: InputMaybe<StylesFilterInput>;
   styleId?: InputMaybe<ComparableNullableOfInt32OperationFilterInput>;
   title?: InputMaybe<StringOperationFilterInput>;
@@ -757,6 +814,10 @@ export type Query = {
   user_login?: Maybe<ResponseBaseOfUsers>;
 };
 
+export type QueryBrand_GetAllBrandsArgs = {
+  withRemoved?: Scalars['Boolean'];
+};
+
 export type QueryBrand_GetBrandArgs = {
   brandId: Scalars['Int'];
 };
@@ -775,6 +836,10 @@ export type QueryPost_GetStylePostsArgs = {
 
 export type QueryStyles_GetStyleArgs = {
   styleId: Scalars['Int'];
+};
+
+export type QueryStyles_GetStylesArgs = {
+  withRemoved?: Scalars['Boolean'];
 };
 
 export type QueryUser_GetInspoArgs = {
@@ -812,6 +877,12 @@ export type ResponseBaseOfClosets = {
 export type ResponseBaseOfPosts = {
   __typename?: 'ResponseBaseOfPosts';
   result?: Maybe<Posts>;
+  status: ResponseStatus;
+};
+
+export type ResponseBaseOfSizes = {
+  __typename?: 'ResponseBaseOfSizes';
+  result?: Maybe<Sizes>;
   status: ResponseStatus;
 };
 
@@ -866,6 +937,35 @@ export enum ResponseStatus {
   UnknownError = 'UNKNOWN_ERROR',
   UserNotFound = 'USER_NOT_FOUND',
 }
+
+export type SizeInput = {
+  size?: InputMaybe<Scalars['String']>;
+};
+
+export type Sizes = {
+  __typename?: 'Sizes';
+  brandSizes?: Maybe<Array<Maybe<BrandSizes>>>;
+  id: Scalars['Int'];
+  isDeleted: Scalars['Boolean'];
+  posts?: Maybe<Array<Maybe<Posts>>>;
+  size?: Maybe<Scalars['String']>;
+};
+
+export type SizesFilterInput = {
+  and?: InputMaybe<Array<SizesFilterInput>>;
+  brandSizes?: InputMaybe<ListFilterInputTypeOfBrandSizesFilterInput>;
+  id?: InputMaybe<ComparableInt32OperationFilterInput>;
+  isDeleted?: InputMaybe<BooleanOperationFilterInput>;
+  or?: InputMaybe<Array<SizesFilterInput>>;
+  posts?: InputMaybe<ListFilterInputTypeOfPostsFilterInput>;
+  size?: InputMaybe<StringOperationFilterInput>;
+};
+
+export type SizesSortInput = {
+  id?: InputMaybe<SortEnumType>;
+  isDeleted?: InputMaybe<SortEnumType>;
+  size?: InputMaybe<SortEnumType>;
+};
 
 export enum SocialNetworks {
   Facebook = 'FACEBOOK',
@@ -933,7 +1033,9 @@ export type StyleBrandsFilterInput = {
 export type StyleDto = {
   __typename?: 'StyleDto';
   brands?: Maybe<Array<Maybe<Brands>>>;
+  createdAt: Scalars['DateTime'];
   inspos?: Maybe<Array<Maybe<Users>>>;
+  isDeleted: Scalars['Boolean'];
   liked: Scalars['Boolean'];
   likesCount: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
@@ -1208,8 +1310,9 @@ export type Brand_GetAllBrandsQuery = {
         id: number;
         name?: string | null;
         thumbnail?: string | null;
-        sizeOffered?: string | null;
+        sizes?: Array<string | null> | null;
         likesCount: number;
+        createdAt: any;
         photos?: Array<{
           __typename?: 'KeyValuePairOfStringAndListOfString';
           key: string;
@@ -1239,9 +1342,10 @@ export type Brand_GetBrandQuery = {
       id: number;
       name?: string | null;
       thumbnail?: string | null;
-      sizeOffered?: string | null;
+      sizes?: Array<string | null> | null;
       likesCount: number;
       liked: boolean;
+      createdAt: any;
       photos?: Array<{
         __typename?: 'KeyValuePairOfStringAndListOfString';
         key: string;
@@ -1297,11 +1401,22 @@ export type Brand_GetBrandsQuery = {
         __typename?: 'Brands';
         name?: string | null;
         thumbnail?: string | null;
-        sizeOffered?: string | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
         createdAt: any;
+        brandSizes?: Array<{
+          __typename?: 'BrandSizes';
+          id: number;
+          brandId: number;
+          sizeId: number;
+          isDeleted: boolean;
+          size?: {
+            __typename?: 'Sizes';
+            id: number;
+            size?: string | null;
+          } | null;
+        } | null> | null;
         photos?: Array<{
           __typename?: 'KeyValuePairOfStringAndListOfString';
           key: string;
@@ -1328,11 +1443,22 @@ export type Brand_RecommendBrandQuery = {
       __typename?: 'Brands';
       name?: string | null;
       thumbnail?: string | null;
-      sizeOffered?: string | null;
       likesCount: number;
       id: number;
       isDeleted: boolean;
       createdAt: any;
+      brandSizes?: Array<{
+        __typename?: 'BrandSizes';
+        id: number;
+        brandId: number;
+        sizeId: number;
+        size?: {
+          __typename?: 'Sizes';
+          id: number;
+          size?: string | null;
+          isDeleted: boolean;
+        } | null;
+      } | null> | null;
       photos?: Array<{
         __typename?: 'KeyValuePairOfStringAndListOfString';
         key: string;
@@ -1361,7 +1487,6 @@ export type Brand_RecommendBrandQuery = {
         brandId?: number | null;
         styleId?: number | null;
         postType: PostTypes;
-        sizeOffered?: string | null;
         posterId: number;
         postedAt: any;
         id: number;
@@ -1438,7 +1563,6 @@ export type Post_CreatePostMutation = {
       brandId?: number | null;
       styleId?: number | null;
       postType: PostTypes;
-      sizeOffered?: string | null;
       posterId: number;
       postedAt: any;
       id: number;
@@ -1447,11 +1571,17 @@ export type Post_CreatePostMutation = {
         __typename?: 'Brands';
         name?: string | null;
         thumbnail?: string | null;
-        sizeOffered?: string | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
         createdAt: any;
+        styleBrands?: Array<{
+          __typename?: 'StyleBrands';
+          styleId: number;
+          brandId: number;
+          id: number;
+          isDeleted: boolean;
+        } | null> | null;
         photos?: Array<{
           __typename?: 'KeyValuePairOfStringAndListOfString';
           key: string;
@@ -1471,6 +1601,12 @@ export type Post_CreatePostMutation = {
           key: string;
           value: Array<string>;
         }> | null;
+      } | null;
+      size?: {
+        __typename?: 'Sizes';
+        id: number;
+        size?: string | null;
+        isDeleted: boolean;
       } | null;
       postLikes?: Array<{
         __typename?: 'PostLikes';
@@ -1584,12 +1720,25 @@ export type Post_GetStylePostsQuery = {
         content?: string | null;
         photo?: string | null;
         postType: PostTypes;
-        sizeOffered?: string | null;
         posterId: number;
         likesCount: number;
         id: number;
         postedAt: any;
         liked: boolean;
+        style?: {
+          __typename?: 'Styles';
+          id: number;
+          name?: string | null;
+          thumbnail?: string | null;
+          likesCount: number;
+          createdAt: any;
+          isDeleted: boolean;
+          photos?: Array<{
+            __typename?: 'KeyValuePairOfStringAndListOfString';
+            key: string;
+            value: Array<string>;
+          }> | null;
+        } | null;
         poster?: {
           __typename?: 'Users';
           fullName?: string | null;
@@ -1639,18 +1788,24 @@ export type Post_GetUserPostsQuery = {
         liked: boolean;
         brand?: {
           __typename?: 'Brands';
-          sizeOffered?: string | null;
           name?: string | null;
           thumbnail?: string | null;
           likesCount: number;
           id: number;
           isDeleted: boolean;
           createdAt: any;
-          photos?: Array<{
-            __typename?: 'KeyValuePairOfStringAndListOfString';
-            key: string;
-            value: Array<string>;
-          }> | null;
+          brandSizes?: Array<{
+            __typename?: 'BrandSizes';
+            id: number;
+            brandId: number;
+            sizeId: number;
+            isDeleted: boolean;
+            size?: {
+              __typename?: 'Sizes';
+              id: number;
+              size?: string | null;
+            } | null;
+          } | null> | null;
         } | null;
         poster?: {
           __typename?: 'Users';
@@ -1701,6 +1856,7 @@ export type Styles_GetStyleQuery = {
       thumbnail?: string | null;
       likesCount: number;
       liked: boolean;
+      createdAt: any;
       photos?: Array<{
         __typename?: 'KeyValuePairOfStringAndListOfString';
         key: string;
@@ -1722,11 +1878,17 @@ export type Styles_GetStyleQuery = {
         __typename?: 'Brands';
         name?: string | null;
         thumbnail?: string | null;
-        sizeOffered?: string | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
         createdAt: any;
+        styleBrands?: Array<{
+          __typename?: 'StyleBrands';
+          styleId: number;
+          brandId: number;
+          id: number;
+          isDeleted: boolean;
+        } | null> | null;
         photos?: Array<{
           __typename?: 'KeyValuePairOfStringAndListOfString';
           key: string;
@@ -1759,11 +1921,6 @@ export type Styles_GetStylesQuery = {
         likesCount: number;
         id: number;
         isDeleted: boolean;
-        photos?: Array<{
-          __typename?: 'KeyValuePairOfStringAndListOfString';
-          key: string;
-          value: Array<string>;
-        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1983,11 +2140,17 @@ export type User_GetBrandsQuery = {
         __typename?: 'Brands';
         name?: string | null;
         thumbnail?: string | null;
-        sizeOffered?: string | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
         createdAt: any;
+        styleBrands?: Array<{
+          __typename?: 'StyleBrands';
+          styleId: number;
+          brandId: number;
+          id: number;
+          isDeleted: boolean;
+        } | null> | null;
         photos?: Array<{
           __typename?: 'KeyValuePairOfStringAndListOfString';
           key: string;
@@ -2030,13 +2193,24 @@ export type User_GetInspoQuery = {
       } | null> | null;
       brands?: Array<{
         __typename?: 'Brands';
-        sizeOffered?: string | null;
         name?: string | null;
         thumbnail?: string | null;
         likesCount: number;
         id: number;
         isDeleted: boolean;
         createdAt: any;
+        brandSizes?: Array<{
+          __typename?: 'BrandSizes';
+          id: number;
+          brandId: number;
+          sizeId: number;
+          isDeleted: boolean;
+          size?: {
+            __typename?: 'Sizes';
+            id: number;
+            size?: string | null;
+          } | null;
+        } | null> | null;
         photos?: Array<{
           __typename?: 'KeyValuePairOfStringAndListOfString';
           key: string;

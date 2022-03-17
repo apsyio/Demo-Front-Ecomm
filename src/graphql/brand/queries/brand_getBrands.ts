@@ -13,7 +13,16 @@ export const GET_BRANDS = gql`
         items {
           name
           thumbnail
-          sizeOffered
+          brandSizes {
+            id
+            brandId
+            sizeId
+            size {
+              id
+              size
+            }
+            isDeleted
+          }
           likesCount
           photos {
             key
