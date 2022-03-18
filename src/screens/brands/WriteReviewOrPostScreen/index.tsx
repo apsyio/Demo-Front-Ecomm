@@ -4,6 +4,7 @@ import {Button, HStack, ScrollView, Text, View} from 'native-base';
 import React, {useLayoutEffect, useState} from 'react';
 
 import {
+  CustomAutocompleteDropdown,
   CustomContainer,
   CustomInput,
   CustomKeyboardAwareScrollView,
@@ -12,6 +13,7 @@ import {
 import type {Post_CreatePostMutation} from '~/generated/graphql';
 import {PostTypes, ResponseStatus} from '~/generated/graphql';
 import useCreatePost from '~/hooks/post/useCreatePost';
+import useGetSizes from '~/hooks/size/useGetSizes';
 import {navigate} from '~/navigation/methods';
 import {activeTabAtom} from '~/store';
 import {Colors} from '~/styles';
@@ -23,8 +25,14 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
   const {styleId, brandId} = route.params;
   const [mode, setMode] = useState(modeInParams);
 
+  const [startsWith, setStartsWith] = useState('');
+
   const writePostForm = useForm();
   const writeReviewForm = useForm();
+
+  const {data: sizesData} = useGetSizes({
+    where: {size: {startsWith}},
+  });
 
   const {mutate} = useCreatePost();
 
@@ -146,11 +154,18 @@ export default function WriteReviewOrPostScreen({route, navigation}: any) {
                   required="Name of item is required"
                 />
 
-                <CustomInput
+                <CustomAutocompleteDropdown
                   name="sizeId"
                   label="Size"
-                  placeholder="Size"
                   required="Size is required"
+                  clearOnFocus={false}
+                  closeOnBlur={true}
+                  closeOnSubmit={false}
+                  onChangeText={t => setStartsWith(t)}
+                  dataSet={sizesData?.pages.map(a => ({
+                    id: a.id.toString(),
+                    title: a.size,
+                  }))}
                 />
 
                 <CustomInput

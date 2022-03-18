@@ -53,6 +53,7 @@ type Query {
   post_getUserPosts: ListResponseBaseOfPostDto
   post_getStylePosts(styleId: Int!): ListResponseBaseOfPostDto
   post_getBrandPosts(brandId: Int!): ListResponseBaseOfPostDto
+  sizes_getSizes(brandIds: [Int!]): ListResponseBaseOfSizes
 }
 
 type Mutation {
@@ -227,6 +228,8 @@ type Users {
   phone: String
   avatarUrl: String
   bio: String
+  isSelected: Boolean!
+  isAdmin: Boolean!
   isActive: Boolean!
   postLikes: [PostLikes]
   socials: [UserSocials]
@@ -379,6 +382,16 @@ type ResponseBase {
   status: ResponseStatus!
 }
 
+type ListResponseBaseOfSizes {
+  result(
+    skip: Int
+    take: Int
+    where: SizesFilterInput
+    order: [SizesSortInput!]
+  ): SizesCollectionSegment
+  status: ResponseStatus!
+}
+
 type ListResponseBaseOfPostDto {
   result(
     skip: Int
@@ -486,7 +499,6 @@ input BrandInput {
   id: Int
   name: String
   thumbnail: String
-  sizeOffered: String
   photos: [KeyValuePairOfStringAndListOfStringInput!]
   styles: [Int!]
   brandUrl: String
@@ -511,6 +523,32 @@ type ResponseBaseOfSizes {
 
 input SizeInput {
   size: String
+}
+
+input SizesFilterInput {
+  and: [SizesFilterInput!]
+  or: [SizesFilterInput!]
+  size: StringOperationFilterInput
+  brandSizes: ListFilterInputTypeOfBrandSizesFilterInput
+  posts: ListFilterInputTypeOfPostsFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input SizesSortInput {
+  size: SortEnumType
+  id: SortEnumType
+  isDeleted: SortEnumType
+}
+
+type SizesCollectionSegment {
+  items: [Sizes]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: CollectionSegmentInfo!
+  totalCount: Int!
 }
 
 input PostDtoFilterInput {
@@ -643,6 +681,8 @@ input UsersFilterInput {
   phone: StringOperationFilterInput
   avatarUrl: StringOperationFilterInput
   bio: StringOperationFilterInput
+  isSelected: BooleanOperationFilterInput
+  isAdmin: BooleanOperationFilterInput
   isActive: BooleanOperationFilterInput
   postLikes: ListFilterInputTypeOfPostLikesFilterInput
   socials: ListFilterInputTypeOfUserSocialsFilterInput
@@ -663,6 +703,8 @@ input UsersSortInput {
   phone: SortEnumType
   avatarUrl: SortEnumType
   bio: SortEnumType
+  isSelected: SortEnumType
+  isAdmin: SortEnumType
   isActive: SortEnumType
   externalId: SortEnumType
   id: SortEnumType
@@ -729,21 +771,18 @@ input StringOperationFilterInput {
   nendsWith: String
 }
 
-input PostTypesOperationFilterInput {
-  eq: PostTypes
-  neq: PostTypes
-  in: [PostTypes!]
-  nin: [PostTypes!]
+input ListFilterInputTypeOfBrandSizesFilterInput {
+  all: BrandSizesFilterInput
+  none: BrandSizesFilterInput
+  some: BrandSizesFilterInput
+  any: Boolean
 }
 
-input SizesFilterInput {
-  and: [SizesFilterInput!]
-  or: [SizesFilterInput!]
-  size: StringOperationFilterInput
-  brandSizes: ListFilterInputTypeOfBrandSizesFilterInput
-  posts: ListFilterInputTypeOfPostsFilterInput
-  id: ComparableInt32OperationFilterInput
-  isDeleted: BooleanOperationFilterInput
+input ListFilterInputTypeOfPostsFilterInput {
+  all: PostsFilterInput
+  none: PostsFilterInput
+  some: PostsFilterInput
+  any: Boolean
 }
 
 input ComparableInt32OperationFilterInput {
@@ -761,42 +800,14 @@ input ComparableInt32OperationFilterInput {
   nlte: Int
 }
 
-input ComparableDateTimeOperationFilterInput {
-  eq: DateTime
-  neq: DateTime
-  in: [DateTime!]
-  nin: [DateTime!]
-  gt: DateTime
-  ngt: DateTime
-  gte: DateTime
-  ngte: DateTime
-  lt: DateTime
-  nlt: DateTime
-  lte: DateTime
-  nlte: DateTime
-}
-
 input BooleanOperationFilterInput {
   eq: Boolean
   neq: Boolean
 }
 
-input ListFilterInputTypeOfPostLikesFilterInput {
-  all: PostLikesFilterInput
-  none: PostLikesFilterInput
-  some: PostLikesFilterInput
-  any: Boolean
-}
-
 enum SortEnumType {
   ASC
   DESC
-}
-
-input SizesSortInput {
-  size: SortEnumType
-  id: SortEnumType
-  isDeleted: SortEnumType
 }
 
 """
@@ -812,6 +823,35 @@ type CollectionSegmentInfo {
   Indicates whether more items exist prior the set defined by the clients arguments.
   """
   hasPreviousPage: Boolean!
+}
+
+input PostTypesOperationFilterInput {
+  eq: PostTypes
+  neq: PostTypes
+  in: [PostTypes!]
+  nin: [PostTypes!]
+}
+
+input ComparableDateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input ListFilterInputTypeOfPostLikesFilterInput {
+  all: PostLikesFilterInput
+  none: PostLikesFilterInput
+  some: PostLikesFilterInput
+  any: Boolean
 }
 
 input DictionaryOfStringAndListOfStringFilterInput {
@@ -858,24 +898,10 @@ input ListFilterInputTypeOfBrandLikesFilterInput {
   any: Boolean
 }
 
-input ListFilterInputTypeOfPostsFilterInput {
-  all: PostsFilterInput
-  none: PostsFilterInput
-  some: PostsFilterInput
-  any: Boolean
-}
-
 input ListFilterInputTypeOfStyleBrandsFilterInput {
   all: StyleBrandsFilterInput
   none: StyleBrandsFilterInput
   some: StyleBrandsFilterInput
-  any: Boolean
-}
-
-input ListFilterInputTypeOfBrandSizesFilterInput {
-  all: BrandSizesFilterInput
-  none: BrandSizesFilterInput
-  some: BrandSizesFilterInput
   any: Boolean
 }
 
@@ -912,6 +938,39 @@ input ListFilterInputTypeOfStyleLikesFilterInput {
   none: StyleLikesFilterInput
   some: StyleLikesFilterInput
   any: Boolean
+}
+
+input BrandSizesFilterInput {
+  and: [BrandSizesFilterInput!]
+  or: [BrandSizesFilterInput!]
+  brandId: ComparableInt32OperationFilterInput
+  brand: BrandsFilterInput
+  sizeId: ComparableInt32OperationFilterInput
+  size: SizesFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+}
+
+input PostsFilterInput {
+  and: [PostsFilterInput!]
+  or: [PostsFilterInput!]
+  title: StringOperationFilterInput
+  content: StringOperationFilterInput
+  photo: StringOperationFilterInput
+  brandId: ComparableNullableOfInt32OperationFilterInput
+  brand: BrandsFilterInput
+  styleId: ComparableNullableOfInt32OperationFilterInput
+  style: StylesFilterInput
+  postType: PostTypesOperationFilterInput
+  sizeId: ComparableNullableOfInt32OperationFilterInput
+  size: SizesFilterInput
+  postLikes: ListFilterInputTypeOfPostLikesFilterInput
+  posterId: ComparableInt32OperationFilterInput
+  poster: UsersFilterInput
+  postedAt: ComparableDateTimeOperationFilterInput
+  likes: ListFilterInputTypeOfPostLikesFilterInput
+  id: ComparableInt32OperationFilterInput
+  isDeleted: BooleanOperationFilterInput
 }
 
 input PostLikesFilterInput {
@@ -961,28 +1020,6 @@ input BrandLikesFilterInput {
   isDeleted: BooleanOperationFilterInput
 }
 
-input PostsFilterInput {
-  and: [PostsFilterInput!]
-  or: [PostsFilterInput!]
-  title: StringOperationFilterInput
-  content: StringOperationFilterInput
-  photo: StringOperationFilterInput
-  brandId: ComparableNullableOfInt32OperationFilterInput
-  brand: BrandsFilterInput
-  styleId: ComparableNullableOfInt32OperationFilterInput
-  style: StylesFilterInput
-  postType: PostTypesOperationFilterInput
-  sizeId: ComparableNullableOfInt32OperationFilterInput
-  size: SizesFilterInput
-  postLikes: ListFilterInputTypeOfPostLikesFilterInput
-  posterId: ComparableInt32OperationFilterInput
-  poster: UsersFilterInput
-  postedAt: ComparableDateTimeOperationFilterInput
-  likes: ListFilterInputTypeOfPostLikesFilterInput
-  id: ComparableInt32OperationFilterInput
-  isDeleted: BooleanOperationFilterInput
-}
-
 input StyleBrandsFilterInput {
   and: [StyleBrandsFilterInput!]
   or: [StyleBrandsFilterInput!]
@@ -990,17 +1027,6 @@ input StyleBrandsFilterInput {
   style: StylesFilterInput
   brandId: ComparableInt32OperationFilterInput
   brand: BrandsFilterInput
-  id: ComparableInt32OperationFilterInput
-  isDeleted: BooleanOperationFilterInput
-}
-
-input BrandSizesFilterInput {
-  and: [BrandSizesFilterInput!]
-  or: [BrandSizesFilterInput!]
-  brandId: ComparableInt32OperationFilterInput
-  brand: BrandsFilterInput
-  sizeId: ComparableInt32OperationFilterInput
-  size: SizesFilterInput
   id: ComparableInt32OperationFilterInput
   isDeleted: BooleanOperationFilterInput
 }

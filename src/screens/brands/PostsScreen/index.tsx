@@ -5,7 +5,6 @@ import {
   Center,
   FlatList,
   Icon,
-  Input,
   Select,
   useDisclose,
 } from 'native-base';
@@ -30,7 +29,7 @@ export default function PostsScreen({route}: any) {
   const {onClose, onOpen, isOpen} = useDisclose();
 
   const [postType, setPostType] = useState('');
-  const [sizeOffered, setSizeOffered] = useState<string | undefined>('');
+  // const [size, setSize] = useState<string | undefined>('');
 
   const [where, setWhere] = useState<object | undefined>(undefined);
 
@@ -83,12 +82,12 @@ export default function PostsScreen({route}: any) {
               ))}
             </Select>
 
-            <Input
+            {/* <Input
               width={'110%'}
-              value={sizeOffered}
-              onChangeText={(itemValue: string) => setSizeOffered(itemValue)}
+              value={size}
+              onChangeText={(itemValue: string) => setSize(itemValue)}
               placeholder="Size"
-            />
+            /> */}
 
             <Button
               mt={10}
@@ -101,12 +100,12 @@ export default function PostsScreen({route}: any) {
                   setWhere(prev => ({...prev, postType: {eq: postType}}));
                 }
 
-                if (sizeOffered) {
-                  setWhere(prev => ({
-                    ...prev,
-                    sizeOffered: {contains: sizeOffered},
-                  }));
-                }
+                // if (size) {
+                //   setWhere(prev => ({
+                //     ...prev,
+                //     size: {size: {in: [size]}},
+                //   }));
+                // }
               }}>
               FILTER
             </Button>

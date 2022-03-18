@@ -99,7 +99,6 @@ export type BrandInput = {
   id?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
   photos?: InputMaybe<Array<KeyValuePairOfStringAndListOfStringInput>>;
-  sizeOffered?: InputMaybe<Scalars['String']>;
   sizes?: InputMaybe<Array<Scalars['Int']>>;
   styles?: InputMaybe<Array<Scalars['Int']>>;
   thumbnail?: InputMaybe<Scalars['String']>;
@@ -487,6 +486,19 @@ export type ListResponseBaseOfPostDtoResultArgs = {
   where?: InputMaybe<PostDtoFilterInput>;
 };
 
+export type ListResponseBaseOfSizes = {
+  __typename?: 'ListResponseBaseOfSizes';
+  result?: Maybe<SizesCollectionSegment>;
+  status: ResponseStatus;
+};
+
+export type ListResponseBaseOfSizesResultArgs = {
+  order?: InputMaybe<Array<SizesSortInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SizesFilterInput>;
+};
+
 export type ListResponseBaseOfStyles = {
   __typename?: 'ListResponseBaseOfStyles';
   result?: Maybe<StylesCollectionSegment>;
@@ -803,6 +815,7 @@ export type Query = {
   post_getBrandPosts?: Maybe<ListResponseBaseOfPostDto>;
   post_getStylePosts?: Maybe<ListResponseBaseOfPostDto>;
   post_getUserPosts?: Maybe<ListResponseBaseOfPostDto>;
+  sizes_getSizes?: Maybe<ListResponseBaseOfSizes>;
   styles_getStyle?: Maybe<ResponseBaseOfStyleDto>;
   styles_getStyles?: Maybe<ListResponseBaseOfStyles>;
   user_getBrands?: Maybe<ListResponseBaseOfBrands>;
@@ -832,6 +845,10 @@ export type QueryPost_GetBrandPostsArgs = {
 
 export type QueryPost_GetStylePostsArgs = {
   styleId: Scalars['Int'];
+};
+
+export type QuerySizes_GetSizesArgs = {
+  brandIds?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 export type QueryStyles_GetStyleArgs = {
@@ -949,6 +966,14 @@ export type Sizes = {
   isDeleted: Scalars['Boolean'];
   posts?: Maybe<Array<Maybe<Posts>>>;
   size?: Maybe<Scalars['String']>;
+};
+
+export type SizesCollectionSegment = {
+  __typename?: 'SizesCollectionSegment';
+  items?: Maybe<Array<Maybe<Sizes>>>;
+  /** Information to aid in pagination. */
+  pageInfo: CollectionSegmentInfo;
+  totalCount: Scalars['Int'];
 };
 
 export type SizesFilterInput = {
@@ -1225,7 +1250,9 @@ export type Users = {
   fullName?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   isActive: Scalars['Boolean'];
+  isAdmin: Scalars['Boolean'];
   isDeleted: Scalars['Boolean'];
+  isSelected: Scalars['Boolean'];
   phone?: Maybe<Scalars['String']>;
   postLikes?: Maybe<Array<Maybe<PostLikes>>>;
   socials?: Maybe<Array<Maybe<UserSocials>>>;
@@ -1254,7 +1281,9 @@ export type UsersFilterInput = {
   fullName?: InputMaybe<StringOperationFilterInput>;
   id?: InputMaybe<ComparableInt32OperationFilterInput>;
   isActive?: InputMaybe<BooleanOperationFilterInput>;
+  isAdmin?: InputMaybe<BooleanOperationFilterInput>;
   isDeleted?: InputMaybe<BooleanOperationFilterInput>;
+  isSelected?: InputMaybe<BooleanOperationFilterInput>;
   or?: InputMaybe<Array<UsersFilterInput>>;
   phone?: InputMaybe<StringOperationFilterInput>;
   postLikes?: InputMaybe<ListFilterInputTypeOfPostLikesFilterInput>;
@@ -1273,7 +1302,9 @@ export type UsersSortInput = {
   fullName?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
   isActive?: InputMaybe<SortEnumType>;
+  isAdmin?: InputMaybe<SortEnumType>;
   isDeleted?: InputMaybe<SortEnumType>;
+  isSelected?: InputMaybe<SortEnumType>;
   phone?: InputMaybe<SortEnumType>;
 };
 
@@ -1313,11 +1344,6 @@ export type Brand_GetAllBrandsQuery = {
         sizes?: Array<string | null> | null;
         likesCount: number;
         createdAt: any;
-        photos?: Array<{
-          __typename?: 'KeyValuePairOfStringAndListOfString';
-          key: string;
-          value: Array<string>;
-        }> | null;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';
@@ -1818,6 +1844,36 @@ export type Post_GetUserPostsQuery = {
           id: number;
           isDeleted: boolean;
         } | null;
+      } | null> | null;
+      pageInfo: {
+        __typename?: 'CollectionSegmentInfo';
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+      };
+    } | null;
+  } | null;
+};
+
+export type Sizes_GetSizesQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SizesFilterInput>;
+  order?: InputMaybe<Array<SizesSortInput> | SizesSortInput>;
+}>;
+
+export type Sizes_GetSizesQuery = {
+  __typename?: 'Query';
+  sizes_getSizes?: {
+    __typename?: 'ListResponseBaseOfSizes';
+    status: ResponseStatus;
+    result?: {
+      __typename?: 'SizesCollectionSegment';
+      totalCount: number;
+      items?: Array<{
+        __typename?: 'Sizes';
+        size?: string | null;
+        id: number;
+        isDeleted: boolean;
       } | null> | null;
       pageInfo: {
         __typename?: 'CollectionSegmentInfo';

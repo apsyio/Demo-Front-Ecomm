@@ -1,13 +1,12 @@
-import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
+import {Button, Center, FlatList, HStack, Image, Text} from 'native-base';
 import React, {useState} from 'react';
 
 import images from '~/assets/images';
-import {CustomContainer, ImageCard} from '~/components/atoms';
+import {CustomCheckBox, CustomContainer, ImageCard} from '~/components/atoms';
 import {ResponseStatus} from '~/generated/graphql';
 import useGetAllBrands from '~/hooks/brand/useGetBrands';
 import useSetBrands from '~/hooks/inspo/useSetBrands';
 import {goBack, navigate} from '~/navigation/methods';
-import {Colors} from '~/styles';
 
 export default function SelectFavoriteBrandScreen() {
   const [brandIds, setBrandIds] = useState<number[]>([]);
@@ -55,24 +54,10 @@ export default function SelectFavoriteBrandScreen() {
                 setBrandIds(prev => [...prev, item.id]);
               }
             }}>
-            <Center
-              bg={Colors.WHITE}
-              borderRadius={7}
-              width={6}
-              height={6}
-              alignSelf="flex-end"
-              m={2}
-              borderWidth={1}
-              borderColor={Colors.SEA_PINK}>
-              {brandIds?.includes(item.id) && (
-                <View
-                  bg={Colors.SEA_PINK}
-                  borderRadius={4}
-                  width={4}
-                  height={4}
-                />
-              )}
-            </Center>
+            <CustomCheckBox
+              alignSelf={'flex-end'}
+              checked={brandIds?.includes(item.id)}
+            />
           </ImageCard>
         )}
         onEndReached={() => {
