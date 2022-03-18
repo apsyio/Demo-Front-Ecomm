@@ -12,7 +12,12 @@ export const GET_USER_BRANDS = gql`
         items {
           name
           thumbnail
-          sizeOffered
+          styleBrands {
+            styleId
+            brandId
+            id
+            isDeleted
+          }
           likesCount
           photos {
             key

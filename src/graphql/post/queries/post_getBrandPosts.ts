@@ -14,6 +14,11 @@ export const GET_BRAND_POSTS = gql`
           title
           content
           photo
+          size {
+            id
+            size
+            isDeleted
+          }
           postType
           posterId
           poster {

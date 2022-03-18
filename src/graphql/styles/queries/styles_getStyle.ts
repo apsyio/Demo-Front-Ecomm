@@ -26,7 +26,12 @@ export const GET_STYLE_BY_STYLE_ID = gql`
         brands {
           name
           thumbnail
-          sizeOffered
+          styleBrands {
+            styleId
+            brandId
+            id
+            isDeleted
+          }
           likesCount
           photos {
             key
@@ -36,6 +41,7 @@ export const GET_STYLE_BY_STYLE_ID = gql`
           isDeleted
           createdAt
         }
+        createdAt
       }
       status
     }

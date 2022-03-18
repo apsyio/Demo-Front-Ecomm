@@ -1,21 +1,18 @@
 import {gql} from 'graphql-request';
 
-export const GET_ALL_BRANDS = gql`
-  query brand_getAllBrands(
+export const GET_SIZES = gql`
+  query sizes_getSizes(
     $skip: Int
     $take: Int
-    $where: BrandDtoFilterInput
-    $order: [BrandDtoSortInput!]
+    $where: SizesFilterInput
+    $order: [SizesSortInput!]
   ) {
-    brand_getAllBrands {
+    sizes_getSizes {
       result(skip: $skip, take: $take, where: $where, order: $order) {
         items {
+          size
           id
-          name
-          thumbnail
-          sizes
-          likesCount
-          createdAt
+          isDeleted
         }
         pageInfo {
           hasNextPage

@@ -6,7 +6,16 @@ export const GET_RECOMMENDED_BRAND = gql`
       result {
         name
         thumbnail
-        sizeOffered
+        brandSizes {
+          id
+          brandId
+          sizeId
+          size {
+            id
+            size
+            isDeleted
+          }
+        }
         likesCount
         photos {
           key
@@ -32,7 +41,6 @@ export const GET_RECOMMENDED_BRAND = gql`
           brandId
           styleId
           postType
-          sizeOffered
           posterId
           postedAt
           id

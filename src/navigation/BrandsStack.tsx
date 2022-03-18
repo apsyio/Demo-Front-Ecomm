@@ -3,9 +3,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useLayoutEffect} from 'react';
 
 import {ChevronBackButton} from '~/components/atoms';
+import type {Maybe} from '~/generated/graphql';
 import {
   BrandDetailsScreen,
   BrandsScreen,
+  FilterBrandSizeScreen,
   PostsScreen,
   WriteReviewOrPostScreen,
 } from '~/screens/brands';
@@ -14,7 +16,8 @@ import {Colors} from '~/styles';
 const Stack = createNativeStackNavigator();
 
 export type BrandsStackParamList = {
-  Brands: undefined;
+  Brands: {sizes?: (Maybe<string> | undefined)[]};
+  FilterBrandSize: {sizes?: (Maybe<string> | undefined)[]};
   BrandDetails: {id: number};
   Posts: {brandId?: number; styleId?: number};
   WriteReviewOrPost: {brandId?: number; styleId?: number};
@@ -30,6 +33,17 @@ const screens = [
     },
     name: 'Brands',
     component: BrandsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Filter',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'FilterBrandSize',
+    component: FilterBrandSizeScreen,
   },
   {
     options: {

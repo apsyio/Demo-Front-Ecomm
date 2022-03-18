@@ -7,7 +7,7 @@ export const GET_BRAND_BY_ID = gql`
         id
         name
         thumbnail
-        sizeOffered
+        sizes
         likesCount
         photos {
           key
@@ -37,6 +37,7 @@ export const GET_BRAND_BY_ID = gql`
           isDeleted
         }
         liked
+        createdAt
       }
       status
     }
