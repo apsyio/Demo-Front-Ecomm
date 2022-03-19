@@ -165,13 +165,13 @@ export default function App() {
       Input: {
         defaultProps: {
           size: '2xl',
-          p: 3,
+          p: 2,
         },
       },
       Button: {
         defaultProps: {
           _pressed: {opacity: 0.5},
-          padding: 4,
+          padding: 3,
         },
         // Can simply pass default props to change default behaviour of components.
         variants: {
