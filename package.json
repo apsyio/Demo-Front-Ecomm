@@ -92,6 +92,12 @@
       "jsx",
       "json",
       "node"
+    ],
+    "setupFiles": [
+      "./src/jestSetupFile.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|react-navigation-tabs|react-native-splash-screen|react-native-screens|react-native-reanimated|@react-native-firebase|@sayem314/react-native-keep-awake|react-native-config|react-native-flash-message|react-native-iphone-x-helper|@react-navigation|react-native-vector-icons|react-native-image-crop-picker|@invertase/react-native-apple-authentication|react-native-keyboard-aware-scroll-view|react-native-maps-directions|react-native-maps|react-native-star-rating|react-native-animatable|prop-types|react-native-button|react-native-floating-label-input|react-native-tags-input|react-native-linear-gradient|react-native-loading-spinner-overlay|react-native-picker-select|@react-native-picker|react-native-geolocation-service|@react-native-community/cameraroll|react-native-image-slider-box|react-native-snap-carousel|react-native-share|react-native-push-notification|@react-native-community/push-notification-ios)/)"
     ]
   },
   "lint-staged": {
