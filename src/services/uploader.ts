@@ -12,7 +12,9 @@ const uploader = async (response: any) => {
       const customBlobName = Math.random().toString(16).slice(2);
       const container = 'images';
       const sasToken = Config.SAS_TOKEN; // you may need to play with other html verbs in this string e.g., `sp`, `ss` e.t.c.
-      const assetPath = `${sasContainerUri}/${container}/${customBlobName}${filename}`;
+      const assetPath = `${sasContainerUri}/${container}/${customBlobName}${
+        filename ?? ''
+      }`;
 
       const localUri =
         Platform.OS === 'ios' ? path.replace('file://', '/') : path;
@@ -25,7 +27,7 @@ const uploader = async (response: any) => {
           'content-type': 'application/octet-stream',
           'x-ms-blob-content-type': mime ?? 'image/png',
         },
-        RNFetchBlob.wrap(localUri),
+        RNFetchBlob.wrap(decodeURIComponent(localUri)),
       );
       if (res.respInfo.status === 201) {
         resolve({...res, uploadedUrl: res?.respInfo?.redirects?.[0]});

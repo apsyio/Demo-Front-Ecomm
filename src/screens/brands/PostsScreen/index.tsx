@@ -72,7 +72,7 @@ export default function PostsScreen({route}: any) {
             <Select
               mb={3}
               selectedValue={postType}
-              minWidth="200"
+              minWidth={180}
               accessibilityLabel="Type of post"
               placeholder="Type of post"
               mt={1}

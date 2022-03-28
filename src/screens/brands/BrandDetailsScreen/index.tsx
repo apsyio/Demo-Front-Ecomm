@@ -35,7 +35,7 @@ export default function BrandDetailsScreen({route}: any) {
                 mr={4}
                 width={140}
                 height={180}
-                source={{uri: photo ?? noImageUrl}}
+                source={{uri: photo.key ?? noImageUrl}}
               />
             ))}
           </ScrollView>

@@ -10,6 +10,7 @@ import type {ClosetItems, Closets} from '~/generated/graphql';
 import {
   BrandDetailsScreen,
   BrandsScreen,
+  FilterBrandSizeScreen,
   PostsScreen,
   WriteReviewOrPostScreen,
 } from '~/screens/brands';
@@ -236,6 +237,17 @@ const screens = [
     },
     name: 'Brands',
     component: BrandsScreen,
+  },
+  {
+    options: {
+      headerStyle: {
+        backgroundColor: Colors.CHABLIS,
+      },
+      title: 'Filter',
+      headerLeft: () => <ChevronBackButton />,
+    },
+    name: 'FilterBrandSize',
+    component: FilterBrandSizeScreen,
   },
   {
     options: {

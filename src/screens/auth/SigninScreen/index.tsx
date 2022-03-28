@@ -135,10 +135,11 @@ export default function SigninScreen() {
     <CustomContainer bg={Colors.SEA_PINK}>
       <CustomSpinner visible={isLoading} />
       <CustomKeyboardAwareScrollView
-        contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
+        contentContainerStyle={{justifyContent: 'space-between'}}>
         <Image
           alt="logo"
-          mt={12}
+          mt={7}
+          my={5}
           resizeMode="contain"
           height={30}
           source={images.logo}
