@@ -2,6 +2,8 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 jest.mock('@react-native-google-signin/google-signin', () => {});
 
@@ -18,4 +20,9 @@ jest.mock('react-native-autocomplete-dropdown', () => {
 
 jest.mock('rn-fetch-blob', () => {
   // do nothing.
+});
+
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  const KeyboardAwareScrollView = require('react-native').ScrollView;
+  return {KeyboardAwareScrollView};
 });
