@@ -13,8 +13,7 @@ import React from 'react';
 import {ImageBackground, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import images from '~/assets/images';
-import {CustomContainer, ImageCard} from '~/components/atoms';
+import {CustomContainer, ImageCard, Logo} from '~/components/atoms';
 import {noImageUrl} from '~/constants/image';
 import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
 import useGetInspos from '~/hooks/inspo/useGetInspos';
@@ -37,13 +36,7 @@ export default function HomeScreen() {
         ListHeaderComponent={() => (
           <>
             <HStack alignItems={'center'} justifyContent={'space-between'}>
-              <Image
-                alt="logo"
-                resizeMode="contain"
-                height={30}
-                width={200}
-                source={images.logo}
-              />
+              <Logo />
               <Button variant={'sub'} onPress={() => navigate('MyProfile')}>
                 <Icon
                   as={MaterialCommunityIcons}

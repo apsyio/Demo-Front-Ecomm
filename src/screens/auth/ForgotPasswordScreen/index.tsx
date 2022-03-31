@@ -1,15 +1,15 @@
 import {Formiz, useForm} from '@formiz/core';
 import {isEmail} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
-import {Button, HStack, Image, Text, Toast, View} from 'native-base';
+import {Button, HStack, Text, Toast, View} from 'native-base';
 import React, {useState} from 'react';
 
-import images from '~/assets/images';
 import {
   CustomContainer,
   CustomInput,
   CustomKeyboardAwareScrollView,
   CustomSpinner,
+  Logo,
 } from '~/components/atoms';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
@@ -51,14 +51,7 @@ export default function ForgotPasswordScreen() {
       <CustomSpinner visible={isLoading} />
       <CustomKeyboardAwareScrollView
         contentContainerStyle={{justifyContent: 'space-between'}}>
-        <Image
-          alt="logo"
-          mt={7}
-          my={5}
-          resizeMode="contain"
-          height={30}
-          source={images.logo}
-        />
+        <Logo mt={7} my={5} />
 
         <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
           <View bg={Colors.WHITE} p={5} borderRadius={20}>

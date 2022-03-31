@@ -4,7 +4,6 @@ import {
   Center,
   HStack,
   Icon,
-  Image,
   ScrollView,
   Text,
   VStack,
@@ -13,8 +12,7 @@ import React, {useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import images from '~/assets/images';
-import {CustomContainer} from '~/components/atoms';
+import {CustomContainer, Logo} from '~/components/atoms';
 import {AccountTypes, ResponseStatus} from '~/generated/graphql';
 import useUpdateUser from '~/hooks/inspo/useUpdateUser';
 import {goBack} from '~/navigation/methods';
@@ -38,13 +36,7 @@ export default function SelectAccountTypeScreen() {
     <CustomContainer px={5} pt={16} pb={5}>
       <ScrollView>
         <Center>
-          <Image
-            alt="logo"
-            resizeMode="contain"
-            height={30}
-            width={200}
-            source={images.logo}
-          />
+          <Logo />
 
           <Text fontWeight={'600'} textAlign={'center'} fontSize={'xl'} my={5}>
             Please enter your account type

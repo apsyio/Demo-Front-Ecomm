@@ -13,6 +13,7 @@ export {default as FilterButton} from './FilterButton';
 export {default as ImageCard} from './ImageCard';
 export {default as ImagePickerModal} from './ImagePickerModal';
 export {default as LineWithText} from './LineWithText';
+export {default as Logo} from './Logo';
 export {default as PhotoInput} from './PhotoInput';
 export {default as PostOrFeedCard} from './PostOrFeedCard';
 export {default as ProfileCard} from './ProfileCard';

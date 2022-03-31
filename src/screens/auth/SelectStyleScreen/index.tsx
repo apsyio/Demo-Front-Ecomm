@@ -1,8 +1,12 @@
-import {Button, Center, FlatList, HStack, Image, Text, View} from 'native-base';
+import {Button, Center, FlatList, HStack, Text, View} from 'native-base';
 import React, {useState} from 'react';
 
-import images from '~/assets/images';
-import {CustomCheckBox, CustomContainer, ImageCard} from '~/components/atoms';
+import {
+  CustomCheckBox,
+  CustomContainer,
+  ImageCard,
+  Logo,
+} from '~/components/atoms';
 import {ResponseStatus} from '~/generated/graphql';
 import useSetStyles from '~/hooks/inspo/useSetStyles';
 import useGetStyles from '~/hooks/styles/useGetStyles';
@@ -22,13 +26,7 @@ export default function SelectStyleScreen() {
       <FlatList
         ListHeaderComponent={() => (
           <Center>
-            <Image
-              alt="logo"
-              resizeMode="contain"
-              height={30}
-              width={200}
-              source={images.logo}
-            />
+            <Logo />
 
             <Text textAlign={'center'} fontSize={'xl'} my={5}>
               Whats Your Style?
