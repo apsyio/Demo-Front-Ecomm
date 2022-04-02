@@ -43,9 +43,7 @@ export default function BrandDetailsScreen({route}: any) {
 
         <HStack mt={3} p={5} justifyContent="space-between" bg={Colors.GREEN}>
           <Text color={Colors.WHITE}>Size offered </Text>
-          <Text color={Colors.WHITE}>
-            {brandDetails?.sizeOffered?.replace(/-/g, '  ')}
-          </Text>
+          <Text color={Colors.WHITE}>{brandDetails?.sizes?.join('  ')}</Text>
         </HStack>
 
         <View p={5}>
