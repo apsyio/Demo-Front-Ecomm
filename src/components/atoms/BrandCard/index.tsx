@@ -35,7 +35,7 @@ export default memo(function BrandCard({
         }}
         hasBorder
         onPress={onPress}
-        uri={thumbnail}
+        uri={__DEV__ ? '' : thumbnail}
       />
       <Text mt={3}>{name}</Text>
       {brandSizes && (
