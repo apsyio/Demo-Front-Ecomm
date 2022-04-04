@@ -1,52 +1,84 @@
+console.error = () => null;
 import 'react-native';
+import '@testing-library/jest-native/extend-expect';
 
-import {fireEvent, render} from '@testing-library/react-native';
-import {NativeBaseProvider} from 'native-base';
+import {cleanup, fireEvent, waitFor} from '@testing-library/react-native';
 import React from 'react';
-import {QueryClient, QueryClientProvider} from 'react-query';
 
+import useSignin from '~/hooks/auth/useSignin';
+import {navigate} from '~/navigation/methods';
 import {SigninScreen} from '~/screens/auth';
+import {render} from '~/test/utils';
 
-// import { render } from 'utils/testWrapper';
+jest.useFakeTimers();
 
-// Describing a test suite
-describe('<Button />', () => {
-  // Describing our test
-  it('Calls onPress', async () => {
-    // Mocking onPress method so we can check if its called or not
-    const onPress = jest.fn();
+const mockUseSignin = useSignin as jest.Mock<
+  Partial<ReturnType<typeof useSignin>>
+>;
+jest.mock('~/hooks/auth/useSignin');
 
-    // test id to be applied on our button component
-    const testID = 'signinButton';
+const myNavigate = navigate as jest.Mock<Partial<ReturnType<typeof navigate>>>;
 
-    // Rendering Button component using react-native-test-renderer.
-    const queryClient = new QueryClient();
+jest.mock('~/navigation/methods');
 
-    const res = render(
-      <QueryClientProvider client={queryClient}>
-        <NativeBaseProvider>
-          <SigninScreen />
-        </NativeBaseProvider>
-      </QueryClientProvider>,
-    );
+describe('<SigninScreen />', () => {
+  afterAll(() => {
+    jest.clearAllMocks();
+    cleanup();
+  });
 
-    const wrapper = ({children}) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
+  const mockMutate = jest.fn();
+  beforeEach(() => {
+    mockUseSignin.mockReturnValue({
+      isLoading: false,
+      mutate: mockMutate,
+    });
+  });
 
-    console.log({wrapper});
-    // Grabbing our button component to perform actions on it.
-    const button = res.queryByTestId(testID);
+  it('should show validation empty errors if inputs are empty', async () => {
+    const {getByText} = render(<SigninScreen />);
 
-    /**
-     * RNTL gives us API to fire events on node
-     * Here we are firing on press event
-     */
-    if (button) {
-      fireEvent.press(button);
-    }
+    const button = getByText('Sign in');
 
-    // Asserting if given mock method is called or not.
-    expect(onPress).toHaveBeenCalledTimes(1);
+    fireEvent.press(button);
+
+    await waitFor(() => {
+      getByText('Email address is required');
+      getByText('Password is required');
+    });
+  });
+
+  it('should show validation errors if inputs are not invalid', async () => {
+    const {getByText, getByPlaceholderText} = render(<SigninScreen />);
+
+    const email = getByPlaceholderText('Email');
+    fireEvent.changeText(email, 'a@a');
+
+    const password = getByPlaceholderText('Password');
+    fireEvent.changeText(password, '12345');
+
+    const button = getByText('Sign in');
+    fireEvent.press(button);
+
+    await waitFor(() => {
+      getByText('Email is invalid');
+      getByText('Password should be at least 6 characters');
+    });
+  });
+
+  it('should navigate if all filed are valid', async () => {
+    const {getByPlaceholderText, getByText} = render(<SigninScreen />);
+
+    const email = getByPlaceholderText('Email');
+    fireEvent.changeText(email, 'a@a.com');
+
+    const password = getByPlaceholderText('Password');
+    fireEvent.changeText(password, '123456');
+
+    const button = getByText('Sign in');
+
+    await waitFor(() => {
+      expect(button).not.toBeDisabled();
+    });
   });
 });
