@@ -176,7 +176,11 @@ export default function SigninScreen() {
               Forgot Password
             </Button>
 
-            <Button my={5} variant={'primary'} onPress={signinForm.submit}>
+            <Button
+              disabled={!signinForm.isValid}
+              my={5}
+              variant={'primary'}
+              onPress={signinForm.submit}>
               Sign in
             </Button>
 
