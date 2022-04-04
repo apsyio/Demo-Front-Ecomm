@@ -1,8 +1,7 @@
-import {render} from '@testing-library/react-native';
-import {NativeBaseProvider} from 'native-base';
 import React from 'react';
 
 import OnboardingScreen from '~/screens/OnboardingScreen';
+import {render} from '~/test/utils';
 
 jest.mock('react-native-pager-view', () => {
   const React = require('react');
@@ -48,15 +47,7 @@ jest.mock('react-native-pager-view', () => {
 describe('<OnboardingScreen />', () => {
   // Describing our test
   it('should display titles, button', async () => {
-    const {getByText} = render(
-      <NativeBaseProvider
-        initialWindowMetrics={{
-          frame: {x: 0, y: 0, width: 0, height: 0},
-          insets: {top: 0, left: 0, right: 0, bottom: 0},
-        }}>
-        <OnboardingScreen />
-      </NativeBaseProvider>,
-    );
+    const {getByText} = render(<OnboardingScreen />);
 
     getByText('Special and stylish');
     getByText('Use the best materials');
