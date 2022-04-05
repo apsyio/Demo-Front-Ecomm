@@ -4,7 +4,7 @@ import React, {useRef, useState} from 'react';
 import PagerView from 'react-native-pager-view';
 
 import images from '~/assets/images';
-import {CustomContainer} from '~/components/atoms';
+import {CustomContainer, Logo} from '~/components/atoms';
 import isOnboardingViewedAtom from '~/store/isOnboardingViewedAtom';
 import {Colors, Spacing} from '~/styles';
 
@@ -60,12 +60,7 @@ export default function OnboardingScreen() {
             borderRadius={Spacing.base}
             backgroundColor={Colors.CHABLIS}
             alignItems="center">
-            <Image
-              alt={title}
-              resizeMode="contain"
-              height={30}
-              source={images.logo}
-            />
+            <Logo alt={title} />
 
             <Image
               alt={title}

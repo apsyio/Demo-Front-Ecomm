@@ -2,17 +2,17 @@ import {Formiz, useForm} from '@formiz/core';
 import {isEmail, isMinLength} from '@formiz/validations';
 import auth from '@react-native-firebase/auth';
 import {useAtom} from 'jotai';
-import {Button, HStack, Image, Text, Toast, View} from 'native-base';
+import {Button, HStack, Text, Toast, View} from 'native-base';
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
 
-import images from '~/assets/images';
 import {
   CustomContainer,
   CustomInput,
   CustomKeyboardAwareScrollView,
   CustomSpinner,
   LineWithText,
+  Logo,
   SocialButton,
 } from '~/components/atoms';
 import type {User_LoginQuery} from '~/generated/graphql';
@@ -136,14 +136,7 @@ export default function SigninScreen() {
       <CustomSpinner visible={isLoading} />
       <CustomKeyboardAwareScrollView
         contentContainerStyle={{justifyContent: 'space-between'}}>
-        <Image
-          alt="logo"
-          mt={7}
-          my={5}
-          resizeMode="contain"
-          height={30}
-          source={images.logo}
-        />
+        <Logo mt={7} my={5} />
 
         <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
           <View bg={Colors.WHITE} p={5} borderRadius={20}>
@@ -183,7 +176,11 @@ export default function SigninScreen() {
               Forgot Password
             </Button>
 
-            <Button my={5} variant={'primary'} onPress={signinForm.submit}>
+            <Button
+              disabled={!signinForm.isValid}
+              my={5}
+              variant={'primary'}
+              onPress={signinForm.submit}>
               Sign in
             </Button>
 

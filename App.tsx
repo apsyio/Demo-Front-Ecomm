@@ -17,6 +17,7 @@ import {
 
 import {ResponseStatus} from '~/generated/graphql';
 import graphQLClient from '~/graphql/graphQLClient';
+import {useOnlineManager} from '~/hooks/useOnlineManager';
 import AppNavigator from '~/navigation/AppNavigator';
 import {isUserLoggedInAtom} from '~/store';
 import {Colors} from '~/styles';
@@ -55,6 +56,8 @@ export default function App() {
     const unsubscribe = auth().onIdTokenChanged(handleUser);
     return () => unsubscribe();
   }, [handleUser]);
+
+  useOnlineManager();
 
   queryClient = new QueryClient({
     defaultOptions: {

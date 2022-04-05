@@ -1,8 +1,12 @@
-import {Button, Center, FlatList, HStack, Image, Text} from 'native-base';
+import {Button, Center, FlatList, HStack, Text} from 'native-base';
 import React, {useState} from 'react';
 
-import images from '~/assets/images';
-import {CustomCheckBox, CustomContainer, ImageCard} from '~/components/atoms';
+import {
+  CustomCheckBox,
+  CustomContainer,
+  ImageCard,
+  Logo,
+} from '~/components/atoms';
 import {ResponseStatus} from '~/generated/graphql';
 import useGetAllBrands from '~/hooks/brand/useGetBrands';
 import useSetBrands from '~/hooks/inspo/useSetBrands';
@@ -21,13 +25,7 @@ export default function SelectFavoriteBrandScreen() {
       <FlatList
         ListHeaderComponent={() => (
           <Center>
-            <Image
-              alt="logo"
-              resizeMode="contain"
-              height={30}
-              width={200}
-              source={images.logo}
-            />
+            <Logo />
 
             <Text textAlign={'center'} fontSize={'xl'} my={5}>
               Whats your Favorite brand?

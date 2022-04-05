@@ -10,7 +10,7 @@ import {ImageCard} from '..';
 export default memo(function BrandCard({
   name,
   thumbnail,
-  sizeOffered,
+  brandSizes,
   onPress,
 }: Brands & {
   onPress: () => void;
@@ -35,17 +35,17 @@ export default memo(function BrandCard({
         }}
         hasBorder
         onPress={onPress}
-        uri={thumbnail}
+        uri={__DEV__ ? '' : thumbnail}
       />
       <Text mt={3}>{name}</Text>
-      {sizeOffered && (
+      {brandSizes && (
         <Text
           fontWeight={'bold'}
           numberOfLines={1}
           fontSize={'sm'}
           color={Colors.SEA_PINK}
           my={1}>
-          {sizeOffered.replace(/-/g, '  ')}
+          {brandSizes.join('  ')}
         </Text>
       )}
     </TouchableOpacity>
