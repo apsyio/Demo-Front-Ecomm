@@ -8,6 +8,7 @@ import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
 
 export default memo(function ImageCard({
+  testID,
   bottomTitle,
   uri,
   children,
@@ -16,6 +17,7 @@ export default memo(function ImageCard({
   containerStyle,
   isSmall,
 }: {
+  testID?: string;
   bottomTitle?: string | null;
   uri: Maybe<string> | undefined;
   children?: any;
@@ -26,6 +28,7 @@ export default memo(function ImageCard({
 }) {
   return (
     <TouchableOpacity
+      testID={testID}
       onPress={onPress}
       style={[
         {flex: 1, justifyContent: 'center', alignItems: 'center'},

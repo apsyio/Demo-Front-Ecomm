@@ -42,6 +42,7 @@ export default function SelectFavoriteBrandScreen() {
         data={data?.pages}
         renderItem={({item}) => (
           <ImageCard
+            testID={item.name!}
             containerStyle={{width: '50%', marginTop: 10}}
             {...item}
             uri={item?.thumbnail}
