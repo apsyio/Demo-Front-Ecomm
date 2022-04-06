@@ -130,7 +130,7 @@ export default function SignupScreen() {
           <View bg={Colors.WHITE} p={5} borderRadius={20}>
             <Text>Welcome</Text>
             <Text mb={5}>
-              <Text bold>Sign Up</Text> to continue
+              <Text bold>Sign up</Text> to continue
             </Text>
 
             <CustomInput
