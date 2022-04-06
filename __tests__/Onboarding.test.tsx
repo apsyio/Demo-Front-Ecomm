@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 
 import OnboardingScreen from '~/screens/OnboardingScreen';
@@ -35,7 +36,8 @@ jest.mock('react-native-pager-view', () => {
           onPageSelected={onPageSelected}
           style={style}
           scrollEnabled={scrollEnabled}
-          accessibilityLabel={accessibilityLabel}>
+          accessibilityLabel={accessibilityLabel}
+        >
           {children}
         </View>
       );

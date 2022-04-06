@@ -67,7 +67,7 @@ describe('<SigninScreen />', () => {
     });
   });
 
-  it('should call signin mutation if all fileds are valid', async () => {
+  it('should call signin mutation if all fields are valid', async () => {
     const {getByPlaceholderText, getByText} = render(<SigninScreen />);
 
     const email = getByPlaceholderText('Email');
