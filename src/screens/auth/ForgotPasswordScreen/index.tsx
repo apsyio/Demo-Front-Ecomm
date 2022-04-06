@@ -55,12 +55,12 @@ export default function ForgotPasswordScreen() {
 
         <Formiz onValidSubmit={handleSubmit} connect={signinForm}>
           <View bg={Colors.WHITE} p={5} borderRadius={20}>
-            <Text mb={5}>Please Enter Your Email Or Phone Number</Text>
+            <Text mb={5}>Please Enter Your Email</Text>
 
             <CustomInput
               name="email"
-              placeholder="Email Or Phone Number"
-              required="Email Or Phone Number is required"
+              placeholder="Email"
+              required="Email address is required"
               validations={[
                 {
                   rule: isEmail(),

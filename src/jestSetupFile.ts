@@ -28,8 +28,12 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
 });
 
 const mockedFirebaseAuthSignInWithCustomToken = jest.fn();
+const mockedFirebaseAuthSignUpWithCustomToken = jest.fn();
+const mockedSendPasswordResetEmail = jest.fn();
 jest.mock('@react-native-firebase/auth', () => () => {
   return {
     signInWithEmailAndPassword: mockedFirebaseAuthSignInWithCustomToken,
+    createUserWithEmailAndPassword: mockedFirebaseAuthSignUpWithCustomToken,
+    sendPasswordResetEmail: mockedSendPasswordResetEmail,
   };
 });
