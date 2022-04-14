@@ -16,7 +16,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {CustomContainer, ImageCard, Logo} from '~/components/atoms';
 import {noImageUrl} from '~/constants/image';
 import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
-import useGetInspos from '~/hooks/inspo/useGetInspos';
+import useGetSelectedInspos from '~/hooks/inspo/useGetSelectedInspos';
 import useGetPosts from '~/hooks/post/useGetUserPosts';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
@@ -27,7 +27,7 @@ export default function HomeScreen() {
   const {data: posts} = useGetPosts({});
   const lastPost = posts?.pages?.[0];
 
-  const {data: inspos} = useGetInspos({});
+  const {data: inspos} = useGetSelectedInspos({});
   const topInspo = inspos?.pages?.[0];
 
   return (
