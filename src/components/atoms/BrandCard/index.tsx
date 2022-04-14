@@ -4,6 +4,7 @@ import {TouchableOpacity} from 'react-native';
 
 import type {Brands} from '~/generated/graphql';
 import {Colors} from '~/styles';
+import {getImageUrl} from '~/utils/image';
 
 import {ImageCard} from '..';
 
@@ -35,7 +36,7 @@ export default memo(function BrandCard({
         }}
         hasBorder
         onPress={onPress}
-        uri={__DEV__ ? '' : thumbnail}
+        uri={__DEV__ ? '' : getImageUrl(thumbnail)}
       />
       <Text mt={3}>{name}</Text>
       {brandSizes && (

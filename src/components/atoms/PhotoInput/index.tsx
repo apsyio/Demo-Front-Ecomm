@@ -3,15 +3,15 @@ import {Button, FormControl, HStack, Icon, Stack, Text} from 'native-base';
 import React, {memo, useEffect, useState} from 'react';
 import type {ImageProps} from 'react-native';
 import {ImageBackground, TouchableOpacity} from 'react-native';
-import type {ImageOrVideo} from 'react-native-image-crop-picker';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Colors} from '~/styles';
+import {getImageUrl} from '~/utils/image';
 
 import ImagePickerModal from '../ImagePickerModal';
 
 interface PhotoInputProps extends ImageProps {
-  onChange?: (file: ImageOrVideo) => void;
+  onChange?: (file: string) => void;
 }
 
 const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
@@ -48,10 +48,10 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
       <ImagePickerModal
         visible={visible}
         close={close}
-        onChange={(uploadedUrl: string) => {
-          if (uploadedUrl) {
-            setValue(uploadedUrl);
-            props.onChange?.(uploadedUrl);
+        onChange={(uploadedFileName: string) => {
+          if (uploadedFileName) {
+            setValue(uploadedFileName);
+            props.onChange?.(uploadedFileName);
           }
         }}
       />
@@ -112,9 +112,9 @@ const PhotoInput = React.forwardRef((props: PhotoInputProps, ref) => {
                     source={
                       value
                         ? {
-                            uri: value,
+                            uri: getImageUrl(value),
                           }
-                        : props.source
+                        : getImageUrl(props.source)
                     }
                   />
                 ) : (

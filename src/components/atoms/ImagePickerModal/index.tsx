@@ -31,8 +31,8 @@ export default function ImagePickerModal({
       setIsLoading(true);
       const data: any = await uploader(image);
 
-      if (data?.uploadedUrl) {
-        onChange?.(data?.uploadedUrl);
+      if (data?.uploadedFileName) {
+        onChange?.(data?.uploadedFileName);
       }
     } catch (error) {
       console.log(error);

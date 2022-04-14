@@ -14,12 +14,12 @@ import {ImageBackground, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, ImageCard, Logo} from '~/components/atoms';
-import {noImageUrl} from '~/constants/image';
 import useGetRecommendBrand from '~/hooks/brand/useGetRecommendBrand';
-import useGetInspos from '~/hooks/inspo/useGetInspos';
+import useGetSelectedInspos from '~/hooks/inspo/useGetSelectedInspos';
 import useGetPosts from '~/hooks/post/useGetUserPosts';
 import {navigate} from '~/navigation/methods';
 import {Colors} from '~/styles';
+import {getImageUrl} from '~/utils/image';
 
 export default function HomeScreen() {
   const {recommendBrand} = useGetRecommendBrand({});
@@ -27,7 +27,7 @@ export default function HomeScreen() {
   const {data: posts} = useGetPosts({});
   const lastPost = posts?.pages?.[0];
 
-  const {data: inspos} = useGetInspos({});
+  const {data: inspos} = useGetSelectedInspos({});
   const topInspo = inspos?.pages?.[0];
 
   return (
@@ -71,7 +71,7 @@ export default function HomeScreen() {
                     height={150}
                     width={120}
                     resizeMode="contain"
-                    source={{uri: recommendBrand?.thumbnail ?? noImageUrl}}
+                    source={{uri: getImageUrl(recommendBrand?.thumbnail)}}
                   />
                 </Center>
               </Button>
@@ -81,7 +81,7 @@ export default function HomeScreen() {
                 style={{flex: 1}}>
                 <ImageBackground
                   resizeMode="contain"
-                  source={{uri: topInspo?.avatarUrl || noImageUrl}}
+                  source={{uri: getImageUrl(topInspo?.avatarUrl)}}
                   imageStyle={{borderRadius: 20}}
                   style={{
                     height: 150,
@@ -132,7 +132,7 @@ export default function HomeScreen() {
                   }>
                   <ImageBackground
                     resizeMode="contain"
-                    source={{uri: lastPost?.photo || noImageUrl}}
+                    source={{uri: getImageUrl(lastPost?.photo)}}
                     imageStyle={{
                       borderTopRightRadius: 20,
                       borderTopLeftRadius: 20,
@@ -156,7 +156,7 @@ export default function HomeScreen() {
                         <Image
                           rounded={'full'}
                           source={{
-                            uri: lastPost?.poster?.avatarUrl || noImageUrl,
+                            uri: getImageUrl(lastPost?.poster?.avatarUrl),
                           }}
                           width={7}
                           height={7}

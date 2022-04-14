@@ -23,6 +23,7 @@ export default function StylesScreen() {
           <View style={{width: '50%', marginTop: 10}}>
             <ImageCard
               {...item}
+              uri={item.thumbnail}
               onPress={() => navigate('StyleDetails', {id: item.id})}
             />
           </View>

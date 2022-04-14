@@ -11,21 +11,21 @@ import {Colors, Spacing} from '~/styles';
 const data = [
   {
     imageUrl: images.onboarding1,
-    title: 'Special and stylish',
-    subtitle:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    title: 'discover clothing that makes you want to celebrate.',
+    // subtitle: 'discover clothing that makes you want to celebrate.',
   },
   {
     imageUrl: images.onboarding2,
-    title: 'Use the best materials',
-    subtitle:
-      'Record your own routes and driving adventures! Keep them to yourself or share them within private groups or the entire Drives & Detours community.',
+    title: 'Clothes that fit you AND your style.',
+    // subtitle:
+    //   'Record your own routes and driving adventures! Keep them to yourself or share them within private groups or the entire Drives & Detours community.',
   },
   {
     imageUrl: images.onboarding3,
-    title: 'Variety in color and size',
-    subtitle:
-      'Rate and review drives, share pictures from along the way, and connect with other drivers and groups.',
+    title:
+      'Join a communing of plus-size women making a better shopping experience.',
+    // subtitle:
+    //   'Rate and review drives, share pictures from along the way, and connect with other drivers and groups.',
   },
 ];
 
@@ -45,8 +45,8 @@ export default function OnboardingScreen() {
 
   return (
     <CustomContainer
-      px={Spacing.larger}
-      py={Spacing.extraLarge}
+      px={0}
+      py={Spacing.largest}
       justifyContent="space-between"
       backgroundColor={Colors.CHABLIS}>
       <PagerView
@@ -56,25 +56,30 @@ export default function OnboardingScreen() {
         onPageSelected={e => setPage(e.nativeEvent.position)}>
         {data.map(({title, subtitle, imageUrl}, index) => (
           <View
+            flex={1}
             key={index + 1}
             borderRadius={Spacing.base}
             backgroundColor={Colors.CHABLIS}
-            alignItems="center">
+            alignItems="center"
+            justifyContent={'space-around'}>
             <Logo alt={title} />
 
             <Image
               alt={title}
-              my={8}
-              height={200}
-              width={200}
+              // my={8}
+              height={250}
+              width={'100%'}
               source={imageUrl}
             />
-            <Text fontSize="2xl">{title}</Text>
-            <Text fontSize="md" textAlign={'center'}>
-              {subtitle}
-            </Text>
 
-            <View alignItems={'center'} mt={10}>
+            <Text fontSize="2xl" textAlign={'center'} mx={4}>
+              {title}
+            </Text>
+            {/* <Text fontSize="md" textAlign={'center'} mx={4}>
+              {subtitle}
+            </Text> */}
+
+            <View alignItems={'center'}>
               <HStack flexDirection={'row'}>
                 {data.map((_, i) => (
                   <View
@@ -94,7 +99,7 @@ export default function OnboardingScreen() {
         ))}
       </PagerView>
 
-      <HStack justifyContent="space-around">
+      <HStack justifyContent="space-around" px={6} mt={8}>
         {page !== 0 && (
           <Button
             variant="outline"

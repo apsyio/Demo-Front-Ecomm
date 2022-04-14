@@ -10,11 +10,11 @@ const uploader = async (response: any) => {
     try {
       const sasContainerUri = Config.SAS_CONTAINER_URI;
       const customBlobName = Math.random().toString(16).slice(2);
+      const fileExtension = filename.split('.').pop();
+      const newFileName = `${customBlobName}.${fileExtension}`;
       const container = 'images';
       const sasToken = Config.SAS_TOKEN; // you may need to play with other html verbs in this string e.g., `sp`, `ss` e.t.c.
-      const assetPath = `${sasContainerUri}/${container}/${customBlobName}${
-        filename ?? ''
-      }`;
+      const assetPath = `${sasContainerUri}/${container}/${newFileName}`;
 
       const localUri =
         Platform.OS === 'ios' ? path.replace('file://', '/') : path;
@@ -30,7 +30,11 @@ const uploader = async (response: any) => {
         RNFetchBlob.wrap(decodeURIComponent(localUri)),
       );
       if (res.respInfo.status === 201) {
-        resolve({...res, uploadedUrl: res?.respInfo?.redirects?.[0]});
+        resolve({
+          ...res,
+          uploadedFileName: newFileName,
+          uploadedUrl: res?.respInfo?.redirects?.[0],
+        });
       }
     } catch (error) {
       console.log(error, 'error');

@@ -22,7 +22,13 @@ export default memo(function CustomCheckBox({
       borderColor={Colors.SEA_PINK}
       {...otherProps}>
       {checked && (
-        <View bg={Colors.SEA_PINK} borderRadius={4} width={4} height={4} />
+        <View
+          testID="checkbox"
+          bg={Colors.SEA_PINK}
+          borderRadius={4}
+          width={4}
+          height={4}
+        />
       )}
     </Center>
   );

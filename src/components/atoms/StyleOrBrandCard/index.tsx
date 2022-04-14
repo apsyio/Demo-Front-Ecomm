@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import type {BrandDto, StyleDto} from '~/generated/graphql';
 import {Colors} from '~/styles';
+import {getImageUrl} from '~/utils/image';
 
 export default memo(function StyleOrBrandCard({
   liked,
@@ -15,7 +16,7 @@ export default memo(function StyleOrBrandCard({
 }: (StyleDto | BrandDto) & {onPressLike: () => void}) {
   return (
     <HStack mb={5}>
-      <Avatar mr={2} size={'lg'} source={{uri: thumbnail}} />
+      <Avatar mr={2} size={'lg'} source={{uri: getImageUrl(thumbnail)}} />
 
       <View justifyContent={'space-around'}>
         <Text fontSize={'xl'}>{name}</Text>

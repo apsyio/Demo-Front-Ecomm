@@ -3,10 +3,10 @@ import {Avatar, Button, HStack, Icon, Image, Text, VStack} from 'native-base';
 import React, {memo} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {noImageUrl} from '~/constants/image';
 import type {PostDto} from '~/generated/graphql';
 import useLikePost from '~/hooks/post/useLikePost';
 import {Colors} from '~/styles';
+import {getImageUrl} from '~/utils/image';
 
 export default memo(function PostOrFeedCard({
   id,
@@ -24,7 +24,7 @@ export default memo(function PostOrFeedCard({
       <VStack p={5}>
         <HStack alignItems={'center'} justifyContent={'space-between'}>
           <HStack>
-            <Avatar mr={2} size={10} source={{uri: photo ?? noImageUrl}} />
+            <Avatar mr={2} size={10} source={{uri: getImageUrl(photo)}} />
             <VStack>
               <Text>{poster?.fullName}</Text>
               <Text fontSize={'sm'} color={Colors.EMPRESS}>
