@@ -43,9 +43,9 @@ export default function MyProfileScreen() {
       <ImagePickerModal
         visible={visible}
         close={close}
-        onChange={(uploadedUrl: string) => {
-          if (uploadedUrl) {
-            mutate({avatarUrl: uploadedUrl});
+        onChange={(uploadedFileName: string) => {
+          if (uploadedFileName) {
+            mutate({avatarUrl: uploadedFileName});
           }
         }}
       />

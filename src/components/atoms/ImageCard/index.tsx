@@ -3,9 +3,9 @@ import React, {memo} from 'react';
 import type {StyleProp, ViewStyle} from 'react-native';
 import {ImageBackground, TouchableOpacity} from 'react-native';
 
-import {noImageUrl} from '~/constants/image';
 import type {Maybe} from '~/generated/graphql';
 import {Colors} from '~/styles';
+import {getImageUrl} from '~/utils/image';
 
 export default memo(function ImageCard({
   testID,
@@ -46,7 +46,7 @@ export default memo(function ImageCard({
           // justifyContent: 'space-between',
           borderRadius: 12,
         }}
-        source={{uri: uri ?? noImageUrl}}>
+        source={{uri: getImageUrl(uri)}}>
         {children}
         <View flex={1} justifyContent="flex-end">
           <Text fontSize={'sm'} mb={2} fontWeight={'bold'} color={Colors.WHITE}>
