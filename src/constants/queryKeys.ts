@@ -6,6 +6,7 @@ const queryKeys = {
   brands: 'brands',
   inspo: 'inspo',
   inspos: 'inspos',
+  selectedInspos: 'selectedInspos',
   posts: 'posts',
 };
 
