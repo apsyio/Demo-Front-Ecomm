@@ -2,6 +2,7 @@ import {Avatar, Center, Text} from 'native-base';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 
+import {Colors} from '~/styles';
 import {getImageUrl} from '~/utils/image';
 
 export default function AvatarWithTitle({
@@ -11,12 +12,18 @@ export default function AvatarWithTitle({
 }: {
   title?: string | null;
   uri?: string | null;
-  onPress: () => void;
+  onPress?: () => void;
 }) {
   return (
     <Center my={7}>
       <TouchableOpacity disabled={!onPress} onPress={onPress}>
-        <Avatar size={'xl'} source={{uri: getImageUrl(uri)}} />
+        <Avatar
+          size={'xl'}
+          source={{uri: getImageUrl(uri)}}
+          backgroundColor={Colors.TRANSPARENT}
+          borderWidth={1}
+          borderColor={Colors.SHADY_LADY}
+        />
         <Text my={2} fontSize={'2xl'}>
           {title}
         </Text>
