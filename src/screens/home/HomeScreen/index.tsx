@@ -65,7 +65,11 @@ export default function HomeScreen() {
                 borderWidth={1}
                 borderColor={Colors.APRICOT_PEACH}
                 variant={'sub'}
-                onPress={() => navigate('Brands')}>
+                onPress={() =>
+                  navigate('BrandDetails', {
+                    id: recommendBrand?.id,
+                  })
+                }>
                 <Center p={5}>
                   <Image
                     height={150}
@@ -77,7 +81,9 @@ export default function HomeScreen() {
               </Button>
 
               <TouchableOpacity
-                onPress={() => navigate('Inspo')}
+                onPress={() => {
+                  navigate('Profile', {id: topInspo?.id});
+                }}
                 style={{flex: 1}}>
                 <ImageBackground
                   resizeMode="contain"
