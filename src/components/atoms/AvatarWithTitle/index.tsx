@@ -15,8 +15,8 @@ export default function AvatarWithTitle({
   onPress?: () => void;
 }) {
   return (
-    <Center my={7}>
-      <TouchableOpacity disabled={!onPress} onPress={onPress}>
+    <TouchableOpacity disabled={!onPress} onPress={onPress}>
+      <Center my={7}>
         <Avatar
           size={'xl'}
           source={{uri: getImageUrl(uri)}}
@@ -27,7 +27,7 @@ export default function AvatarWithTitle({
         <Text my={2} fontSize={'2xl'}>
           {title}
         </Text>
-      </TouchableOpacity>
-    </Center>
+      </Center>
+    </TouchableOpacity>
   );
 }
