@@ -1,6 +1,6 @@
 import {HStack, Icon, Image, ScrollView, Text, View} from 'native-base';
 import React, {useLayoutEffect} from 'react';
-import {Share, TouchableOpacity} from 'react-native';
+import {Platform, Share, TouchableOpacity} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CustomContainer, ImageCard, StyleOrBrandCard} from '~/components/atoms';
@@ -19,22 +19,24 @@ export default function StyleDetailsScreen({navigation, route}: any) {
   const {mutate} = useLikeStyle();
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            Share.share({
-              message: 'cuethecurves://StyleDetails/' + id,
-            });
-          }}>
-          <Icon
-            color={Colors.SHADY_LADY}
-            as={MaterialCommunityIcons}
-            name="share-variant"
-          />
-        </TouchableOpacity>
-      ),
-    });
+    if (Platform.OS === 'ios') {
+      navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={() => {
+              Share.share({
+                message: 'cuethecurves://StyleDetails/' + id,
+              });
+            }}>
+            <Icon
+              color={Colors.SHADY_LADY}
+              as={MaterialCommunityIcons}
+              name="share-variant"
+            />
+          </TouchableOpacity>
+        ),
+      });
+    }
   }, [id, navigation]);
 
   return (
