@@ -29,7 +29,7 @@ export default memo(function BrandCard({
         borderRadius: 10,
         marginRight: 12,
       }}
-      onPress={() => null}>
+      onPress={onPress}>
       <ImageCard
         containerStyle={{
           flex: undefined,
