@@ -43,8 +43,8 @@ export default function FilterBrandSizeScreen({route}: any) {
                 setSizes(prev => [...prev, item.size]);
               }
             }}>
-            <CustomCheckBox checked={sizes?.includes(item.size)} />
-            <Text>{item.size}</Text>
+            <CustomCheckBox checked={sizes?.includes(item?.size)} />
+            <Text>{item?.size}</Text>
           </TouchableOpacity>
         )}
         onEndReached={() => {
