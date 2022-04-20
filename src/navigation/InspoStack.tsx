@@ -25,7 +25,7 @@ const screens = [
       headerStyle: {
         backgroundColor: Colors.CHABLIS,
       },
-      headerLeft: () => <ChevronBackButton />,
+      // headerLeft: () => <ChevronBackButton />,
       title: 'Inspirations',
     },
     name: 'Inspo',
