@@ -11,7 +11,7 @@ import isOnboardingViewedAtom from '~/store/isOnboardingViewedAtom';
 
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
-import {navigate, navigationRef} from './methods';
+import {navigationRef} from './methods';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,20 +20,25 @@ export default function AppNavigator() {
     prefixes: ['https://cuethecurves.com', 'cuethecurves://'],
     config: {
       screens: {
-        StyleDetails: 'StyleDetails/:id',
+        MainStack: {
+          screens: {
+            MainTabs: {
+              screens: {
+                Styles: {
+                  screens: {
+                    StyleDetails: {
+                      path: 'StyleDetails/:id',
+                      parse: {
+                        id: (id: string) => +id,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
-    },
-    getStateFromPath: (path: string) => {
-      // Return a state object here
-      // You can also reuse the default logic by importing `getStateFromPath` from `@react-navigation/native`
-
-      if (path) {
-        const splitedPath = path?.split('/');
-        if (splitedPath[0] === 'StyleDetails') {
-          const id = +splitedPath[1];
-          navigate('StyleDetails', {id});
-        }
-      }
     },
   };
 

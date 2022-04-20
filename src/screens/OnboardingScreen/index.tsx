@@ -67,9 +67,11 @@ export default function OnboardingScreen() {
             <Image
               alt={title}
               // my={8}
-              height={250}
-              width={'100%'}
+              height={280}
+              width={280}
+              borderRadius={100}
               source={imageUrl}
+              resizeMode="contain"
             />
 
             <Text fontSize="2xl" textAlign={'center'} mx={4}>

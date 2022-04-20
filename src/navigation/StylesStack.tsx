@@ -29,7 +29,7 @@ const screens = [
         backgroundColor: Colors.CHABLIS,
       },
       title: 'Shop by style',
-      headerLeft: () => <ChevronBackButton />,
+      // headerLeft: () => <ChevronBackButton />,
     },
     name: 'Styles',
     component: StylesScreen,

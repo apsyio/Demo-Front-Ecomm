@@ -57,12 +57,12 @@
 				</dict>
 			</dict>
 		</dict>
-		<key>NSLocationWhenInUseUsageDescription</key>
-		<string/>
+		<key>NSCameraUsageDescription</key>
+		<string>This app requires access to the camera to put the picture in your profile, creating closet and writing post.</string>
 		<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>This app requires access to the photo library to use photos for the routes.</string>
+		<string>This app requires access to the photo library to use photos for your profile, creating closet and writing post.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This app requires access to the photo library to use photos for the routes.</string>
+		<string>This app requires access to the photo library to use photos for your profile, creating closet and writing post.</string>
 		<key>UIAppFonts</key>
 		<array>
 			<string>AntDesign.ttf</string>

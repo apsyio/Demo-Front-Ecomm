@@ -20,7 +20,7 @@ const useGetSelectedInspos = ({
   options?: any;
 }) => {
   return useInfiniteQuery<User_GetSelectedInsposQuery, any, Users, any>(
-    [queryKeys.brands, where, order, isCommon, isRandom],
+    [queryKeys.selectedInspos, where, order, isCommon, isRandom],
     async ({pageParam = 0}) => {
       return graphQLClient.request(GET_SELECTED_INSPOS, {
         skip: pageParam * PAGE_SIZE,
