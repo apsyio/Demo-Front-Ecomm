@@ -5,6 +5,7 @@ import {Linking, TouchableWithoutFeedback} from 'react-native';
 import {CustomContainer, CustomTag} from '~/components/atoms';
 import type {ClosetItems} from '~/generated/graphql';
 import {navigate} from '~/navigation/methods';
+import {getImageUrl} from '~/utils/image';
 import {deviceHeight, deviceWidth} from '~/utils/style';
 
 export default function SelectItemForTagScreen({route}: any) {
@@ -50,7 +51,7 @@ export default function SelectItemForTagScreen({route}: any) {
             borderRadius={'2xl'}
             height={300}
             width={180}
-            source={{uri: photo}}
+            source={{uri: getImageUrl(photo)}}
             resizeMode={'contain'}
           />
 
