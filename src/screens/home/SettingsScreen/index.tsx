@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useAtom} from 'jotai';
 import {HStack, Icon, ScrollView, Text, Toast, useDisclose} from 'native-base';
 import React from 'react';
@@ -36,6 +37,7 @@ export default function SettingsScreen() {
         onPressYes={async () => {
           try {
             await auth().signOut();
+            GoogleSignin.revokeAccess();
           } catch (error) {
             setIsUserLoggedIn(false);
           }
@@ -58,6 +60,7 @@ export default function SettingsScreen() {
                 });
                 try {
                   await auth().signOut();
+                  GoogleSignin.revokeAccess();
                 } catch (error) {
                   setIsUserLoggedIn(false);
                 }

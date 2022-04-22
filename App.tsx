@@ -88,6 +88,7 @@ export default function App() {
         ) {
           try {
             await auth().signOut();
+            GoogleSignin.revokeAccess();
           } catch (error) {
             setIsUserLoggedIn(false);
           }
@@ -118,6 +119,7 @@ export default function App() {
         if (status === ResponseStatus.AuthenticationFailed) {
           try {
             await auth().signOut();
+            GoogleSignin.revokeAccess();
           } catch (error) {
             setIsUserLoggedIn(false);
           }
